@@ -1,0 +1,80 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SAIYAN MODE ENGINE
+     Aura • Power-Up FX • State Transforms
+     ============================================================ -->
+
+<div id="saiyan-aura"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("saiyan-aura");
+
+    /* BASE STATE */
+    let saiyanState = 0;
+
+    /* ACTIVATE SAIYAN MODE */
+    window.GoSuperSaiyan = (stage = 1) => {
+      saiyanState = stage;
+      document.body.setAttribute("data-saiyan", stage);
+      aura.classList.add("active");
+    };
+
+    /* DEACTIVATE */
+    window.CalmSaiyan = () => {
+      saiyanState = 0;
+      document.body.removeAttribute("data-saiyan");
+      aura.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #saiyan-aura {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 300ms ease;
+    z-index: 99999;
+  }
+
+  #saiyan-aura.active {
+    opacity: 1;
+    animation: auraPulse 1.2s infinite;
+  }
+
+  /* STAGE 1 — GOLD AURA */
+  body[data-saiyan="1"] #saiyan-aura {
+    background: radial-gradient(circle at center,
+      rgba(255, 215, 0, 0.35),
+      rgba(255, 165, 0, 0.15),
+      transparent 70%
+    );
+  }
+
+  /* STAGE 2 — ELECTRIC BLUE */
+  body[data-saiyan="2"] #saiyan-aura {
+    background: radial-gradient(circle at center,
+      rgba(0, 180, 255, 0.35),
+      rgba(0, 120, 255, 0.15),
+      transparent 70%
+    );
+  }
+
+  /* STAGE 3 — WHITE HOT */
+  body[data-saiyan="3"] #saiyan-aura {
+    background: radial-gradient(circle at center,
+      rgba(255, 255, 255, 0.45),
+      rgba(255, 255, 255, 0.15),
+      transparent 70%
+    );
+  }
+
+  @keyframes auraPulse {
+    0% { transform: scale(1); filter: blur(0px); }
+    50% { transform: scale(1.03); filter: blur(4px); }
+    100% { transform: scale(1); filter: blur(0px); }
+  }
+</style>
