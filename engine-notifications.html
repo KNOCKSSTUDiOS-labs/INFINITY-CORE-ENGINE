@@ -1,0 +1,118 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // NOTIFICATION ENGINE
+     Cards • Priority • Quick Actions • FX Hooks
+     ============================================================ -->
+
+<section id="notification-center" class="notif-center hidden">
+
+  <h2 class="knocks-title">NOTIFICATIONS</h2>
+  <div class="knocks-divider"></div>
+
+  <div id="notif-list" class="notif-list">
+    <!-- Notifications will be injected here -->
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const notifList = document.getElementById("notif-list");
+
+    /* SAMPLE NOTIFICATION GENERATOR */
+    function pushNotification(title, message, priority = "normal") {
+      const card = document.createElement("div");
+      card.className = "notif-card fx-slide-up show";
+      card.setAttribute("data-priority", priority);
+
+      card.innerHTML = `
+        <div class="notif-title">${title}</div>
+        <div class="notif-message">${message}</div>
+        <div class="notif-actions">
+          <button class="notif-btn" data-action="dismiss">Dismiss</button>
+        </div>
+      `;
+
+      notifList.prepend(card);
+
+      card.querySelector("[data-action='dismiss']").addEventListener("click", () => {
+        card.classList.remove("show");
+        setTimeout(() => card.remove(), 300);
+      });
+    }
+
+    /* DEMO NOTIFICATION */
+    pushNotification("ASCEND-OS", "Notification Engine Activated", "high");
+
+    /* GLOBAL HOOK */
+    window.AscendNotify = pushNotification;
+
+  });
+</script>
+
+<style>
+  .notif-center {
+    padding-bottom: 40px;
+  }
+
+  .notif-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .notif-card {
+    background: var(--surface-1);
+    border: 1px solid var(--surface-3);
+    border-radius: var(--radius-medium);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-soft);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 260ms var(--fx-curve-soft), transform 260ms var(--fx-curve-soft);
+  }
+
+  .notif-card.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .notif-card[data-priority="high"] {
+    border-color: var(--accent-primary);
+  }
+
+  .notif-title {
+    font-size: 13px;
+    color: var(--accent-primary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .notif-message {
+    font-size: 12px;
+    color: var(--knocks-steel);
+    margin-bottom: 10px;
+  }
+
+  .notif-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .notif-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--knocks-white);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .notif-btn:hover {
+    background: rgba(255,255,255,0.12);
+  }
+</style>
