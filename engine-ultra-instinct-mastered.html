@@ -1,0 +1,75 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // MASTERED ULTRA INSTINCT MODE
+     White Divine Aura • Perfect Motion • Celestial Drift
+     ============================================================ -->
+
+<div id="mui-aura"></div>
+<div id="mui-glow"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("mui-aura");
+    const glow = document.getElementById("mui-glow");
+
+    window.GoUltraInstinctMastered = () => {
+      document.body.setAttribute("data-mui", "on");
+      aura.classList.add("active");
+      glow.classList.add("active");
+    };
+
+    window.ExitUltraInstinctMastered = () => {
+      document.body.removeAttribute("data-mui");
+      aura.classList.remove("active");
+      glow.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #mui-aura,
+  #mui-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 160ms ease;
+    z-index: 999999;
+  }
+
+  /* White Divine Aura */
+  #mui-aura.active {
+    opacity: 1;
+    animation: muiPulse 1.2s infinite;
+    background: radial-gradient(circle at center,
+      rgba(255,255,255,0.55),
+      rgba(200,200,255,0.25),
+      transparent 70%
+    );
+  }
+
+  /* Celestial Glow */
+  #mui-glow.active {
+    opacity: 1;
+    animation: muiGlow 2.4s infinite ease-in-out;
+    background: radial-gradient(circle at center,
+      rgba(255,255,255,0.35),
+      rgba(255,255,255,0.15),
+      transparent 80%
+    );
+    filter: blur(10px);
+  }
+
+  @keyframes muiPulse {
+    0% { transform: scale(1); filter: blur(0px); }
+    50% { transform: scale(1.12); filter: blur(12px); }
+    100% { transform: scale(1); filter: blur(0px); }
+  }
+
+  @keyframes muiGlow {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+  }
+</style>
