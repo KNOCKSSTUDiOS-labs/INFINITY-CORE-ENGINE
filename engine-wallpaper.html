@@ -1,0 +1,86 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // WALLPAPER ENGINE
+     Static • Gradient • Dynamic Hooks
+     ============================================================ -->
+
+<section id="settings-wallpaper" class="settings-subview hidden">
+
+  <h2 class="knocks-title">WALLPAPER ENGINE</h2>
+  <div class="knocks-divider"></div>
+
+  <!-- STATIC WALLPAPERS -->
+  <div class="wp-section">
+    <h3 class="knocks-subtitle">STATIC WALLPAPERS</h3>
+    <div class="wp-options">
+      <button class="wp-btn" data-wall="obsidian-core">Obsidian Core</button>
+      <button class="wp-btn" data-wall="astral-flux">Astral Flux</button>
+      <button class="wp-btn" data-wall="voidglass">Voidglass</button>
+    </div>
+  </div>
+
+  <!-- GRADIENT WALLPAPERS -->
+  <div class="wp-section">
+    <h3 class="knocks-subtitle">GRADIENTS</h3>
+    <div class="wp-options">
+      <button class="wp-btn" data-wall="gradient-darkgold">Dark → Gold</button>
+      <button class="wp-btn" data-wall="gradient-steel">Steel → Obsidian</button>
+      <button class="wp-btn" data-wall="gradient-vivid">Vivid Flux</button>
+    </div>
+  </div>
+
+  <!-- DYNAMIC WALLPAPER HOOKS -->
+  <div class="wp-section">
+    <h3 class="knocks-subtitle">DYNAMIC MODE</h3>
+    <div class="wp-options">
+      <button class="wp-btn" data-wall="dynamic-wave">Wave Motion</button>
+      <button class="wp-btn" data-wall="dynamic-pulse">Pulse Glow</button>
+      <button class="wp-btn" data-wall="dynamic-orbit">Orbital Drift</button>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    document.querySelectorAll(".wp-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const wall = btn.getAttribute("data-wall");
+        document.body.setAttribute("data-wallpaper-engine", wall);
+      });
+    });
+
+  });
+</script>
+
+<style>
+  #settings-wallpaper {
+    padding-bottom: 40px;
+  }
+
+  .wp-section {
+    margin-bottom: 24px;
+  }
+
+  .wp-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .wp-btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--knocks-white);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .wp-btn:hover {
+    background: rgba(255,255,255,0.12);
+  }
+</style>
