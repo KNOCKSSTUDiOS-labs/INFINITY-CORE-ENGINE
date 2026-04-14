@@ -1,0 +1,88 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SUPER SAIYAN 2 MODE
+     Electric Aura • Lightning FX • High-Speed State
+     ============================================================ -->
+
+<div id="saiyan-aura"></div>
+<div id="saiyan-lightning"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("saiyan-aura");
+    const lightning = document.getElementById("saiyan-lightning");
+
+    window.GoSuperSaiyan = (stage = 1) => {
+      document.body.setAttribute("data-saiyan", stage);
+      aura.classList.add("active");
+
+      if (stage >= 2) {
+        lightning.classList.add("active");
+      } else {
+        lightning.classList.remove("active");
+      }
+    };
+
+    window.CalmSaiyan = () => {
+      document.body.removeAttribute("data-saiyan");
+      aura.classList.remove("active");
+      lightning.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #saiyan-aura,
+  #saiyan-lightning {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 300ms ease;
+    z-index: 99999;
+  }
+
+  #saiyan-aura.active {
+    opacity: 1;
+    animation: auraPulse 1.2s infinite;
+  }
+
+  #saiyan-lightning.active {
+    opacity: 1;
+    animation: lightningFlash 0.8s infinite;
+  }
+
+  /* SSJ2 ELECTRIC BLUE AURA */
+  body[data-saiyan="2"] #saiyan-aura {
+    background: radial-gradient(circle at center,
+      rgba(0, 180, 255, 0.35),
+      rgba(0, 120, 255, 0.15),
+      transparent 70%
+    );
+  }
+
+  /* LIGHTNING BOLTS */
+  #saiyan-lightning.active {
+    background-image:
+      repeating-linear-gradient(90deg,
+        rgba(255,255,255,0.4) 0px,
+        rgba(255,255,255,0.4) 2px,
+        transparent 2px,
+        transparent 40px
+      );
+    filter: blur(2px);
+  }
+
+  @keyframes auraPulse {
+    0% { transform: scale(1); filter: blur(0px); }
+    50% { transform: scale(1.05); filter: blur(6px); }
+    100% { transform: scale(1); filter: blur(0px); }
+  }
+
+  @keyframes lightningFlash {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.9; }
+    100% { opacity: 0.2; }
+  }
+</style>
