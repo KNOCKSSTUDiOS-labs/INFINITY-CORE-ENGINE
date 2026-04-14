@@ -1,0 +1,78 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SETTINGS CORE
+     System Settings • Engine Identity • Root Config Panel
+     ============================================================ -->
+
+<section id="view-settings" class="view hidden">
+
+  <h1 class="knocks-title">SETTINGS</h1>
+  <div class="knocks-divider"></div>
+
+  <div class="settings-list">
+
+    <button class="settings-item" data-settings-target="settings-display">
+      <span>Display</span>
+    </button>
+
+    <button class="settings-item" data-settings-target="settings-sound">
+      <span>Sound</span>
+    </button>
+
+    <button class="settings-item" data-settings-target="settings-network">
+      <span>Network</span>
+    </button>
+
+    <button class="settings-item" data-settings-target="settings-system">
+      <span>System</span>
+    </button>
+
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const items = document.querySelectorAll(".settings-item");
+
+    items.forEach(item => {
+      item.addEventListener("click", () => {
+        const target = item.getAttribute("data-settings-target");
+        if (!target) return;
+
+        // Hide all settings subviews
+        document.querySelectorAll(".settings-subview").forEach(v => v.classList.add("hidden"));
+
+        // Show selected subview
+        const view = document.getElementById(target);
+        if (view) view.classList.remove("hidden");
+      });
+    });
+  });
+</script>
+
+<style>
+  .settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .settings-item {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--knocks-white);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .settings-item:hover {
+    background: rgba(255,255,255,0.12);
+  }
+</style>
