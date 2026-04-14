@@ -1,0 +1,75 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SUPER SAIYAN BLUE MODE
+     Divine Blue Aura • Ultra-Stable Power • God Ki Surge
+     ============================================================ -->
+
+<div id="ssblue-aura"></div>
+<div id="ssblue-lightning"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("ssblue-aura");
+    const lightning = document.getElementById("ssblue-lightning");
+
+    window.GoSuperSaiyanBlue = () => {
+      document.body.setAttribute("data-ssblue", "on");
+      aura.classList.add("active");
+      lightning.classList.add("active");
+    };
+
+    window.ExitSuperSaiyanBlue = () => {
+      document.body.removeAttribute("data-ssblue");
+      aura.classList.remove("active");
+      lightning.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #ssblue-aura,
+  #ssblue-lightning {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    z-index: 999999;
+  }
+
+  #ssblue-aura.active {
+    opacity: 1;
+    animation: ssbluePulse 0.9s infinite;
+    background: radial-gradient(circle at center,
+      rgba(0, 140, 255, 0.45),
+      rgba(0, 90, 255, 0.25),
+      transparent 70%
+    );
+  }
+
+  #ssblue-lightning.active {
+    opacity: 1;
+    animation: ssblueLightning 0.55s infinite;
+    background-image:
+      repeating-linear-gradient(90deg,
+        rgba(255,255,255,0.8) 0px,
+        rgba(255,255,255,0.8) 3px,
+        transparent 3px,
+        transparent 60px
+      );
+    filter: blur(3px);
+  }
+
+  @keyframes ssbluePulse {
+    0% { transform: scale(1); filter: blur(0px); }
+    50% { transform: scale(1.08); filter: blur(8px); }
+    100% { transform: scale(1); filter: blur(0px); }
+  }
+
+  @keyframes ssblueLightning {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
+  }
+</style>
