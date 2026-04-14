@@ -1,0 +1,135 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // POWER MANAGEMENT ENGINE
+     Battery • Performance • Thermal • Sleep
+     ============================================================ -->
+
+<section id="power-settings" class="power-settings hidden">
+
+  <h2 class="knocks-title">POWER MANAGEMENT</h2>
+  <div class="knocks-divider"></div>
+
+  <div class="power-block">
+    <div class="power-label">Battery Saver</div>
+    <label class="switch">
+      <input id="battery-saver-toggle" type="checkbox">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="power-block">
+    <div class="power-label">Performance Mode</div>
+    <select id="performance-mode">
+      <option value="balanced">Balanced</option>
+      <option value="high">High Performance</option>
+      <option value="eco">Eco Mode</option>
+    </select>
+  </div>
+
+  <div class="power-block">
+    <div class="power-label">Sleep Timeout</div>
+    <select id="sleep-timeout">
+      <option value="15">15 seconds</option>
+      <option value="30">30 seconds</option>
+      <option value="60">1 minute</option>
+      <option value="120">2 minutes</option>
+    </select>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const batterySaver = document.getElementById("battery-saver-toggle");
+    const perfMode = document.getElementById("performance-mode");
+    const sleepTimeout = document.getElementById("sleep-timeout");
+
+    batterySaver.addEventListener("change", () => {
+      const state = batterySaver.checked ? "on" : "off";
+      document.body.setAttribute("data-battery-saver", state);
+    });
+
+    perfMode.addEventListener("change", () => {
+      document.body.setAttribute("data-performance-mode", perfMode.value);
+    });
+
+    sleepTimeout.addEventListener("change", () => {
+      document.body.setAttribute("data-sleep-timeout", sleepTimeout.value);
+    });
+
+  });
+</script>
+
+<style>
+  .power-settings {
+    padding-bottom: 40px;
+  }
+
+  .power-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface-1);
+    border: 1px solid var(--surface-3);
+    border-radius: var(--radius-medium);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+
+  .power-label {
+    color: var(--knocks-white);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  select {
+    background: var(--surface-2);
+    border: 1px solid var(--surface-3);
+    color: var(--knocks-white);
+    padding: 6px 10px;
+    border-radius: var(--radius-small);
+  }
+
+  /* SWITCH */
+  .switch {
+    position: relative;
+    width: 40px;
+    height: 20px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: var(--surface-3);
+    border-radius: 20px;
+    transition: 200ms;
+  }
+
+  .slider:before {
+    content: "";
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background: var(--knocks-white);
+    border-radius: 50%;
+    transition: 200ms;
+  }
+
+  input:checked + .slider {
+    background: var(--accent-primary);
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(20px);
+  }
+</style>
