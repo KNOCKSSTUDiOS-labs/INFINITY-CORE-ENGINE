@@ -1,78 +1,174 @@
 <!-- ============================================================
-     INFINITY-CORE-ENGINE // SETTINGS CORE
-     System Settings • Engine Identity • Root Config Panel
+     INFINITY-CORE-ENGINE // SYSTEM SETTINGS ENGINE
+     Categories • Pages • Toggles • Sliders
      ============================================================ -->
 
-<section id="view-settings" class="view hidden">
+<div id="settings" class="settings hidden">
 
-  <h1 class="knocks-title">SETTINGS</h1>
-  <div class="knocks-divider"></div>
-
-  <div class="settings-list">
-
-    <button class="settings-item" data-settings-target="settings-display">
-      <span>Display</span>
-    </button>
-
-    <button class="settings-item" data-settings-target="settings-sound">
-      <span>Sound</span>
-    </button>
-
-    <button class="settings-item" data-settings-target="settings-network">
-      <span>Network</span>
-    </button>
-
-    <button class="settings-item" data-settings-target="settings-system">
-      <span>System</span>
-    </button>
-
+  <div class="settings-header">
+    <div class="settings-title">SETTINGS</div>
   </div>
 
-</section>
+  <div id="settings-list" class="settings-list">
+    <div class="settings-item" data-page="display">Display</div>
+    <div class="settings-item" data-page="sound">Sound</div>
+    <div class="settings-item" data-page="haptics">Haptics</div>
+    <div class="settings-item" data-page="notifications">Notifications</div>
+    <div class="settings-item" data-page="privacy">Privacy</div>
+    <div class="settings-item" data-page="power">Power</div>
+    <div class="settings-item" data-page="system">System</div>
+  </div>
+
+  <div id="settings-page" class="settings-page hidden"></div>
+
+</div>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const items = document.querySelectorAll(".settings-item");
 
-    items.forEach(item => {
+    const settings = document.getElementById("settings");
+    const list = document.getElementById("settings-list");
+    const page = document.getElementById("settings-page");
+
+    const pages = {
+      display: `
+        <h3>Display</h3>
+        <div class="setting-block">
+          <label>Brightness</label>
+          <input type="range" min="0" max="100" value="60">
+        </div>
+        <div class="setting-block">
+          <label>Dark Mode</label>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      `,
+      sound: `
+        <h3>Sound</h3>
+        <div class="setting-block">
+          <label>Volume</label>
+          <input type="range" min="0" max="100" value="50">
+        </div>
+      `,
+      haptics: `
+        <h3>Haptics</h3>
+        <div class="setting-block">
+          <label>Strength</label>
+          <input type="range" min="0" max="100" value="70">
+        </div>
+      `,
+      notifications: `
+        <h3>Notifications</h3>
+        <div class="setting-block">
+          <label>Allow Notifications</label>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      `,
+      privacy: `
+        <h3>Privacy</h3>
+        <p>Manage permissions and sensitive data.</p>
+      `,
+      power: `
+        <h3>Power</h3>
+        <p>Battery saver, performance mode, sleep timers.</p>
+      `,
+      system: `
+        <h3>System</h3>
+        <p>About device, updates, developer options.</p>
+      `
+    };
+
+    list.querySelectorAll(".settings-item").forEach(item => {
       item.addEventListener("click", () => {
-        const target = item.getAttribute("data-settings-target");
-        if (!target) return;
-
-        // Hide all settings subviews
-        document.querySelectorAll(".settings-subview").forEach(v => v.classList.add("hidden"));
-
-        // Show selected subview
-        const view = document.getElementById(target);
-        if (view) view.classList.remove("hidden");
+        const key = item.getAttribute("data-page");
+        page.innerHTML = pages[key];
+        page.classList.remove("hidden");
       });
     });
+
+    document.body.addEventListener("ascend-open-settings", () => {
+      settings.classList.remove("hidden");
+      page.classList.add("hidden");
+    });
+
+    document.body.addEventListener("ascend-back", () => {
+      if (!page.classList.contains("hidden")) {
+        page.classList.add("hidden");
+      } else {
+        settings.classList.add("hidden");
+      }
+    });
+
   });
 </script>
 
 <style>
+  .settings {
+    position: fixed;
+    inset: 0;
+    background: var(--surface-0);
+    z-index: 9995;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .settings-header {
+    margin-bottom: 20px;
+  }
+
+  .settings-title {
+    font-size: 20px;
+    color: var(--knocks-white);
+    letter-spacing: 0.12em;
+  }
+
   .settings-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-top: 20px;
+    gap: 14px;
   }
 
   .settings-item {
-    width: 100%;
-    padding: 14px 18px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
+    padding: 14px;
+    background: var(--surface-1);
+    border: 1px solid var(--surface-3);
+    border-radius: var(--radius-medium);
     color: var(--knocks-white);
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-align: left;
     cursor: pointer;
   }
 
-  .settings-item:hover {
-    background: rgba(255,255,255,0.12);
+  .settings-page {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--surface-1);
+    border-radius: var(--radius-medium);
+    border: 1px solid var(--surface-3);
   }
-</style>
+
+  .setting-block {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* SWITCH */
+  .switch {
+    position: relative;
+    width: 40px;
+    height: 20px;
+  }
+
+  .switch input {
+    opacity: 0;
+  }
+
+  .slider {
+    position: absolute;
+    inset
