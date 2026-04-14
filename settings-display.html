@@ -1,0 +1,98 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SETTINGS: DISPLAY
+     Brightness • Theme • Screen Mode
+     ============================================================ -->
+
+<section id="settings-display" class="settings-subview hidden">
+
+  <h2 class="knocks-title">DISPLAY</h2>
+  <div class="knocks-divider"></div>
+
+  <div class="display-section">
+    <h3 class="knocks-subtitle">BRIGHTNESS</h3>
+    <input id="brightness-slider" type="range" min="10" max="100" value="80" />
+  </div>
+
+  <div class="display-section">
+    <h3 class="knocks-subtitle">THEME</h3>
+    <div class="theme-options">
+      <button class="theme-btn" data-theme="dark">Dark</button>
+      <button class="theme-btn" data-theme="light">Light</button>
+      <button class="theme-btn" data-theme="gold">Gold</button>
+    </div>
+  </div>
+
+  <div class="display-section">
+    <h3 class="knocks-subtitle">SCREEN MODE</h3>
+    <div class="mode-options">
+      <button class="mode-btn" data-mode="standard">Standard</button>
+      <button class="mode-btn" data-mode="cinematic">Cinematic</button>
+      <button class="mode-btn" data-mode="vivid">Vivid</button>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const slider = document.getElementById("brightness-slider");
+
+    slider.addEventListener("input", () => {
+      const val = slider.value;
+      document.documentElement.style.setProperty("--screen-brightness", val + "%");
+    });
+
+    document.querySelectorAll(".theme-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const theme = btn.getAttribute("data-theme");
+        document.body.setAttribute("data-theme", theme);
+      });
+    });
+
+    document.querySelectorAll(".mode-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const mode = btn.getAttribute("data-mode");
+        document.body.setAttribute("data-screenmode", mode);
+      });
+    });
+  });
+</script>
+
+<style>
+  #settings-display {
+    padding-bottom: 40px;
+  }
+
+  .display-section {
+    margin-bottom: 24px;
+  }
+
+  .theme-options,
+  .mode-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .theme-btn,
+  .mode-btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--knocks-white);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .theme-btn:hover,
+  .mode-btn:hover {
+    background: rgba(255,255,255,0.12);
+  }
+
+  input[type="range"] {
+    width: 100%;
+  }
+</style>
