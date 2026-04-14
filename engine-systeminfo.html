@@ -1,0 +1,92 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SYSTEM INFO ENGINE
+     Device Info • OS Version • Storage • Memory
+     ============================================================ -->
+
+<section id="system-info" class="system-info hidden">
+
+  <h2 class="knocks-title">ABOUT DEVICE</h2>
+  <div class="knocks-divider"></div>
+
+  <div class="info-block">
+    <div class="info-label">Device Name</div>
+    <div class="info-value" id="device-name">ASCEND-DEVICE</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-label">OS Version</div>
+    <div class="info-value">ASCEND‑OS v1.0.0</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-label">Build Number</div>
+    <div class="info-value">INFINITY-CORE-ENGINE-001</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-label">Storage</div>
+    <div class="info-value" id="storage-info">Calculating…</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-label">Memory</div>
+    <div class="info-value" id="memory-info">Calculating…</div>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const storageEl = document.getElementById("storage-info");
+    const memoryEl = document.getElementById("memory-info");
+
+    /* STORAGE (SIMULATED) */
+    const totalStorage = 128; // GB
+    const usedStorage = 42;   // GB
+    storageEl.textContent = `${usedStorage} GB / ${totalStorage} GB`;
+
+    /* MEMORY (SIMULATED) */
+    const totalMemory = 8; // GB
+    const usedMemory = 3;  // GB
+    memoryEl.textContent = `${usedMemory} GB / ${totalMemory} GB`;
+
+    /* OPEN SYSTEM INFO */
+    document.body.addEventListener("ascend-open-systeminfo", () => {
+      document.getElementById("system-info").classList.remove("hidden");
+    });
+
+    /* BACK */
+    document.body.addEventListener("ascend-back", () => {
+      document.getElementById("system-info").classList.add("hidden");
+    });
+
+  });
+</script>
+
+<style>
+  .system-info {
+    padding-bottom: 40px;
+  }
+
+  .info-block {
+    background: var(--surface-1);
+    border: 1px solid var(--surface-3);
+    border-radius: var(--radius-medium);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+
+  .info-label {
+    color: var(--accent-primary);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .info-value {
+    color: var(--knocks-white);
+    font-size: 14px;
+  }
+</style>
