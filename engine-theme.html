@@ -1,0 +1,80 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // THEME ENGINE
+     ASCEND-OS Signature Palette • Global Variables • Material System
+     ============================================================ -->
+
+<style id="ascend-theme">
+
+  :root {
+    /* CORE PALETTE */
+    --obsidian-core: #0a0a0c;
+    --voidglass-black: #0d0d11;
+    --sentinel-steel: #9aa0a6;
+    --titan-alloy: #c7c9cc;
+    --astral-gold: #d4af37;
+
+    /* TEXT */
+    --knocks-white: #f2f2f2;
+    --knocks-steel: var(--sentinel-steel);
+
+    /* ACCENTS */
+    --accent-primary: var(--astral-gold);
+    --accent-secondary: var(--titan-alloy);
+
+    /* MATERIAL SURFACES */
+    --surface-0: var(--obsidian-core);
+    --surface-1: rgba(255,255,255,0.04);
+    --surface-2: rgba(255,255,255,0.08);
+    --surface-3: rgba(255,255,255,0.12);
+
+    /* SHADOWS */
+    --shadow-soft: 0 4px 12px rgba(0,0,0,0.35);
+    --shadow-hard: 0 6px 18px rgba(0,0,0,0.55);
+
+    /* RADIUS */
+    --radius-small: 6px;
+    --radius-medium: 10px;
+    --radius-large: 14px;
+
+    /* TRANSITIONS */
+    --trans-fast: 120ms ease;
+    --trans-normal: 220ms ease;
+    --trans-slow: 380ms ease;
+  }
+
+  body {
+    background: var(--surface-0);
+    color: var(--knocks-white);
+    transition: background var(--trans-normal), color var(--trans-normal);
+  }
+
+  .knocks-panel {
+    background: var(--surface-1);
+    border: 1px solid var(--surface-3);
+    border-radius: var(--radius-medium);
+    box-shadow: var(--shadow-soft);
+    padding: 16px;
+  }
+
+  .knocks-title {
+    color: var(--accent-primary);
+    letter-spacing: 0.14em;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+
+  .knocks-subtitle {
+    color: var(--accent-secondary);
+    letter-spacing: 0.12em;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  .knocks-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--surface-3);
+    margin: 10px 0 20px 0;
+  }
+
+</style>
