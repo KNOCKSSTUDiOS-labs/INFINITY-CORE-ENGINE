@@ -1,0 +1,74 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // ANGEL MODE
+     White-Blue Halo Aura • Absolute Calm • Divine Flow
+     ============================================================ -->
+
+<div id="angel-aura"></div>
+<div id="angel-halo"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("angel-aura");
+    const halo = document.getElementById("angel-halo");
+
+    window.GoAngelMode = () => {
+      document.body.setAttribute("data-angel", "on");
+      aura.classList.add("active");
+      halo.classList.add("active");
+    };
+
+    window.ExitAngelMode = () => {
+      document.body.removeAttribute("data-angel");
+      aura.classList.remove("active");
+      halo.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #angel-aura,
+  #angel-halo {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 160ms ease;
+    z-index: 999999;
+  }
+
+  /* White-Blue Angelic Aura */
+  #angel-aura.active {
+    opacity: 1;
+    animation: angelPulse 1.4s infinite;
+    background: radial-gradient(circle at center,
+      rgba(180,220,255,0.55),
+      rgba(140,190,255,0.25),
+      transparent 70%
+    );
+  }
+
+  /* Halo Ring */
+  #angel-halo.active {
+    opacity: 1;
+    animation: angelHalo 2.8s infinite linear;
+    background: radial-gradient(circle at center,
+      rgba(255,255,255,0.4) 0%,
+      rgba(255,255,255,0.15) 40%,
+      transparent 70%
+    );
+    filter: blur(12px);
+  }
+
+  @keyframes angelPulse {
+    0% { transform: scale(1); filter: blur(0px); }
+    50% { transform: scale(1.12); filter: blur(14px); }
+    100% { transform: scale(1); filter: blur(0px); }
+  }
+
+  @keyframes angelHalo {
+    0% { transform: rotate(0deg) scale(1); }
+    100% { transform: rotate(360deg) scale(1.05); }
+  }
+    </style>
