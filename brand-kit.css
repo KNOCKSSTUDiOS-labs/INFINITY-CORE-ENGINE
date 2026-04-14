@@ -142,3 +142,12 @@
 .material-emberstone {
   background: linear-gradient(135deg, #ff9966, #cc3300);
 }
+/* WATCHDOG ALERT FLASH */
+body.ice-alert {
+  animation: alertFlash 0.6s ease-in-out;
+}
+
+@keyframes alertFlash {
+  0% { background-color: rgba(255, 0, 0, 0.2); }
+  100% { background-color: transparent; }
+}
