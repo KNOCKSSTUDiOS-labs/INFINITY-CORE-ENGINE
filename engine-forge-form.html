@@ -1,0 +1,79 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // FORGE FORM
+     Molten Creation Aura • Cosmic Foundry • Law-Forging Pulse
+     ============================================================ -->
+
+<div id="forge-aura"></div>
+<div id="forge-hammer"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const aura = document.getElementById("forge-aura");
+    const hammer = document.getElementById("forge-hammer");
+
+    window.GoForgeForm = () => {
+      document.body.setAttribute("data-forge", "on");
+      aura.classList.add("active");
+      hammer.classList.add("active");
+    };
+
+    window.ExitForgeForm = () => {
+      document.body.removeAttribute("data-forge");
+      aura.classList.remove("active");
+      hammer.classList.remove("active");
+    };
+
+  });
+</script>
+
+<style>
+  #forge-aura,
+  #forge-hammer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 120ms ease;
+    z-index: 999999;
+  }
+
+  /* Molten Creation Aura */
+  #forge-aura.active {
+    opacity: 1;
+    animation: forgePulse 1.9s infinite;
+    background: radial-gradient(circle at center,
+      rgba(255,140,0,0.45),
+      rgba(255,90,0,0.25),
+      transparent 70%
+    );
+    filter: blur(14px);
+  }
+
+  /* Cosmic Hammer Strikes */
+  #forge-hammer.active {
+    opacity: 1;
+    animation: forgeHammer 0.8s infinite;
+    background-image:
+      repeating-linear-gradient(90deg,
+        rgba(255,255,255,0.9) 0px,
+        rgba(255,255,255,0.9) 3px,
+        transparent 3px,
+        transparent 90px
+      );
+    mix-blend-mode: overlay;
+    filter: blur(6px);
+  }
+
+  @keyframes forgePulse {
+    0% { transform: scale(1); filter: blur(8px); }
+    50% { transform: scale(1.22); filter: blur(22px); }
+    100% { transform: scale(1); filter: blur(8px); }
+  }
+
+  @keyframes forgeHammer {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+  }
+    </style>
