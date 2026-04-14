@@ -1,33 +1,93 @@
-/* ============================================================
-   INFINITY-CORE-ENGINE // HOME GRID REGISTRY
-   Registers Tiles • Orders Layout • Renders Home Screen
-   ============================================================ */
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // HOME GRID ENGINE
+     App Grid • Wiggle Mode • Long Press • Reorder Hooks
+     ============================================================ -->
 
-document.addEventListener("DOMContentLoaded", () => {
-  const grid = document.getElementById("engine-home-grid");
-  if (!grid) return;
+<div id="home-grid" class="home-grid">
+  <div class="app-icon" data-app="camera">📷</div>
+  <div class="app-icon" data-app="messages">💬</div>
+  <div class="app-icon" data-app="browser">🌐</div>
+  <div class="app-icon" data-app="gallery">🖼️</div>
+  <div class="app-icon" data-app="settings">⚙️</div>
+</div>
 
-  // TILE REGISTRY
-  const TILE_REGISTRY = [
-    "engine-tile-gallery",
-    "engine-tile-school",
-    "engine-tile-engine",
-    "engine-tile-achievements",
-    "engine-tile-settings"
-  ];
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
 
-  function renderHomeGrid() {
-    grid.innerHTML = "";
+    const grid = document.getElementById("home-grid");
+    let wiggleMode = false;
+    let longPressTimer;
 
-    TILE_REGISTRY.forEach(tileClass => {
-      const tile = document.querySelector(`.${tileClass}`);
-      if (tile) {
-        const clone = tile.cloneNode(true);
-        clone.classList.remove("hidden");
-        grid.appendChild(clone);
+    /* LONG PRESS → WIGGLE MODE */
+    grid.querySelectorAll(".app-icon").forEach(icon => {
+
+      icon.addEventListener("touchstart", () => {
+        longPressTimer = setTimeout(() => {
+          wiggleMode = true;
+          grid.classList.add("wiggle");
+        }, 500);
+      });
+
+      icon.addEventListener("touchend", () => clearTimeout(longPressTimer));
+
+      /* TAP → OPEN APP */
+      icon.addEventListener("click", () => {
+        if (!wiggleMode) {
+          const appName = icon.getAttribute("data-app");
+          document.body.dispatchEvent(new CustomEvent("ascend-open-app", { detail: appName }));
+        }
+      });
+
+    });
+
+    /* TAP EMPTY SPACE → EXIT WIGGLE MODE */
+    document.addEventListener("click", (e) => {
+      if (wiggleMode && !e.target.classList.contains("app-icon")) {
+        wiggleMode = false;
+        grid.classList.remove("wiggle");
       }
     });
+
+  });
+</script>
+
+<style>
+  .home-grid {
+    position: fixed;
+    top: 40px;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    justify-items: center;
+    align-items: start;
   }
 
-  renderHomeGrid();
-});
+  .app-icon {
+    font-size: 32px;
+    background: var(--surface-1);
+    border: 1px solid var(--surface-3);
+    border-radius: var(--radius-medium);
+    padding: 16px;
+    width: 58px;
+    height: 58px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 200ms var(--fx-curve-soft);
+    cursor: pointer;
+  }
+
+  .home-grid.wiggle .app-icon {
+    animation: wiggle 0.25s infinite;
+  }
+
+  @keyframes wiggle {
+    0% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+    100% { transform: rotate(-3deg); }
+  }
+</style>
