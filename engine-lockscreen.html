@@ -1,0 +1,100 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // LOCKSCREEN ENGINE
+     Clock Styles • Notifications Preview • Unlock FX
+     ============================================================ -->
+
+<section id="lockscreen" class="lockscreen hidden">
+
+  <div class="lockscreen-clock">
+    <div id="ls-time" class="ls-time">00:00</div>
+    <div id="ls-date" class="ls-date">Loading...</div>
+  </div>
+
+  <div class="lockscreen-notifications">
+    <div class="ls-notice">No new notifications</div>
+  </div>
+
+  <div class="lockscreen-swipe">
+    <span>Swipe Up to Unlock</span>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    /* CLOCK UPDATE */
+    function updateClock() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, "0");
+      const minutes = now.getMinutes().toString().padStart(2, "0");
+      const date = now.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
+
+      document.getElementById("ls-time").textContent = `${hours}:${minutes}`;
+      document.getElementById("ls-date").textContent = date;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    /* UNLOCK GESTURE */
+    const lockscreen = document.getElementById("lockscreen");
+
+    lockscreen.addEventListener("click", () => {
+      lockscreen.classList.add("unlocking");
+      setTimeout(() => lockscreen.classList.add("hidden"), 300);
+    });
+
+  });
+</script>
+
+<style>
+  .lockscreen {
+    position: fixed;
+    inset: 0;
+    background: var(--surface-0);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 20px;
+    text-align: center;
+    z-index: 9999;
+    transition: opacity 300ms var(--fx-curve-cinematic);
+  }
+
+  .lockscreen.unlocking {
+    opacity: 0;
+  }
+
+  .ls-time {
+    font-size: 64px;
+    font-weight: 300;
+    color: var(--knocks-white);
+    letter-spacing: 0.04em;
+  }
+
+  .ls-date {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--knocks-steel);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .lockscreen-notifications {
+    margin-top: 40px;
+  }
+
+  .ls-notice {
+    font-size: 12px;
+    color: var(--knocks-steel);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .lockscreen-swipe {
+    font-size: 12px;
+    color: var(--accent-secondary);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom
