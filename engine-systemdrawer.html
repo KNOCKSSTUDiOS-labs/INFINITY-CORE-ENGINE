@@ -1,0 +1,92 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SYSTEM DRAWER
+     Quick Toggles • System Info • Slide-Down Panel
+     ============================================================ -->
+
+<div id="engine-systemdrawer" class="engine-systemdrawer hidden">
+
+  <div class="drawer-header">
+    <h2 class="knocks-title">SYSTEM</h2>
+    <div class="knocks-divider"></div>
+  </div>
+
+  <div class="drawer-section">
+    <h3 class="knocks-subtitle">QUICK TOGGLES</h3>
+    <div class="drawer-toggles">
+      <button class="drawer-toggle">WiFi</button>
+      <button class="drawer-toggle">Bluetooth</button>
+      <button class="drawer-toggle">Airplane</button>
+      <button class="drawer-toggle">Silent</button>
+    </div>
+  </div>
+
+  <div class="drawer-section">
+    <h3 class="knocks-subtitle">SYSTEM INFO</h3>
+    <ul class="drawer-info">
+      <li>ASCEND-OS Engine</li>
+      <li>Version 1.0</li>
+      <li>Runtime Stable</li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const bar = document.getElementById("engine-statusbar");
+    const drawer = document.getElementById("engine-systemdrawer");
+
+    if (!bar || !drawer) return;
+
+    bar.addEventListener("click", () => {
+      drawer.classList.toggle("hidden");
+    });
+  });
+</script>
+
+<style>
+  .engine-systemdrawer {
+    position: fixed;
+    top: 32px;
+    left: 0;
+    width: 100%;
+    background: rgba(10,10,10,0.96);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    padding: 20px;
+    z-index: 9998;
+  }
+
+  .drawer-section {
+    margin-bottom: 20px;
+  }
+
+  .drawer-toggles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .drawer-toggle {
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--knocks-white);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .drawer-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+    color: var(--knocks-steel);
+  }
+
+  .drawer-info li {
+    margin-bottom: 6px;
+  }
+</style>
