@@ -1,0 +1,50 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // SYSTEM SOUNDS ENGINE
+     UI Sounds • Notification Tones • Lock/Unlock FX
+     ============================================================ -->
+
+<audio id="snd-click" src="sounds/click.mp3" preload="auto"></audio>
+<audio id="snd-lock" src="sounds/lock.mp3" preload="auto"></audio>
+<audio id="snd-unlock" src="sounds/unlock.mp3" preload="auto"></audio>
+<audio id="snd-notif" src="sounds/notif.mp3" preload="auto"></audio>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const click = document.getElementById("snd-click");
+    const lock = document.getElementById("snd-lock");
+    const unlock = document.getElementById("snd-unlock");
+    const notif = document.getElementById("snd-notif");
+
+    /* GLOBAL CLICK SOUND */
+    document.body.addEventListener("click", (e) => {
+      if (e.target.tagName === "BUTTON" || e.target.classList.contains("app-icon")) {
+        click.currentTime = 0;
+        click.play();
+      }
+    });
+
+    /* LOCK SOUND */
+    document.body.addEventListener("ascend-lock", () => {
+      lock.currentTime = 0;
+      lock.play();
+    });
+
+    /* UNLOCK SOUND */
+    document.body.addEventListener("ascend-unlock", () => {
+      unlock.currentTime = 0;
+      unlock.play();
+    });
+
+    /* NOTIFICATION SOUND */
+    document.body.addEventListener("ascend-notify", () => {
+      notif.currentTime = 0;
+      notif.play();
+    });
+
+  });
+</script>
+
+<style>
+  /* No visual UI — audio engine only */
+</style>
