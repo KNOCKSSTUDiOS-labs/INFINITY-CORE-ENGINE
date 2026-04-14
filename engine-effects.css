@@ -1,0 +1,121 @@
+/* ============================================================
+   INFINITY-CORE-ENGINE // VISUAL EFFECTS
+   CINEMATIC LAYERS • GLOW • NOISE • SCANLINES • PARALLAX
+   ============================================================ */
+
+/* GLOBAL BACKDROP LAYERS */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 204, 102, 0.18), transparent 55%),
+    radial-gradient(circle at 80% 100%, rgba(120, 180, 255, 0.16), transparent 55%);
+  mix-blend-mode: screen;
+  opacity: 0.9;
+  z-index: -1;
+}
+
+/* FILM NOISE OVERLAY */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("media/noise-texture.png");
+  opacity: 0.18;
+  mix-blend-mode: soft-light;
+  z-index: -1;
+}
+
+/* SCANLINES */
+#engine-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px
+  );
+  background-size: 100% 2px;
+  opacity: 0.18;
+  mix-blend-mode: soft-light;
+  z-index: -1;
+}
+
+/* TILE GLOW + DEPTH */
+.tile-front,
+.tile-back {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 0 24px rgba(0, 0, 0, 0.9);
+}
+
+.tile:hover .tile-front,
+.tile:focus-within .tile-front {
+  box-shadow:
+    0 0 0 1px rgba(255, 204, 102, 0.5),
+    0 0 32px rgba(255, 204, 102, 0.4);
+}
+
+.tile:hover .tile-back,
+.tile:focus-within .tile-back {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.18),
+    0 0 40px rgba(255, 255, 255, 0.25);
+}
+
+/* BRAND LETTER GLITCH / PULSE */
+@keyframes brandPulse {
+  0% { text-shadow: 0 0 0 rgba(255, 204, 102, 0); }
+  50% { text-shadow: 0 0 12px rgba(255, 204, 102, 0.9); }
+  100% { text-shadow: 0 0 0 rgba(255, 204, 102, 0); }
+}
+
+@keyframes brandGlitch {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-1px, 0); }
+  40% { transform: translate(1px, -1px); }
+  60% { transform: translate(-1px, 1px); }
+  80% { transform: translate(1px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+.brand-letter[data-sfx="type"] {
+  animation: brandPulse 3s infinite ease-in-out;
+}
+
+.brand-letter[data-sfx="glitch"] {
+  animation: brandGlitch 1.8s infinite steps(2, end);
+}
+
+.brand-letter[data-sfx="mech"] {
+  text-shadow: 0 0 6px rgba(199, 199, 199, 0.7);
+}
+
+/* ENGINE VIEW TRANSITIONS */
+.view {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.view:not(.hidden) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* PARALLAX HEADER */
+#engine-header {
+  position: relative;
+  z-index: 2;
+}
+
+#brand-mark {
+  position: relative;
+}
+
+#brand-mark
