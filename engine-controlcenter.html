@@ -1,0 +1,165 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // CONTROL CENTER ENGINE
+     Toggles • Sliders • Quick Actions • System Hooks
+     ============================================================ -->
+
+<section id="control-center" class="cc hidden">
+
+  <div class="cc-handle"></div>
+
+  <div class="cc-grid">
+
+    <!-- TOGGLES -->
+    <div class="cc-toggle" data-toggle="wifi">WiFi</div>
+    <div class="cc-toggle" data-toggle="bluetooth">Bluetooth</div>
+    <div class="cc-toggle" data-toggle="airplane">Airplane</div>
+    <div class="cc-toggle" data-toggle="data">Data</div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="cc-action" data-action="flashlight">Flashlight</div>
+    <div class="cc-action" data-action="camera">Camera</div>
+    <div class="cc-action" data-action="do-not-disturb">DND</div>
+    <div class="cc-action" data-action="battery-saver">Battery Saver</div>
+
+  </div>
+
+  <!-- SLIDERS -->
+  <div class="cc-sliders">
+    <div class="cc-slider-block">
+      <label>Brightness</label>
+      <input id="cc-brightness" type="range" min="0" max="100" value="60">
+    </div>
+
+    <div class="cc-slider-block">
+      <label>Volume</label>
+      <input id="cc-volume" type="range" min="0" max="100" value="50">
+    </div>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const cc = document.getElementById("control-center");
+
+    /* PULL DOWN / SHOW */
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "c") {
+        cc.classList.toggle("show");
+      }
+    });
+
+    /* TOGGLES */
+    document.querySelectorAll(".cc-toggle").forEach(btn => {
+      btn.addEventListener("click", () => {
+        btn.classList.toggle("active");
+        const key = btn.getAttribute("data-toggle");
+        const state = btn.classList.contains("active") ? "on" : "off";
+        document.body.setAttribute("data-cc-" + key, state);
+      });
+    });
+
+    /* QUICK ACTIONS */
+    document.querySelectorAll(".cc-action").forEach(btn => {
+      btn.addEventListener("click", () => {
+        btn.classList.add("pulse");
+        setTimeout(() => btn.classList.remove("pulse"), 300);
+      });
+    });
+
+    /* SLIDERS */
+    document.getElementById("cc-brightness").addEventListener("input", (e) => {
+      document.body.style.setProperty("--screen-brightness", e.target.value + "%");
+    });
+
+    document.getElementById("cc-volume").addEventListener("input", (e) => {
+      document.body.style.setProperty("--system-volume", e.target.value + "%");
+    });
+
+  });
+</script>
+
+<style>
+  .cc {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    right: 0;
+    background: var(--surface-0);
+    padding: 20px;
+    box-shadow: var(--shadow-hard);
+    transition: top 300ms var(--fx-curve-cinematic);
+    z-index: 9998;
+  }
+
+  .cc.show {
+    top: 0;
+  }
+
+  .cc-handle {
+    width: 40px;
+    height: 4px;
+    background: var(--surface-3);
+    border-radius: 4px;
+    margin: 0 auto 20px auto;
+  }
+
+  .cc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .cc-toggle,
+  .cc-action {
+    padding: 14px 10px;
+    text-align: center;
+    border-radius: var(--radius-medium);
+    background: var(--surface-1);
+    border: 1px solid var(--surface-3);
+    color: var(--knocks-white);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 200ms var(--fx-curve-soft);
+  }
+
+  .cc-toggle.active {
+    background: var(--accent-primary);
+    color: #000;
+  }
+
+  .cc-action.pulse {
+    animation: cc-pulse 300ms ease-out;
+  }
+
+  @keyframes cc-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
+
+  .cc-sliders {
+    margin-top: 10px;
+  }
+
+  .cc-slider-block {
+    margin-bottom: 16px;
+  }
+
+  .cc-slider-block label {
+    display: block;
+    font-size: 11px;
+    color: var(--knocks-steel);
+    margin-bottom: 6px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  input[type="range"] {
+    width: 100%;
+  }
+</style>
