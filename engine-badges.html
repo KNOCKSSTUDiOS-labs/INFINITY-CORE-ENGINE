@@ -1,0 +1,136 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // BADGE SYSTEM MODULE
+     Achievements • Roles • Gallery Recognition • Skill Levels
+     ============================================================ -->
+
+<div id="ice-badges">
+
+  <!-- BADGE GRID -->
+  <div class="badge-grid">
+
+    <!-- SUBSCRIBER TIERS -->
+    <div class="badge-item tier1">
+      <div class="badge-icon"></div>
+      <span class="badge-label">TIER 1 // ENTRY</span>
+    </div>
+
+    <div class="badge-item tier2">
+      <div class="badge-icon"></div>
+      <span class="badge-label">TIER 2 // CREATOR</span>
+    </div>
+
+    <div class="badge-item tier3">
+      <div class="badge-icon"></div>
+      <span class="badge-label">TIER 3 // ENGINE MASTER</span>
+    </div>
+
+    <!-- GALLERY BADGES -->
+    <div class="badge-item gallery1">
+      <div class="badge-icon"></div>
+      <span class="badge-label">GALLERY // FEATURED</span>
+    </div>
+
+    <div class="badge-item gallery2">
+      <div class="badge-icon"></div>
+      <span class="badge-label">GALLERY // TOP 10</span>
+    </div>
+
+    <div class="badge-item gallery3">
+      <div class="badge-icon"></div>
+      <span class="badge-label">GALLERY // LEGEND</span>
+    </div>
+
+    <!-- SCHOOL / LEARNING BADGES -->
+    <div class="badge-item school1">
+      <div class="badge-icon"></div>
+      <span class="badge-label">SCHOOL // APPRENTICE</span>
+    </div>
+
+    <div class="badge-item school2">
+      <div class="badge-icon"></div>
+      <span class="badge-label">SCHOOL // ADVANCED</span>
+    </div>
+
+    <div class="badge-item school3">
+      <div class="badge-icon"></div>
+      <span class="badge-label">SCHOOL // ASCENDED</span>
+    </div>
+
+    <!-- CREATION BADGES -->
+    <div class="badge-item create1">
+      <div class="badge-icon"></div>
+      <span class="badge-label">CREATOR // 10 PROJECTS</span>
+    </div>
+
+    <div class="badge-item create2">
+      <div class="badge-icon"></div>
+      <span class="badge-label">CREATOR // 50 PROJECTS</span>
+    </div>
+
+    <div class="badge-item create3">
+      <div class="badge-icon"></div>
+      <span class="badge-label">CREATOR // 100 PROJECTS</span>
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+  #ice-badges {
+    padding: 24px;
+  }
+
+  .badge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+  }
+
+  .badge-item {
+    background: rgba(10, 10, 10, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .badge-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 22px rgba(255, 204, 102, 0.4);
+  }
+
+  .badge-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffcc66, #c7c7c7);
+    box-shadow: 0 0 12px rgba(255, 204, 102, 0.6);
+  }
+
+  .badge-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  /* COLOR VARIANTS */
+  .tier1 .badge-icon { background: linear-gradient(135deg, #999, #666); }
+  .tier2 .badge-icon { background: linear-gradient(135deg, #ffcc66, #b38b3a); }
+  .tier3 .badge-icon { background: linear-gradient(135deg, #ffe9b3, #ffcc66); }
+
+  .gallery1 .badge-icon { background: linear-gradient(135deg, #66aaff, #3355aa); }
+  .gallery2 .badge-icon { background: linear-gradient(135deg, #88ffcc, #33aa77); }
+  .gallery3 .badge-icon { background: linear-gradient(135deg, #ff6699, #aa3355); }
+
+  .school1 .badge-icon { background: linear-gradient(135deg, #cccccc, #888888); }
+  .school2 .badge-icon { background: linear-gradient(135deg, #ffd966, #cc9900); }
+  .school3 .badge-icon { background: linear-gradient(135deg, #ffcc66, #ff9933); }
+
+  .create1 .badge-icon { background: linear-gradient(135deg, #66ff99
