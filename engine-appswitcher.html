@@ -1,0 +1,115 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // APP SWITCHER ENGINE
+     Multitask Cards • Swipe Close • Live Preview Hooks
+     ============================================================ -->
+
+<div id="app-switcher" class="app-switcher hidden">
+  <div id="app-cards" class="app-cards"></div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const switcher = document.getElementById("app-switcher");
+    const cards = document.getElementById("app-cards");
+
+    /* DEMO APP LIST */
+    const demoApps = [
+      { name: "Camera", color: "#222" },
+      { name: "Messages", color: "#333" },
+      { name: "ASCEND-OS", color: "#111" },
+      { name: "Gallery", color: "#444" }
+    ];
+
+    function renderCards() {
+      cards.innerHTML = "";
+      demoApps.forEach(app => {
+        const card = document.createElement("div");
+        card.className = "app-card fx-slide-up show";
+        card.style.background = app.color;
+        card.innerHTML = `
+          <div class="app-title">${app.name}</div>
+          <button class="close-app">×</button>
+        `;
+        cards.appendChild(card);
+
+        card.querySelector(".close-app").addEventListener("click", () => {
+          card.classList.remove("show");
+          setTimeout(() => card.remove(), 300);
+        });
+      });
+    }
+
+    /* OPEN SWITCHER */
+    document.body.addEventListener("ascend-multitask", () => {
+      renderCards();
+      switcher.classList.remove("hidden");
+    });
+
+    /* CLOSE SWITCHER */
+    switcher.addEventListener("click", (e) => {
+      if (e.target === switcher) {
+        switcher.classList.add("hidden");
+      }
+    });
+
+  });
+</script>
+
+<style>
+  .app-switcher {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    z-index: 9998;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .app-cards {
+    display: flex;
+    gap: 20px;
+  }
+
+  .app-card {
+    width: 180px;
+    height: 320px;
+    border-radius: var(--radius-large);
+    box-shadow: var(--shadow-hard);
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 260ms var(--fx-curve-soft), transform 260ms var(--fx-curve-soft);
+  }
+
+  .app-card.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .app-title {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    color: var(--knocks-white);
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .close-app {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.12);
+    border: none;
+    color: var(--knocks-white);
+    font-size: 18px;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+  }
+</style>
