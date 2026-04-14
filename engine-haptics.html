@@ -1,0 +1,48 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // HAPTICS ENGINE
+     Tap Feedback • Pulses • Notification Patterns
+     ============================================================ -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    /* BASE HAPTIC WRAPPER */
+    function vibrate(pattern) {
+      if (navigator.vibrate) navigator.vibrate(pattern);
+    }
+
+    /* TAP HAPTIC */
+    document.body.addEventListener("click", (e) => {
+      if (e.target.tagName === "BUTTON" || e.target.classList.contains("app-icon")) {
+        vibrate(12); // light tap
+      }
+    });
+
+    /* LONG PRESS HAPTIC */
+    document.body.addEventListener("ascend-longpress", () => {
+      vibrate([0, 30, 40, 30]); // double pulse
+    });
+
+    /* LOCK / UNLOCK */
+    document.body.addEventListener("ascend-lock", () => {
+      vibrate(40); // firm pulse
+    });
+
+    document.body.addEventListener("ascend-unlock", () => {
+      vibrate([0, 20, 40, 20]); // soft double
+    });
+
+    /* NOTIFICATION */
+    document.body.addEventListener("ascend-notify", () => {
+      vibrate([0, 25, 50, 25, 50, 25]); // triple buzz
+    });
+
+    /* GLOBAL HOOK */
+    window.AscendHaptics = vibrate;
+
+  });
+</script>
+
+<style>
+  /* No visual UI — pure haptic engine */
+</style>
