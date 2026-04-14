@@ -1,0 +1,130 @@
+<!-- ============================================================
+     INFINITY-CORE-ENGINE // PERSONALIZATION CORE
+     Wallpapers • Icon Size • Layout Density • Lockscreen Hooks
+     ============================================================ -->
+
+<section id="settings-personalization" class="settings-subview hidden">
+
+  <h2 class="knocks-title">PERSONALIZATION</h2>
+  <div class="knocks-divider"></div>
+
+  <!-- WALLPAPER -->
+  <div class="pers-section">
+    <h3 class="knocks-subtitle">WALLPAPER</h3>
+    <div class="wallpaper-options">
+      <button class="wall-btn" data-wall="obsidian">Obsidian</button>
+      <button class="wall-btn" data-wall="astral">Astral Gold</button>
+      <button class="wall-btn" data-wall="voidglass">Voidglass</button>
+    </div>
+  </div>
+
+  <!-- ICON SIZE -->
+  <div class="pers-section">
+    <h3 class="knocks-subtitle">ICON SIZE</h3>
+    <div class="icon-options">
+      <button class="icon-btn" data-icon="small">Small</button>
+      <button class="icon-btn" data-icon="medium">Medium</button>
+      <button class="icon-btn" data-icon="large">Large</button>
+    </div>
+  </div>
+
+  <!-- LAYOUT DENSITY -->
+  <div class="pers-section">
+    <h3 class="knocks-subtitle">LAYOUT DENSITY</h3>
+    <div class="density-options">
+      <button class="density-btn" data-density="compact">Compact</button>
+      <button class="density-btn" data-density="standard">Standard</button>
+      <button class="density-btn" data-density="spacious">Spacious</button>
+    </div>
+  </div>
+
+  <!-- LOCKSCREEN STYLE -->
+  <div class="pers-section">
+    <h3 class="knocks-subtitle">LOCKSCREEN STYLE</h3>
+    <div class="lock-options">
+      <button class="lock-btn" data-lock="minimal">Minimal</button>
+      <button class="lock-btn" data-lock="clock-heavy">Clock Heavy</button>
+      <button class="lock-btn" data-lock="cinematic">Cinematic</button>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    // Wallpaper
+    document.querySelectorAll(".wall-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const wall = btn.getAttribute("data-wall");
+        document.body.setAttribute("data-wallpaper", wall);
+      });
+    });
+
+    // Icon Size
+    document.querySelectorAll(".icon-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const size = btn.getAttribute("data-icon");
+        document.body.setAttribute("data-iconsize", size);
+      });
+    });
+
+    // Layout Density
+    document.querySelectorAll(".density-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const density = btn.getAttribute("data-density");
+        document.body.setAttribute("data-density", density);
+      });
+    });
+
+    // Lockscreen Style
+    document.querySelectorAll(".lock-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const lock = btn.getAttribute("data-lock");
+        document.body.setAttribute("data-lockscreen", lock);
+      });
+    });
+
+  });
+</script>
+
+<style>
+  #settings-personalization {
+    padding-bottom: 40px;
+  }
+
+  .pers-section {
+    margin-bottom: 24px;
+  }
+
+  .wallpaper-options,
+  .icon-options,
+  .density-options,
+  .lock-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .wall-btn,
+  .icon-btn,
+  .density-btn,
+  .lock-btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--knocks-white);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .wall-btn:hover,
+  .icon-btn:hover,
+  .density-btn:hover,
+  .lock-btn:hover {
+    background: rgba(255,255,255,0.12);
+  }
+</style>
