@@ -1,0 +1,25 @@
+{
+  "engine_overlays": [
+    {
+      "name": "Fluxline_Frame",
+      "style": "energy",
+      "color": "#0A84FF",
+      "opacity": 0.85,
+      "description": "Fluxline Blue™ energy frame for TikTok edits."
+    },
+    {
+      "name": "Voidglass_Halo",
+      "style": "cosmic",
+      "color": "#A020F0",
+      "opacity": 0.75,
+      "description": "Astral Pulse Violet™ halo overlay for cosmic intros."
+    },
+    {
+      "name": "Emberstone_Heat",
+      "style": "forge",
+      "color": "#FF6A00",
+      "opacity": 0.65,
+      "description": "Emberstone™ heat distortion overlay for forge scenes."
+    }
+  ]
+}
