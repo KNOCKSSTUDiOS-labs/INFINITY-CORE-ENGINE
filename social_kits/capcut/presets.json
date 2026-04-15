@@ -1,0 +1,25 @@
+{
+  "capcut_presets": [
+    {
+      "name": "Ion_Spark_Transition",
+      "style": "energy_cut",
+      "speed": 0.45,
+      "color": "#0A84FF",
+      "description": "Fast Ion‑charged spark transition for CapCut edits."
+    },
+    {
+      "name": "Astral_Wave_Overlay",
+      "style": "cosmic_overlay",
+      "opacity": 0.72,
+      "color": "#A020F0",
+      "description": "Astral Pulse Violet™ wave overlay for cosmic motion."
+    },
+    {
+      "name": "Forge_Heat_Distortion",
+      "style": "heat_warp",
+      "intensity": 0.9,
+      "color": "#FF6A00",
+      "description": "Emberstone™ heat distortion preset for forge scenes."
+    }
+  ]
+}
