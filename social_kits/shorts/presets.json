@@ -1,0 +1,25 @@
+{
+  "shorts_presets": [
+    {
+      "name": "Quantum_Snap",
+      "speed": 0.35,
+      "style": "instant_cut",
+      "energy": "fluxline",
+      "description": "Fast quantum snap transition for YouTube Shorts."
+    },
+    {
+      "name": "Nebula_Warp",
+      "speed": 0.55,
+      "style": "cosmic_warp",
+      "energy": "astral_pulse",
+      "description": "Nebula‑style warp effect for cosmic edits."
+    },
+    {
+      "name": "Ion_Shock",
+      "speed": 0.4,
+      "style": "electric_jolt",
+      "energy": "fluxline",
+      "description": "High‑impact Ion shock transition for rapid cuts."
+    }
+  ]
+}
