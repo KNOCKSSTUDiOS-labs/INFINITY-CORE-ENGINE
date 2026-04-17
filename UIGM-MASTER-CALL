@@ -1,0 +1,23 @@
+import { Engine } from "./engine-core.js";
+import { UltraInstinctGodMode } from "./ultra-instinct-god-mode.js";
+import { FORM_R } from "./form-r.js";
+import { UIGM_FusionLayer } from "./uigm-fusion-layer.js";
+import { UIGM_EngineOverride } from "./uigm-engine-override.js";
+import { UIGM_RuntimeHook } from "./uigm-runtime-hook.js";
+import { UIGM_SystemWrap } from "./uigm-system-wrap.js";
+
+export function UIGM_MasterCall() {
+    console.log("⚡ MASTER CALL: Booting Ultra Instinct God Mode System...");
+
+    const system = UIGM_SystemWrap.initialize({
+        engine: Engine,
+        ultraInstinct: UltraInstinctGodMode,
+        formR: FORM_R,
+        fusionLayer: UIGM_FusionLayer,
+        engineOverride: UIGM_EngineOverride,
+        runtimeHook: UIGM_RuntimeHook
+    });
+
+    console.log("⚡ MASTER CALL COMPLETE — Universe online.");
+    return system;
+}
