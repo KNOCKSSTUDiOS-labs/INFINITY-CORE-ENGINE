@@ -1,0 +1,12 @@
+export const ULTRA_GOD_MODE = {
+    enabled: false,
+
+    activate() {
+        this.enabled = true;
+        console.log("ULTRA GOD MODE: ACTIVATED");
+    },
+
+    status() {
+        return this.enabled;
+    }
+};
