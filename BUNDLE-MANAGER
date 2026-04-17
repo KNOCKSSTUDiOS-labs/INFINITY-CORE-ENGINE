@@ -1,0 +1,19 @@
+export const BundleManager = {
+    bundles: {},
+
+    register(name, payload) {
+        this.bundles[name] = {
+            ...payload,
+            registeredAt: Date.now()
+        };
+        console.log(`BUNDLE: Registered → ${name}`);
+    },
+
+    get(name) {
+        return this.bundles[name] || null;
+    },
+
+    list() {
+        return Object.keys(this.bundles);
+    }
+};
