@@ -1,0 +1,23 @@
+/core
+  /sbom
+    /spdx
+      spdx-template.json
+      spdx-full-graph.json
+
+    /cyclonedx
+      cyclonedx-template.json
+      cyclonedx-bom.json
+
+    /identity
+      identity-seal.json
+      fingerprint.js
+
+    /provenance
+      build-provenance.json
+      provenance-generator.js
+
+    /verification
+      verify-sbom.js
+      verify-signature.js
+      verify-provenance.js
+      verification.config.json
