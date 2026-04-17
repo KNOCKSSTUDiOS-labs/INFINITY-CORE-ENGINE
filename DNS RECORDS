@@ -1,12 +1,13 @@
 Type: A
-Name: @
+Host: @
 Value: 185.199.108.153
-Type: A
-Name: @
+TTL: 3600Type: A
+Host: @
 Value: 185.199.109.153
-Type: A
-Name: @
+TTL: 3600Type: A
+Host: @
 Value: 185.199.110.153
-Type: A
-Name: @
+TTL: 3600Type: A
+Host: @
 Value: 185.199.111.153
+TTL: 3600
