@@ -1,58 +1,56 @@
-# INFINITY‑CORE‑ENGINE
+# 🔥 INFINITY CORE ENGINE
 
-The **INFINITY‑CORE‑ENGINE** is a mythic‑industrial, cosmic engine architecture designed to forge worlds, subsystems, and identities.
+### By KNOCKS CREATIVESTUDiOS | KNOCKTURNALSINC
 
-This is not an app.  
-This is not a theme.  
-This is a **universe‑forging engine**.
+> *The core engine powering the creative universe — built from nothing, by one.*
 
 ---
 
-## Core Pillars
+## 🎯 What Is This?
 
-- **Silent Power** — monolith presence  
-- **Cosmic Energy** — living pulse  
-- **Engineered Precision** — technical mastery  
+**INFINITY CORE ENGINE** is the foundational platform powering KNOCKS CREATIVESTUDiOS' creative ecosystem. It includes tools for content protection, creative generation, and platform infrastructure.
 
-Every module, visual, sound, and behavior in this engine must reflect all three.
+## 🛡️ Modules
+
+### Fortified Watermark Engine (watermark-engine/)
+A military-grade watermark system for protecting creative assets:
+- **Visible watermarks** — custom text, logo overlay, positioning
+- **Invisible steganographic watermarks** — hidden ownership data encoded into pixels
+- **Batch processing** — watermark multiple files at once
+- **Tamper detection** — verify if content has been altered
+- **Export** — download protected assets instantly
+
+### More modules coming...
+- 🎬 Video Generation Pipeline
+- 🎨 Creative Asset Manager
+- 🔐 Content Authentication System
+- 🌐 Platform API
+
+## 🚀 Getting Started
+
+1. Clone this repo
+2. Open watermark-engine/index.html in any browser
+3. Upload an image → apply watermark → download protected asset
+
+No dependencies. No build step. Just open and go.
+
+## 🏗️ Tech Stack
+
+- **HTML5 / CSS3 / Vanilla JavaScript** — zero dependencies
+- **Canvas API** — image processing & watermarking
+- **Steganography** — LSB encoding for invisible watermarks
+- **Web Workers** — non-blocking batch processing
+
+## 📜 License
+
+GPL-2.0 — Open source, but respect the craft.
+
+## 👤 Author
+
+**KNOCKS** — Founder, KNOCKS CREATIVESTUDiOS
+Riverside, CA
+*Building alone. Building everything.*
 
 ---
 
-## Repository Structure
-
-```bash
-INFINITY-CORE-ENGINE/
-  core/
-    engine_core.py        # heartbeat, modes, pulse system
-    energy_system.py      # Fluxline, Astral Pulse, Emberstone logic
-    glyph_system.py       # ∞‑Prime, Forge‑Triangle, etc.
-    forge_system.py       # module/mode creation
-  shell/
-    hud/
-      hud_layout.py       # HUD frames, states
-      hud_themes.py       # Obsidian, Voidglass, Sentinel Steel
-    ui/
-      ui_components.py    # panels, buttons, overlays
-      transitions.py      # monolith rise, flux cuts, void collapse
-    audio/
-      sound_cues.py       # pulse, hum, impact, surge
-  cinematic/
-    boot_sequence.py      # void → pulse → monolith → glyphs → lock
-    intro_scenes.py       # social/cinematic intros
-  brand/
-    materials.py          # Obsidian Core, Fluxline Blue, etc.
-    palette.py            # color law
-    motion_rules.py       # motion law
-    brand_law.md          # brand rules
-  social_kits/
-    tiktok/
-      overlays.json
-      transitions.json
-    youtube/
-      templates.json
-    capcut/
-      presets.json
-  docs/
-    ENGINE_BLUEPRINT.md   # engine architecture
-    LORE_BIBLE.md         # mythic story
-    EXPANSION_MAP.md      # future evolution
+*"From nothing, we build infinity."*
