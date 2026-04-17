@@ -1,6 +1,6 @@
 # 🔥 INFINITY CORE ENGINE
 
-### By KNOCKS CREATIVESTUDiOS | KNOCKTURNALSINC
+### By KNOCKSSTUDiOS | hollywoodimaging.studio 
 
 > *The core engine powering the creative universe — built from nothing, by one.*
 
@@ -47,7 +47,7 @@ GPL-2.0 — Open source, but respect the craft.
 
 ## 👤 Author
 
-**KNOCKS** — Founder, KNOCKS CREATIVESTUDiOS
+**KNOCKS** — Founder, KNOCKSSTUDiOS
 Riverside, CA
 *Building alone. Building everything.*
 
