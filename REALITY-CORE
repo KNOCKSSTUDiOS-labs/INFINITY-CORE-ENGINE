@@ -1,0 +1,7 @@
+export const RealityCore = {
+    layers: [],
+    register(layer) {
+        this.layers.push(layer);
+        console.log("REALITY-CORE: Layer added →", layer.name);
+    }
+};
