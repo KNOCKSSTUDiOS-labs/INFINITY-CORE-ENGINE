@@ -1,0 +1,6 @@
+import { UIGM_MasterCall } from "./uigm-master-call.js";
+
+(function AutoBoot() {
+    console.log("⚡ AUTO-BOOT: Initializing Ultra Instinct God Mode System...");
+    UIGM_MasterCall();
+})();
