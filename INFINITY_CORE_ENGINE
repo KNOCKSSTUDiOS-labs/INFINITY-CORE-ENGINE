@@ -1,0 +1,13 @@
+<!-- Load INFINITY-CORE-ENGINE PUBLIC -->
+<script src="engine-infinity-core-public.html"></script>
+
+<script>
+  // Now you can access the engine:
+  INFINITY_CORE_ENGINE.log("Engine online");
+
+  INFINITY_CORE_ENGINE.uploadModule({
+    name: "TEST-MODULE",
+    code: "console.log('test module');",
+    meta: { author: "KNOCKS" }
+  });
+</script>
