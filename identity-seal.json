@@ -1,0 +1,9 @@
+{
+  "engine": "INFINITY-CORE-ENGINE",
+  "class": "ULTRA-GOD-MODE",
+  "fingerprint": "<SHA256>",
+  "purl": "pkg:github/KNOCKSSTUDiOS/INFINITY-CORE-ENGINE",
+  "spdxid": "<SPDXID>",
+  "provenance": "<BUILD-HASH>",
+  "signature": "<SIG>"
+}
