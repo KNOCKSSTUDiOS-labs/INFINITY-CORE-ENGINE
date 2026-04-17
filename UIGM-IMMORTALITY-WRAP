@@ -1,0 +1,31 @@
+import { UIGM_MasterCall } from "./uigm-master-call.js";
+import { UIGM_AutoRecovery } from "./uigm-auto-recovery.js";
+
+export const UIGM_ImmortalityWrap = {
+    active: false,
+
+    start() {
+        console.log("⚡ IMMORTALITY WRAP: Enforcing permanent uptime...");
+
+        // 1. Boot system
+        globalThis.UIGM_SYSTEM = UIGM_MasterCall();
+
+        // 2. Start auto-recovery
+        UIGM_AutoRecovery.start();
+
+        // 3. Install global fail-safe
+        globalThis.addEventListener("error", () => {
+            console.warn("⚠️ IMMORTALITY WRAP: Global error detected. Rebooting...");
+            globalThis.UIGM_SYSTEM = UIGM_MasterCall();
+        });
+
+        globalThis.addEventListener("unhandledrejection", () => {
+            console.warn("⚠️ IMMORTALITY WRAP: Promise failure detected. Rebooting...");
+            globalThis.UIGM_SYSTEM = UIGM_MasterCall();
+        });
+
+        this.active = true;
+
+        console.log("⚡ IMMORTALITY WRAP: ACTIVE — System cannot be shut down.");
+    }
+};
