@@ -1,0 +1,25 @@
+{
+  "engine": "INFINITY-CORE-ENGINE",
+  "version": "1.0.0",
+  "author": "KNOCKS CREATIVESTUDiOS",
+  "modules": {
+    "bridge": "engine-live-bridge.js",
+    "visualProtocol": "engine-visual-protocol.js",
+    "networkHandshake": "engine-network-handshake.js",
+    "realityCore": "engine-reality-core.js",
+    "ultraInstinct": "engine-ultra-instinct.js",
+    "syncMaster": "engine-sync-master.js",
+    "domBindings": "engine-dom-bindings.js"
+  },
+  "description": "Master manifest linking all engine subsystems for hollywoodimaging.live front-end integration.",
+  "protocol": {
+    "visual": "FORM-R",
+    "reality": "RC",
+    "instinct": "UI",
+    "sync": "MASTER"
+  },
+  "heartbeat": {
+    "enabled": true,
+    "interval": 1000
+  }
+}
