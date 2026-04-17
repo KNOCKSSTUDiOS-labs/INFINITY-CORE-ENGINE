@@ -1,0 +1,32 @@
+export const UniversalBuffer = {
+    incoming: [],
+    processing: [],
+    outgoing: [],
+
+    pushIncoming(item) {
+        this.incoming.push({ ...item, ts: Date.now() });
+        console.log("UBUF: Incoming →", item.type || "unknown");
+    },
+
+    pullIncoming() {
+        return this.incoming.shift() || null;
+    },
+
+    pushProcessing(item) {
+        this.processing.push({ ...item, ts: Date.now() });
+        console.log("UBUF: Processing →", item.type || "unknown");
+    },
+
+    pullProcessing() {
+        return this.processing.shift() || null;
+    },
+
+    pushOutgoing(item) {
+        this.outgoing.push({ ...item, ts: Date.now() });
+        console.log("UBUF: Outgoing →", item.type || "unknown");
+    },
+
+    pullOutgoing() {
+        return this.outgoing.shift() || null;
+    }
+};
