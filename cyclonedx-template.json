@@ -1,0 +1,23 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "metadata": {
+    "timestamp": "<TIMESTAMP>",
+    "tools": [
+      {
+        "vendor": "KNOCKSSTUDiOS",
+        "name": "INFINITY-CORE-SBOM-GENERATOR",
+        "version": "ULTRA-GOD-MODE"
+      }
+    ],
+    "component": {
+      "type": "application",
+      "name": "INFINITY-CORE-ENGINE",
+      "version": "<VERSION>",
+      "purl": "pkg:github/KNOCKSSTUDiOS/INFINITY-CORE-ENGINE"
+    }
+  },
+  "components": [],
+  "dependencies": []
+}
