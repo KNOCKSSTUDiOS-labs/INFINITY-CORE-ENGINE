@@ -1,0 +1,32 @@
+export const BufferSystem = {
+    incoming: [],
+    processing: [],
+    outgoing: [],
+
+    pushIncoming(item) {
+        this.incoming.push({ ...item, ts: Date.now() });
+        console.log("BUFFER: Incoming →", item.type || "unknown");
+    },
+
+    pullIncoming() {
+        return this.incoming.shift() || null;
+    },
+
+    pushProcessing(item) {
+        this.processing.push({ ...item, ts: Date.now() });
+        console.log("BUFFER: Processing →", item.type || "unknown");
+    },
+
+    pullProcessing() {
+        return this.processing.shift() || null;
+    },
+
+    pushOutgoing(item) {
+        this.outgoing.push({ ...item, ts: Date.now() });
+        console.log("BUFFER: Outgoing →", item.type || "unknown");
+    },
+
+    pullOutgoing() {
+        return this.outgoing.shift() || null;
+    }
+};
