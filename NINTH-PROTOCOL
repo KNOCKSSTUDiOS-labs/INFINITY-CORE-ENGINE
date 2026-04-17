@@ -1,0 +1,6 @@
+export const NinthProtocol = {
+    execute(payload) {
+        console.log("NINTH PROTOCOL: Executing payload →", payload.type);
+        return { ...payload, executedAt: Date.now() };
+    }
+};
