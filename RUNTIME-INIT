@@ -1,0 +1,18 @@
+import { Engine } from "../core/engine.js";
+import { UniversalBuffer } from "../systems/universal-buffer.js";
+import { SyncLayer } from "../systems/sync-layer.js";
+import { BundleManager } from "../systems/bundle-manager.js";
+import { AssetPipeline } from "../systems/asset-pipeline.js";
+
+Engine.init({
+    name: "INFINITY-CORE-ENGINE",
+    version: "0.1-ultra"
+});
+
+Engine.register("buffer", UniversalBuffer);
+Engine.register("sync", SyncLayer);
+Engine.register("bundles", BundleManager);
+Engine.register("assets", AssetPipeline);
+
+Engine.run();
+console.log("RUNTIME: Initialized.");
