@@ -1,0 +1,37 @@
+import { UIGM_MasterCall } from "./uigm-master-call.js";
+
+export const UIGM_AutoRecovery = {
+    interval: null,
+    delay: 2000, // 2 seconds between checks
+
+    start() {
+        console.log("⚡ AUTO-RECOVERY: Monitoring Ultra Instinct God Mode System...");
+
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
+
+        this.interval = setInterval(() => {
+            try {
+                // Check if system is alive
+                if (!globalThis.UIGM_SYSTEM || globalThis.UIGM_SYSTEM.status !== "active") {
+                    console.warn("⚠️ AUTO-RECOVERY: System offline. Rebooting...");
+                    globalThis.UIGM_SYSTEM = UIGM_MasterCall();
+                    console.log("⚡ AUTO-RECOVERY: System restored.");
+                }
+            } catch (err) {
+                console.error("❌ AUTO-RECOVERY ERROR:", err);
+                console.warn("⚠️ AUTO-RECOVERY: Forcing full reboot...");
+                globalThis.UIGM_SYSTEM = UIGM_MasterCall();
+            }
+        }, this.delay);
+    },
+
+    stop() {
+        if (this.interval) {
+            clearInterval(this.interval);
+            this.interval = null;
+            console.log("🛑 AUTO-RECOVERY: Stopped.");
+        }
+    }
+};
