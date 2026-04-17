@@ -1,0 +1,127 @@
+:root {
+    --pulse-cyan: #00F2FF;
+    --ion-magenta: #FF00C8;
+    --sovereign-gold: #FFCC33;
+    --chrome-white: #E6F7FF;
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(circle at top, #020817 0%, #000000 55%);
+    color: var(--chrome-white);
+    font-family: system-ui, sans-serif;
+}
+
+#engine-root {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pulse-core {
+    text-align: center;
+    padding: 2.5rem 3.5rem;
+    border-radius: 28px;
+    background: rgba(5, 12, 32, 0.92);
+    box-shadow:
+        0 0 50px rgba(0, 242, 255, 0.35),
+        0 0 90px rgba(255, 0, 200, 0.25);
+    border: 1px solid rgba(0, 242, 255, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.pulse-core::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: conic-gradient(
+        from 0deg,
+        rgba(0, 242, 255, 0.0),
+        rgba(0, 242, 255, 0.6),
+        rgba(255, 0, 200, 0.0),
+        rgba(255, 204, 51, 0.0),
+        rgba(0, 242, 255, 0.0)
+    );
+    animation: spin 14s linear infinite;
+    opacity: 0.35;
+}
+
+.pulse-core h1 {
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.18em;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.pulse-core h2 {
+    margin: 0.25rem 0 0.75rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    color: var(--ion-magenta);
+}
+
+.pulse-core p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.mode-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    background: rgba(0, 242, 255, 0.1);
+    border: 1px solid rgba(0, 242, 255, 0.5);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-bottom: 1.2rem;
+}
+
+.mode-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--pulse-cyan);
+    box-shadow: 0 0 14px rgba(0, 242, 255, 0.9);
+}
+
+.mode-grid {
+    display: flex;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.mode-pill {
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(230, 247, 255, 0.25);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.85;
+}
+
+.mode-pill.active {
+    border-color: var(--sovereign-gold);
+    color: var(--sovereign-gold);
+    box-shadow: 0 0 22px rgba(255, 204, 51, 0.45);
+}
+
+.footer-tag {
+    margin-top: 1.75rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
