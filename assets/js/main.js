@@ -1,6 +1,8 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const yearEl = document.getElementById("hi-year");
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
-});
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: "export",
+  basePath: "/repo-name",
+  images: { unoptimized: true }
+};
+
+module.exports = nextConfig;
