@@ -1,0 +1,14 @@
+1. Registrar:
+   - 2FA: ON
+   - Authenticator app only
+   - No SMS fallback
+
+2. GitHub:
+   - 2FA: ON
+   - Recovery codes stored offline
+   - No third‑party app access
+
+3. Vercel:
+   - 2FA: ON
+   - No team invites
+   - No shared access
