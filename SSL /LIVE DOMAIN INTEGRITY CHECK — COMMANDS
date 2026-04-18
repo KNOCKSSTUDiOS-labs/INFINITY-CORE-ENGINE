@@ -1,0 +1,3 @@
+dig hollywoodimaging.studio +trace
+dig www.hollywoodimaging.studio CNAME
+dig hollywoodimaging.studio A
