@@ -1,0 +1,19 @@
+1. Branch Protection:
+   - main: locked
+   - force-push: disabled
+   - PR required: enabled
+   - status checks: required
+
+2. Repo Access:
+   - Only your account
+   - No collaborators
+   - No deploy keys
+   - No GitHub Apps
+
+3. GitHub Pages:
+   - Enforce HTTPS: ON
+   - Custom Domain: hollywoodimaging.studio
+
+4. Account Security:
+   - 2FA: ON
+   - Recovery codes: stored offline
