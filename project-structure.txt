@@ -1,0 +1,43 @@
+/
+├─ app/
+│  ├─ auth/
+│  │  ├─ sign-in/
+│  │  ├─ sign-up/
+│  │  ├─ sign-out/
+│  │  ├─ reset-password/
+│  │  ├─ update-password/
+│  │  ├─ magic-link/
+│  │  ├─ confirm/
+│  │  └─ layout.tsx
+│  ├─ todos/
+│  │  ├─ page.tsx
+│  │  └─ layout.tsx
+│  ├─ profile/
+│  │  ├─ page.tsx
+│  │  ├─ update-email.tsx
+│  │  └─ update-password.tsx
+│  ├─ components/
+│  │  └─ UserBar.tsx
+│  ├─ actions/
+│  │  └─ todos.ts
+│  ├─ page.tsx
+│  └─ layout.tsx
+│
+├─ utils/
+│  ├─ supabase/
+│  │  ├─ server.ts
+│  │  ├─ client.ts
+│  │  ├─ middleware.ts
+│  │  ├─ getUser.ts
+│  │  └─ getSession.ts
+│  └─ types/
+│     └─ supabase.ts
+│
+├─ public/
+│  └─ favicon.ico
+│
+├─ .env.local
+├─ next.config.js
+├─ package.json
+├─ middleware.ts
+└─ README.md
