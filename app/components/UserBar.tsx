@@ -9,6 +9,8 @@ export default async function UserBar() {
       <div>
         <Link href="/auth/sign-in">Sign In</Link>
         <Link href="/auth/sign-up">Sign Up</Link>
+        <Link href="/auth/magic-link">Magic Link</Link>
+        <Link href="/auth/reset-password">Reset Password</Link>
       </div>
     );
   }
@@ -16,6 +18,7 @@ export default async function UserBar() {
   return (
     <div>
       <span>{user.email}</span>
+      <Link href="/profile">Profile</Link>
       <Link href="/auth/sign-out">Sign Out</Link>
     </div>
   );
