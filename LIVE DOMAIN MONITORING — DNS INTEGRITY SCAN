@@ -1,0 +1,5 @@
+1. dig hollywoodimaging.studio +trace
+2. dig hollywoodimaging.studio A
+3. dig www.hollywoodimaging.studio CNAME
+4. dig hollywoodimaging.studio NS
+5. dig hollywoodimaging.studio TXT
