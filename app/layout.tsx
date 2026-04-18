@@ -1,5 +1,9 @@
 import UserBar from "./components/UserBar";
 
+export const metadata = {
+  metadataBase: new URL("https://hollywoodimaging.studio"),
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
