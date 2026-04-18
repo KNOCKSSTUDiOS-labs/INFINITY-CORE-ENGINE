@@ -1,0 +1,5 @@
+1. Enable Domain Lock (prevents unauthorized transfers)
+2. Enable 2FA on your registrar account
+3. Add recovery email + phone
+4. Disable WHOIS editing without login
+5. Turn on Registrar Transfer Lock (if available)
