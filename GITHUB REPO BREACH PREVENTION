@@ -1,0 +1,7 @@
+1. Enable Branch Protection on main
+2. Disable force-push
+3. Require PRs for changes
+4. Enable 2FA on GitHub account
+5. Enable Dependabot alerts
+6. Disable GitHub Pages from forks
+7. Keep repo private unless intentionally public

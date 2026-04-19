@@ -1,0 +1,65 @@
+# From repo root
+npm init -y
+
+npm install -D \
+  prettier \
+  eslint \
+  stylelint stylelint-config-standard \
+  htmlhint
+
+# Prettier config
+cat > .prettierrc.json << 'EOF'
+{
+  "printWidth": 100,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "endOfLine": "lf"
+}
+EOF
+
+# ESLint config (browser + ES modules)
+cat > .eslintrc.json << 'EOF'
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-console": "off"
+  }
+}
+EOF
+
+# Stylelint config
+cat > .stylelintrc.json << 'EOF'
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "no-empty-source": null
+  }
+}
+EOF
+
+# HTMLHint config
+cat > .htmlhintrc << 'EOF'
+{
+  "tagname-lowercase": true,
+  "attr-lowercase": true,
+  "attr-value-double-quotes": true,
+  "doctype-first": false,
+  "tag-pair": true,
+  "spec-char-escape": true,
+  "id-unique": true
+}
+EOF

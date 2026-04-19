@@ -3,323 +3,158 @@
 <head>
   <meta charset="UTF-8" />
   <title>INFINITY-CORE-ENGINE</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css" />
-  <script defer src="app.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="ui/cinematic-glow.css" />
+
+  <style>
+    body {
+      margin: 0;
+      background: #050509;
+      color: #f5f5f7;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .hero {
+      padding: 60px 24px 40px;
+      text-align: center;
+    }
+
+    .ic-hero-title {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      background: linear-gradient(120deg, #ff4b9a, #4be3ff);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .ic-hero-title span {
+      display: inline-block;
+    }
+
+    .ic-sub {
+      font-size: 14px;
+      color: #9b9bb2;
+      margin-bottom: 40px;
+    }
+
+    .ic-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .ic-toggle {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #f5f5f7;
+      font-size: 12px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .ic-toggle-active {
+      background: linear-gradient(120deg, #ff4b9a, #4be3ff);
+      color: #050509;
+      font-weight: 700;
+    }
+
+    .ic-status {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 13px;
+      color: #4be3ff;
+    }
+
+    .ic-btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: linear-gradient(120deg, #ff4b9a, #ff8a4b);
+      color: #050509;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      border: none;
+    }
+
+    #icToast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .ic-toast-show {
+      opacity: 1;
+    }
+  </style>
 </head>
+
 <body>
-  <video id="bg-video" autoplay muted loop playsinline>
-    <source src="media/engine_reel.mp4" type="video/mp4" />
-  </video>
 
-  <audio id="sfx-type" src="media/sfx_typewriter.mp3" preload="auto"></audio>
-  <audio id="sfx-glitch" src="media/sfx_glitch.mp3" preload="auto"></audio>
-  <audio id="sfx-mech" src="media/sfx_mech_click.mp3" preload="auto"></audio>
+  <div class="hero">
+    <div class="ic-hero-title">
+      <span>INFINITY‑CORE‑ENGINE</span>
+    </div>
+    <div class="ic-sub">
+      Sentinel War Instinct Spirit God Level — Full Production Mode
+    </div>
 
-  <div id="engine-shell">
-    <header id="engine-header">
-      <div id="brand-mark">
-        <span class="brand-letter" data-sfx="type">I</span>
-        <span class="brand-letter" data-sfx="type">N</span>
-        <span class="brand-letter" data-sfx="type">F</span>
-        <span class="brand-letter" data-sfx="type">I</span>
-        <span class="brand-letter" data-sfx="type">N</span>
-        <span class="brand-letter" data-sfx="type">I</span>
-        <span class="brand-letter" data-sfx="type">T</span>
-        <span class="brand-letter" data-sfx="type">Y</span>
-        <span class="brand-letter spacer">-</span>
-        <span class="brand-letter" data-sfx="glitch">C</span>
-        <span class="brand-letter" data-sfx="glitch">O</span>
-        <span class="brand-letter" data-sfx="glitch">R</span>
-        <span class="brand-letter" data-sfx="glitch">E</span>
-        <span class="brand-letter spacer">-</span>
-        <span class="brand-letter" data-sfx="mech">E</span>
-        <span class="brand-letter" data-sfx="mech">N</span>
-        <span class="brand-letter" data-sfx="mech">G</span>
-        <span class="brand-letter" data-sfx="mech">I</span>
-        <span class="brand-letter" data-sfx="mech">N</span>
-        <span class="brand-letter" data-sfx="mech">E</span>
-      </div>
+    <div class="ic-controls">
+      <button class="ic-toggle ic-toggle-active" data-mode="instinct">Instinct</button>
+      <button class="ic-toggle" data-mode="spirit">Spirit</button>
+      <button class="ic-toggle" data-mode="war">War Room</button>
+      <button class="ic-toggle" data-mode="god">God Level</button>
+    </div>
 
-      <div id="payment-strip">
-        <span class="pay-logo visa">VISA</span>
-        <span class="pay-logo mc">MASTERCARD</span>
-        <span class="pay-logo amex">AMEX</span>
-        <span class="pay-logo pp">PAYPAL</span>
-        <span class="pay-logo apple">APPLE PAY</span>
-        <span class="pay-logo gpay">GOOGLE PAY</span>
-      </div>
-    </header>
+    <div class="ic-status">
+      <div id="engineStatusText">ENGINE · IDLE</div>
+      <div id="enginePhase" style="margin-top:4px;color:#9b9bb2;">SENTINEL · STANDBY</div>
+    </div>
 
-    <main id="tile-grid">
-      <div class="tile tile-auth" data-view="view-auth-engine">
-        <div class="tile-front">
-          <span class="tile-letter" data-sfx="type">S</span>
-          <span class="tile-letter" data-sfx="type">U</span>
-          <span class="tile-letter" data-sfx="type">B</span>
-          <span class="tile-letter" data-sfx="type">S</span>
-          <span class="tile-letter" data-sfx="type">C</span>
-          <span class="tile-letter" data-sfx="type">R</span>
-          <span class="tile-letter" data-sfx="type">I</span>
-          <span class="tile-letter" data-sfx="type">B</span>
-          <span class="tile-letter" data-sfx="type">E</span>
-        </div>
-        <div class="tile-back">
-          <button class="cta" data-view-target="view-auth-engine">ENGINE SIGN UP</button>
-          <button class="cta" data-view-target="view-login-engine">ENGINE LOGIN</button>
-        </div>
-      </div>
-
-      <div class="tile tile-engine" data-view="view-engine-gallery">
-        <div class="tile-front">
-          <span class="tile-letter" data-sfx="mech">E</span>
-          <span class="tile-letter" data-sfx="mech">N</span>
-          <span class="tile-letter" data-sfx="mech">G</span>
-          <span class="tile-letter" data-sfx="mech">I</span>
-          <span class="tile-letter" data-sfx="mech">N</span>
-          <span class="tile-letter" data-sfx="mech">E</span>
-        </div>
-        <div class="tile-back">
-          <p>PRIVATE // SUBSCRIBER ONLY</p>
-          <button class="cta" data-view-target="view-engine-gallery">ENTER ENGINE GALLERY</button>
-        </div>
-      </div>
-
-      <div class="tile tile-public" data-view="view-public-gallery">
-        <div class="tile-front">
-          <span class="tile-letter" data-sfx="glitch">P</span>
-          <span class="tile-letter" data-sfx="glitch">U</span>
-          <span class="tile-letter" data-sfx="glitch">B</span>
-          <span class="tile-letter" data-sfx="glitch">L</span>
-          <span class="tile-letter" data-sfx="glitch">I</span>
-          <span class="tile-letter" data-sfx="glitch">C</span>
-        </div>
-        <div class="tile-back">
-          <p>NO ACCOUNT NEEDED // VERIFIED PURCHASE</p>
-          <button class="cta" data-view-target="view-public-gallery">ENTER PUBLIC GALLERY</button>
-        </div>
-      </div>
-
-      <div class="tile tile-request" data-view="view-request-hub">
-        <div class="tile-front">
-          <span class="tile-letter" data-sfx="type">R</span>
-          <span class="tile-letter" data-sfx="type">E</span>
-          <span class="tile-letter" data-sfx="type">Q</span>
-          <span class="tile-letter" data-sfx="type">U</span>
-          <span class="tile-letter" data-sfx="type">E</span>
-          <span class="tile-letter" data-sfx="type">S</span>
-          <span class="tile-letter" data-sfx="type">T</span>
-        </div>
-        <div class="tile-back">
-          <p>REQUESTS • BRIEFS • CUSTOM ENGINE RUNS</p>
-          <button class="cta" data-view-target="view-request-hub">OPEN REQUEST HUB</button>
-        </div>
-      </div>
-    </main>
-
-    <section id="view-auth-engine" class="view hidden">
-      <h1>ENGINE SUBSCRIBER SIGN UP</h1>
-      <p class="hint">Create your INFINITY-CORE-ENGINE account with verified billing details.</p>
-      <form id="form-engine-signup">
-        <div class="field-row">
-          <label>Email</label>
-          <input type="email" name="email" required />
-        </div>
-        <div class="field-row">
-          <label>Create Password</label>
-          <input type="password" name="password" required />
-        </div>
-        <div class="field-row">
-          <label>Full Name</label>
-          <input type="text" name="fullName" required />
-        </div>
-
-        <h2>Billing Address</h2>
-        <div class="field-row">
-          <label>Street Address</label>
-          <input type="text" name="addressLine1" required />
-        </div>
-        <div class="field-row">
-          <label>Apartment / Suite (optional)</label>
-          <input type="text" name="addressLine2" />
-        </div>
-        <div class="field-row">
-          <label>City</label>
-          <input type="text" name="city" required />
-        </div>
-        <div class="field-row">
-          <label>State / Region</label>
-          <input type="text" name="state" required />
-        </div>
-        <div class="field-row">
-          <label>Postal Code</label>
-          <input type="text" name="postalCode" required />
-        </div>
-        <div class="field-row">
-          <label>Country</label>
-          <input type="text" name="country" required />
-        </div>
-
-        <h2>Step 1: Selfie + ID Verification</h2>
-        <p class="hint">You are verifying your identity for engine subscription.</p>
-        <div class="field-row">
-          <label>Selfie Capture</label>
-          <input type="file" name="selfie" accept="image/*" capture="user" required />
-        </div>
-        <div class="field-row">
-          <label>ID Photo (front)</label>
-          <input type="file" name="idFront" accept="image/*" required />
-        </div>
-
-        <h2>Step 2: Payment Verification</h2>
-        <p class="hint">Your payment details must match your name and address for approval.</p>
-        <div class="field-row">
-          <label>Name on Card</label>
-          <input type="text" name="cardName" required />
-        </div>
-        <div class="field-row">
-          <label>Card Number</label>
-          <input type="text" name="cardNumber" inputmode="numeric" required />
-        </div>
-        <div class="field-row">
-          <label>Expiry</label>
-          <input type="text" name="cardExpiry" placeholder="MM/YY" required />
-        </div>
-        <div class="field-row">
-          <label>CVC</label>
-          <input type="text" name="cardCvc" inputmode="numeric" required />
-        </div>
-
-        <button type="submit" class="cta primary">CREATE ENGINE ACCOUNT</button>
-        <button type="button" class="cta ghost" data-view-target="root">BACK TO TILES</button>
-      </form>
-    </section>
-
-    <section id="view-login-engine" class="view hidden">
-      <h1>ENGINE LOGIN</h1>
-      <form id="form-engine-login">
-        <div class="field-row">
-          <label>Email</label>
-          <input type="email" name="email" required />
-        </div>
-        <div class="field-row">
-          <label>Password</label>
-          <input type="password" name="password" required />
-        </div>
-        <button type="submit" class="cta primary">ENTER ENGINE</button>
-        <button type="button" class="cta ghost" data-view-target="root">BACK TO TILES</button>
-      </form>
-    </section>
-
-    <section id="view-engine-gallery" class="view hidden">
-      <h1>ENGINE GALLERY // PRIVATE</h1>
-      <p class="hint">Subscriber-only variations generated by INFINITY-CORE-ENGINE.</p>
-      <div id="engine-gallery-grid"></div>
-      <button type="button" class="cta ghost" data-view-target="root">BACK TO TILES</button>
-    </section>
-
-    <section id="view-public-gallery" class="view hidden">
-      <h1>PUBLIC GALLERY</h1>
-      <p class="hint">Browse and purchase with verification at checkout.</p>
-      <div id="public-gallery-grid"></div>
-      <button type="button" class="cta ghost" data-view-target="root">BACK TO TILES</button>
-    </section>
-
-    <section id="view-public-verify" class="view hidden">
-      <h1>PUBLIC PURCHASE VERIFICATION</h1>
-
-      <h2>Billing Address</h2>
-      <form id="form-public-verify">
-        <div class="field-row">
-          <label>Full Name</label>
-          <input type="text" name="publicFullName" required />
-        </div>
-        <div class="field-row">
-          <label>Street Address</label>
-          <input type="text" name="publicAddressLine1" required />
-        </div>
-        <div class="field-row">
-          <label>Apartment / Suite (optional)</label>
-          <input type="text" name="publicAddressLine2" />
-        </div>
-        <div class="field-row">
-          <label>City</label>
-          <input type="text" name="publicCity" required />
-        </div>
-        <div class="field-row">
-          <label>State / Region</label>
-          <input type="text" name="publicState" required />
-        </div>
-        <div class="field-row">
-          <label>Postal Code</label>
-          <input type="text" name="publicPostalCode" required />
-        </div>
-        <div class="field-row">
-          <label>Country</label>
-          <input type="text" name="publicCountry" required />
-        </div>
-
-        <h2>Step 1: Selfie + ID</h2>
-        <p class="hint">You are verifying your identity for a secure purchase.</p>
-        <div class="field-row">
-          <label>Selfie Capture</label>
-          <input type="file" name="publicSelfie" accept="image/*" capture="user" required />
-        </div>
-        <div class="field-row">
-          <label>ID Photo (front)</label>
-          <input type="file" name="publicIdFront" accept="image/*" required />
-        </div>
-
-        <h2>Step 2: Payment Details</h2>
-        <p class="hint">The name on your card must match your billing name.</p>
-        <div class="field-row">
-          <label>Name on Card</label>
-          <input type="text" name="publicCardName" required />
-        </div>
-        <div class="field-row">
-          <label>Card Number</label>
-          <input type="text" name="publicCardNumber" inputmode="numeric" required />
-        </div>
-        <div class="field-row">
-          <label>Expiry</label>
-          <input type="text" name="publicCardExpiry" placeholder="MM/YY" required />
-        </div>
-        <div class="field-row">
-          <label>CVC</label>
-          <input type="text" name="publicCardCvc" inputmode="numeric" required />
-        </div>
-
-        <button type="submit" class="cta primary">COMPLETE VERIFIED PURCHASE</button>
-        <button type="button" class="cta ghost" data-view-target="view-public-gallery">BACK TO PUBLIC GALLERY</button>
-      </form>
-    </section>
-
-    <section id="view-request-hub" class="view hidden">
-      <h1>REQUEST HUB</h1>
-      <p class="hint">Subscribers and visitors can submit briefs and engine requests.</p>
-      <form id="form-request">
-        <div class="field-row">
-          <label>Your Email</label>
-          <input type="email" name="requestEmail" required />
-        </div>
-        <div class="field-row">
-          <label>Request Type</label>
-          <select name="requestType" required>
-            <option value="">Select</option>
-            <option value="engine-variation">Engine variation</option>
-            <option value="video-sequence">Video sequence</option>
-            <option value="gallery-slot">Gallery slot</option>
-            <option value="freelancer-portfolio">Freelancer portfolio</option>
-          </select>
-        </div>
-        <div class="field-row">
-          <label>Brief</label>
-          <textarea name="requestBrief" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="cta primary">SEND REQUEST</button>
-        <button type="button" class="cta ghost" data-view-target="root">BACK TO TILES</button>
-      </form>
-    </section>
+    <button id="btnStartEngine" class="ic-btn">Start Engine</button>
+    <br /><br />
+    <button id="btnCopyDomain" class="ic-btn">Copy Domain</button>
   </div>
+
+  <div id="icToast"></div>
+
+  <!-- Sentinel -->
+  <script src="sentinel/sentinel-core.js"></script>
+  <script src="sentinel/instinct-engine.js"></script>
+  <script src="sentinel/spirit-ui.js"></script>
+  <script src="sentinel/warroom-ops.js"></script>
+  <script src="sentinel/godlevel-render.js"></script>
+
+  <!-- Pipeline -->
+  <script src="pipeline/render-queue.js"></script>
+  <script src="pipeline/pipeline-config.js"></script>
+
+  <!-- Billing -->
+  <script src="billing/billing-shell.js"></script>
+  <script src="billing/credits-engine.js"></script>
+
+  <!-- System -->
+  <script src="system/system-kernel.js"></script>
+  <script src="system/system-diagnostics.js"></script>
+  <script src="system/system-events.js"></script>
+
 </body>
 </html>
+

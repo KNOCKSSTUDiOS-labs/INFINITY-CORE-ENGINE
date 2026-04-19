@@ -1,0 +1,12 @@
+.ic-hero-title span {
+  text-shadow: 0 0 18px rgba(255, 75, 154, 0.7),
+               0 0 26px rgba(75, 227, 255, 0.6);
+}
+
+.ic-engine-status-dot {
+  box-shadow: 0 0 14px rgba(255, 75, 154, 0.9);
+}
+
+.ic-pill-live {
+  box-shadow: 0 0 18px rgba(75, 227, 255, 0.4);
+}

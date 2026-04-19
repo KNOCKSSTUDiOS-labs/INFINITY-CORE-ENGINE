@@ -1,0 +1,7 @@
+1. Domain Lock: ON
+2. Transfer Lock: ON
+3. WHOIS Editing: Disabled
+4. DNS Editing: Requires full login
+5. Registrar 2FA: Enabled
+6. Backup Email + Phone: Added
+7. API Access: Disabled

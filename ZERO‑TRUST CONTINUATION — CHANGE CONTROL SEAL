@@ -1,0 +1,16 @@
+1. Any DNS change requires:
+   - Full login to registrar
+   - Full login to Vercel
+   - Manual verification of nameservers
+   - Manual verification of A + CNAME records
+
+2. Any repo change requires:
+   - Authenticated GitHub login
+   - Branch protection approval
+   - PR review (even if you are the only reviewer)
+
+3. Any domain configuration change must be logged:
+   - Date
+   - Time
+   - What changed
+   - Why it changed

@@ -2,4 +2,6 @@
 @ → 185.199.109.153
 @ → 185.199.110.153
 @ → 185.199.111.153
-www → <knocksstudios-labs>.github.io
+
+www → knocksstudios-labs.github.io
+TTL: 3600

@@ -1,0 +1,7 @@
+1. Registrar locked
+2. DNS minimal + correct
+3. CNAME file present
+4. HTTPS enforced
+5. No unknown DNS records
+6. 2FA everywhere
+7. Repo protected

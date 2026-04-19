@@ -1,0 +1,6 @@
+Trigger alert if:
+1. A-records change from GitHub IPs
+2. CNAME changes from knocksstudios-labs.github.io
+3. Nameservers change from ns1/ns2.vercel-dns.com
+4. SSL certificate issuer changes unexpectedly
+5. HTTP → HTTPS redirect fails
