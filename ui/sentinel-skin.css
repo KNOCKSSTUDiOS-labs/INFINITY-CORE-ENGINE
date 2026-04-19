@@ -1,33 +1,12 @@
-/* Hybrid cinematic + industrial Sentinel skin */
-
-.ic-hero-card::after,
-.ic-engine-card::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background:
-    radial-gradient(circle at 0 0, rgba(255, 75, 154, 0.12) 0, transparent 55%),
-    radial-gradient(circle at 100% 0, rgba(75, 227, 255, 0.12) 0, transparent 55%);
-  opacity: 0.6;
-  pointer-events: none;
+.ic-hero-title span {
+  text-shadow: 0 0 18px rgba(255, 75, 154, 0.7),
+               0 0 26px rgba(75, 227, 255, 0.6);
 }
 
-.ic-engine-card {
-  border-image: linear-gradient(120deg, rgba(255, 75, 154, 0.6), rgba(75, 227, 255, 0.4)) 1;
+.ic-engine-status-dot {
+  box-shadow: 0 0 14px rgba(255, 75, 154, 0.9);
 }
 
-.ic-main-grid,
-.ic-layers-grid,
-.ic-bottom-grid {
-  position: relative;
+.ic-pill-live {
+  box-shadow: 0 0 18px rgba(75, 227, 255, 0.4);
 }
-
-.ic-main-grid::before {
-  content: "";
-  position: absolute;
-  inset: -10px;
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.02);
-  pointer-events: none;
-}
-
