@@ -1,17 +1,16 @@
-const AtmosphereEngine = {
+const SoundstageEngine = {
   plan(core, script) {
-    const hasDarkWords = /dark|night|shadow|void|unknown|fear/i.test(script);
-    const hasBrightWords = /light|hope|dawn|sunrise|sky|glow/i.test(script);
+    const intense = /run|scream|chase|explode|panic|terror/i.test(script);
 
     return {
-      fogDensity: hasDarkWords ? 0.7 : 0.3,
-      lightRays: hasBrightWords,
-      particleIntensity: 0.6,
-      depthLayers: 4,
-      colorTemperature: hasDarkWords ? "cool" : "neutral",
-      notes: "Atmosphere tuned from script tone keywords."
+      bed: intense ? "tension_bed_high" : "ambient_bed_low",
+      hits: intense ? ["impact_heavy_1", "impact_heavy_2"] : ["soft_boom_1"],
+      subBass: intense ? 0.9 : 0.5,
+      shimmer: 0.6,
+      sting: "infinity_core_signature_sting",
+      notes: "Soundstage derived from action intensity in script."
     };
   }
 };
 
-window.AtmosphereEngine = AtmosphereEngine;
+window.SoundstageEngine = SoundstageEngine;
