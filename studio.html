@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HollywoodImaging.studio | KNOCKSSTUDiOS MOTiON Pictures</title>
+  <link rel="stylesheet" href="studio.css" />
+</head>
+<body>
+  <div id="app">
+    <h1>KNOCKSSTUDiOS Hollywood MOTiON Pictures</h1>
+    <p>Powered by INFINITY-CORE-ENGINE</p>
+
+    <textarea id="scriptInput" placeholder="Paste your story/script here..."></textarea>
+
+    <button id="run">GENERATE CINEMATIC</button>
+
+    <pre id="out"></pre>
+  </div>
+
+  <!-- Core engine from your repo -->
+  <script src="../engine-core.js"></script>
+
+  <!-- Cinema layer -->
+  <script src="motion-engine.js"></script>
+  <script src="atmosphere-engine.js"></script>
+  <script src="soundstage-engine.js"></script>
+  <script src="logo-engine.js"></script>
+  <script src="render-engine.js"></script>
+  <script src="studio-engine.js"></script>
+
+  <script>
+    document.getElementById('run').addEventListener('click', async () => {
+      const script = document.getElementById('scriptInput').value;
+      const result = await window.runStudioPipeline(script);
+      document.getElementById('out').textContent = result;
+    });
+  </script>
+</body>
+</html>
