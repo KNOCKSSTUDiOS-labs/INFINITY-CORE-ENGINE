@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="dark" />
+<title>INFINITY-CORE-ENGINE powered by KNOCKSSTUDiOS</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        cyan: { DEFAULT: '#00F0FF', dark: '#00a0aa', dim: '#003a3f', light: '#99ffff' },
+        chrome: '#1a1a2e',
+        carbon: '#0d0d0d',
+        void: '#000000',
+        gold: '#FFD700',
+      },
+    },
+  },
+};
+</script>
+<style>
+@keyframes nebulaShift{0%{background-position:0% 0%,50% 50%,100% 100%}50%{background-position:60% 40%,40% 80%,20% 60%}100%{background-position:0% 0%,50% 50%,100% 100%}}
+@keyframes gridRecede{0%{transform:perspective(600px) rotateX(55deg) translateY(0)}100%{transform:perspective(600px) rotateX(55deg) translateY(40px)}}
+@keyframes scanlineMove{0%{transform:translateY(0)}100%{transform:translateY(2px)}}
+@keyframes energyLineA{0%{transform:translateX(-100%)}100%{transform:translateX(100vw)}}
+@keyframes energyLineB{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
+@keyframes heroPulse{0%,100%{opacity:0}50%{opacity:.08}}
+@keyframes grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-2%,-3%)}30%{transform:translate(-1%,4%)}50%{transform:translate(-3%,1%)}70%{transform:translate(-4%,3%)}90%{transform:translate(3%,4%)}}
+@keyframes pulse-glow{0%,100%{opacity:.3;box-shadow:0 0 5px #00F0FF}50%{opacity:1;box-shadow:0 0 25px #00F0FF,0 0 50px #00F0FF44}}
+@keyframes pulse-text{0%,100%{text-shadow:0 0 5px #00F0FF44}50%{text-shadow:0 0 30px #00F0FF,0 0 60px #00F0FF66}}
+@keyframes typing-cursor{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes float-y{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes float-y2{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes float-y3{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes border-travel{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes glitch1{0%,92%,100%{transform:none;opacity:1}93%{transform:translate(-3px,1px) skewX(-2deg);opacity:.8}95%{transform:translate(-1px,2px);opacity:.7}96%{transform:none;opacity:1}}
+@keyframes spin-slow{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes breathe{0%,100%{opacity:.3}50%{opacity:.8}}
+@keyframes fadeUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes v-pulse{0%,100%{opacity:.04;filter:blur(2px)}50%{opacity:.09;filter:blur(4px)}}
+@keyframes countUp{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+@keyframes cardBorderGlow{0%,100%{border-color:rgba(0,240,255,.15);box-shadow:0 0 0 rgba(0,240,255,0)}50%{border-color:rgba(0,240,255,.4);box-shadow:0 0 15px rgba(0,240,255,.1)}}
+@keyframes headingGlow{0%,100%{text-shadow:0 0 10px rgba(0,240,255,.15)}50%{text-shadow:0 0 25px rgba(0,240,255,.4),0 0 50px rgba(0,240,255,.15)}}
+@keyframes metalShine{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes bootBar{0%,100%{height:10%}50%{height:80%}}
+@keyframes playheadMove{0%{left:0}100%{left:100%}}
+@keyframes eqBar{0%,100%{height:15%}50%{height:var(--eq-h,80%)}}
+@keyframes logoPulse{0%,100%{text-shadow:0 0 8px #00F0FF44}50%{text-shadow:0 0 20px #00F0FF,0 0 40px #00F0FF44}}
+@keyframes marquee{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+@keyframes popIn{0%{transform:scale(0);opacity:0}80%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+@keyframes modalIn{0%{opacity:0;transform:scale(.9) translateY(20px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes pipelineDot{0%{left:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:100%;opacity:0}}
+@keyframes travelBorder{0%{background-position:0 0}100%{background-position:400% 0}}
+@keyframes pulseSubscribe{0%,100%{box-shadow:0 0 8px #00F0FF44}50%{box-shadow:0 0 20px #00F0FF,0 0 40px #00F0FF44}}
+@keyframes energyWave{0%{transform:translateX(-100%);opacity:.7}100%{transform:translateX(100vw);opacity:0}}
+
+*{cursor:crosshair;margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+::selection{background:#00F0FF33;color:#00F0FF}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#000}
+::-webkit-scrollbar-thumb{background:#00F0FF44;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#00F0FF88}
+body{background:#000;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;overflow-x:hidden}
+
+.nebula-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;background:radial-gradient(ellipse 800px 600px at 20% 30%,#050520 0%,transparent 70%),radial-gradient(ellipse 600px 800px at 75% 70%,#001a1a 0%,transparent 70%),radial-gradient(ellipse 900px 500px at 50% 50%,#0a0018 0%,transparent 60%);background-size:200% 200%,200% 200%,200% 200%;animation:nebulaShift 60s ease-in-out infinite;will-change:background-position}
+.grid-bg{position:fixed;top:0;left:0;width:100%;height:200%;background-image:linear-gradient(rgba(0,240,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.025) 1px,transparent 1px);background-size:40px 40px;animation:gridRecede 8s linear infinite;transform-origin:center top;z-index:0;pointer-events:none}
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.scanline-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:3;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);animation:scanlineMove .5s linear infinite}
+.energy-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:3;pointer-events:none;overflow:hidden}
+.energy-line{position:absolute;left:0;width:200px;height:1px;background:linear-gradient(90deg,transparent,#00F0FF,transparent);opacity:.12}
+.energy-line:nth-child(1){top:25%;animation:energyLineA 8s linear infinite}
+.energy-line:nth-child(2){top:55%;animation:energyLineB 12s linear infinite;width:300px}
+.energy-line:nth-child(3){top:80%;animation:energyLineA 16s linear infinite;width:150px;opacity:.08}
+
+body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");animation:grain .5s steps(6) infinite;z-index:9998;pointer-events:none;opacity:.5}
+
+.watermark-pattern{position:fixed;top:-50%;left:-50%;width:200%;height:200%;z-index:1;pointer-events:none;transform:rotate(-30deg);background-image:repeating-linear-gradient(0deg,transparent,transparent 120px,rgba(0,240,255,.012) 120px,rgba(0,240,255,.012) 121px)}
+.watermark-pattern::after{content:'KNOCKS HOLLYWOOD MOTiON PICTURES · ';position:absolute;top:0;left:0;width:200%;height:200%;font-family:'Courier New',monospace;font-size:14px;letter-spacing:8px;line-height:100px;color:rgba(0,240,255,.025);white-space:nowrap;word-break:break-all;overflow:hidden}
+
+#scroll-progress{position:fixed;top:0;left:0;height:2px;z-index:10001;background:linear-gradient(90deg,#00F0FF,#00F0FFaa);box-shadow:0 0 8px #00F0FF;width:0;transition:width .1s linear}
+#mouse-light{position:fixed;width:400px;height:400px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(0,240,255,.04) 0%,transparent 70%);transform:translate(-50%,-50%);z-index:3;display:none}
+.energy-wave-line{position:fixed;top:50%;left:0;width:200px;height:2px;z-index:9999;background:linear-gradient(90deg,transparent,#00F0FF,transparent);opacity:0;pointer-events:none}
+.energy-wave-line.active{animation:energyWave .6s ease-out forwards}
+.main-content{position:relative;z-index:4}
+
+.boot-screen{position:fixed;top:0;left:0;width:100vw;height:100vh;background:#000;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Courier New',Courier,monospace;color:#00F0FF}
+.boot-dot{width:8px;height:8px;background:#00F0FF;border-radius:50%;animation:pulse-glow .5s ease 2}
+.boot-text{font-size:14px;margin-top:20px;min-height:20px}
+.boot-cursor{display:inline-block;width:10px;height:18px;background:#00F0FF;animation:typing-cursor .4s step-end infinite;vertical-align:middle;margin-left:2px;box-shadow:0 0 8px #00F0FF}
+.boot-progress-bar{width:300px;max-width:80vw;height:3px;background:#111;margin-top:16px;border-radius:2px;overflow:hidden}
+.boot-progress-fill{height:100%;width:0;background:linear-gradient(90deg,#00F0FF,#00F0FF88);box-shadow:0 0 10px #00F0FF;transition:width .1s}
+.boot-terminal{font-size:12px;margin-top:16px;text-align:left;max-height:240px;overflow:hidden;line-height:1.6}
+.boot-terminal div{opacity:0;animation:fadeUp .15s forwards}
+.boot-bars{display:flex;gap:3px;align-items:flex-end;height:30px;margin-top:12px}
+.boot-bar{width:4px;background:#00F0FF;border-radius:1px;animation:bootBar .5s ease-in-out infinite}
+
+.section-divider{width:100%;height:2px;position:relative;overflow:hidden;margin:0;background:linear-gradient(90deg,transparent,#00F0FF22,transparent)}
+.section-divider::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,#00F0FF,transparent);animation:border-travel 3s linear infinite}
+
+.anim-hidden{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.anim-visible{opacity:1!important;transform:translateY(0)!important}
+
+.card-hover{transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s,border-color .3s;animation:cardBorderGlow 4s ease-in-out infinite}
+.card-hover:hover{transform:translateY(-6px);box-shadow:0 0 30px #00F0FF22;border-color:#00F0FF!important}
+
+.nav-link{position:relative;letter-spacing:.15em;font-size:12px;transition:color .3s,text-shadow .3s;white-space:nowrap}
+.nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#00F0FF;transition:width .3s;box-shadow:0 0 6px #00F0FF}
+.nav-link:hover::after,.nav-link.active::after{width:100%}
+.nav-link:hover,.nav-link.active{color:#00F0FF;text-shadow:0 0 15px #00F0FF66}
+
+.section-heading{animation:headingGlow 4s ease-in-out infinite}
+.metallic-title{background:linear-gradient(90deg,#b0b0b0,#e0e0e0,#00F0FF,#e0e0e0,#b0b0b0);background-size:400% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:metalShine 6s linear infinite}
+.v-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:min(50vw,400px);font-weight:900;color:#00F0FF;opacity:.05;animation:v-pulse 4s ease-in-out infinite;pointer-events:none;z-index:0;user-select:none}
+.hero-radial-pulse{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,240,255,.1) 0%,transparent 70%);animation:heroPulse 4s ease-in-out infinite;pointer-events:none;z-index:0}
+
+.counter-value{font-family:'Courier New',monospace;font-size:2rem;font-weight:700;color:#00F0FF;text-shadow:0 0 20px #00F0FF66}
+
+.terminal-window{background:#050a0c;border:1px solid #00F0FF33;border-radius:8px;padding:1.5rem;font-family:'Courier New',monospace;font-size:13px;color:#00F0FF;min-height:60px;position:relative;overflow:hidden;box-shadow:0 0 30px #00F0FF11}
+.terminal-window::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,240,255,.015) 2px,rgba(0,240,255,.015) 4px);pointer-events:none}
+
+.carbon-texture{background-image:repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(255,255,255,.01) 2px,rgba(255,255,255,.01) 4px)}
+.nav-solid{background:rgba(0,0,0,.95)!important;backdrop-filter:blur(10px);border-bottom:1px solid #00F0FF22}
+
+.eq-bar{width:6px;background:linear-gradient(to top,#00F0FF,#00F0FF88);border-radius:2px 2px 0 0;box-shadow:0 0 6px #00F0FF44;animation:eqBar 0.8s ease-in-out infinite alternate}
+.timeline-block{border-radius:3px;height:100%;position:absolute}
+.playhead-line{position:absolute;top:0;width:2px;height:100%;background:#00F0FF;box-shadow:0 0 10px #00F0FF;z-index:10;animation:playheadMove 12s linear infinite}
+
+.price-card{transition:transform .3s,box-shadow .3s,border-color .3s}
+.price-card:hover{transform:translateY(-8px);box-shadow:0 0 30px #00F0FF22;border-color:#00F0FF!important}
+.price-card.featured{transform:scale(1.03);border-color:#00F0FF!important;box-shadow:0 0 20px #00F0FF22}
+.price-card.featured:hover{transform:scale(1.03) translateY(-8px)}
+
+.btn-cyan{background:#00F0FF;color:#000;font-weight:700;padding:12px 24px;border-radius:6px;border:none;letter-spacing:.1em;font-size:13px;cursor:pointer;transition:box-shadow .3s,transform .2s;text-transform:uppercase;display:inline-block;text-align:center;text-decoration:none;min-height:44px;line-height:1.4}
+.btn-cyan:hover{box-shadow:0 0 25px #00F0FF66;transform:translateY(-2px)}
+.btn-cyan:active{transform:scale(.97)}
+.btn-outline{background:transparent;color:#00F0FF;font-weight:700;padding:12px 24px;border-radius:6px;border:1px solid #00F0FF;letter-spacing:.1em;font-size:13px;cursor:pointer;transition:box-shadow .3s,background .3s,transform .2s;text-transform:uppercase;display:inline-block;text-align:center;text-decoration:none;min-height:44px;line-height:1.4}
+.btn-outline:hover{box-shadow:0 0 20px #00F0FF44;background:#00F0FF11;transform:translateY(-2px)}
+.btn-outline:active{transform:scale(.97)}
+.btn-gold{background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;font-weight:700;padding:12px 24px;border-radius:6px;border:none;letter-spacing:.1em;font-size:13px;cursor:pointer;transition:box-shadow .3s,transform .2s;text-transform:uppercase;display:inline-block;text-align:center;text-decoration:none;min-height:44px;line-height:1.4}
+.btn-gold:hover{box-shadow:0 0 25px #FFD70066;transform:translateY(-2px)}
+
+.product-card{transition:transform .3s,box-shadow .3s}
+.product-card:hover{transform:translateY(-6px);box-shadow:0 0 25px #00F0FF22}
+
+.feature-check{opacity:0;transform:translateX(-10px);transition:opacity .4s,transform .4s}
+.feature-check.visible{opacity:1;transform:translateX(0)}
+
+.toggle-track{width:48px;height:24px;border-radius:12px;background:#222;border:1px solid #00F0FF44;position:relative;cursor:pointer;transition:background .3s}
+.toggle-track.active{background:#00F0FF33}
+.toggle-thumb{width:20px;height:20px;border-radius:50%;background:#00F0FF;position:absolute;top:1px;left:2px;transition:left .3s;box-shadow:0 0 8px #00F0FF}
+.toggle-track.active .toggle-thumb{left:26px}
+
+.live-dot{width:8px;height:8px;border-radius:50%;background:#ff3333;animation:pulse-glow 1s ease infinite;box-shadow:0 0 6px #ff3333}
+
+.template-card{position:relative;background:#080810;border:1px solid transparent;border-radius:12px;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.template-card::before{content:'';position:absolute;inset:-1px;border-radius:12px;padding:1px;background:linear-gradient(90deg,#00F0FF22,#00F0FF88,#00F0FF22,#00F0FF88);background-size:400% 100%;animation:travelBorder 4s linear infinite;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:1}
+.template-card:hover{transform:translateY(-8px);box-shadow:0 0 30px #00F0FF22}
+
+.pipeline-connector{position:relative;flex:1;height:4px;background:#111;border-radius:2px;overflow:hidden;min-width:30px}
+.pipeline-connector::after{content:'';position:absolute;top:0;left:0;width:12px;height:100%;background:#00F0FF;border-radius:2px;box-shadow:0 0 10px #00F0FF;animation:pipelineDot 2s linear infinite}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:10002;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.modal-overlay.active{display:flex}
+.modal-card{background:#0a0a0a;border:1px solid #00F0FF44;border-radius:12px;padding:2rem;max-width:420px;width:90%;position:relative;animation:modalIn .4s cubic-bezier(.16,1,.3,1) forwards;box-shadow:0 0 60px #00F0FF22}
+
+.floating-subscribe{position:fixed;bottom:24px;right:24px;z-index:10000;opacity:0;transform:translateY(20px);transition:opacity .4s,transform .4s;pointer-events:none}
+.floating-subscribe.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.floating-subscribe button{animation:pulseSubscribe 2s ease-in-out infinite}
+
+section{contain:layout style paint}
+
+@media(max-width:768px){
+  .counter-value{font-size:1.5rem}
+  .nav-links-desktop{display:none!important}
+  .pricing-scroll{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding-bottom:12px;-webkit-overflow-scrolling:touch}
+  .pricing-scroll>*{scroll-snap-align:start;min-width:280px;flex-shrink:0}
+}
+</style>
+</head>
+<body data-id="0" class="bg-void min-h-screen">
+<app-icon data-id="1" hidden data-icon="atom" data-palette="Dark"></app-icon>
+
+<div data-id="2" id="scroll-progress"></div>
+<div data-id="3" id="mouse-light"></div>
+<div data-id="4" class="energy-wave-line" id="energy-wave"></div>
+
+<!-- BOOT SCREEN -->
+<div data-id="5" id="boot-screen" class="boot-screen">
+  <div data-id="6" id="boot-dot" class="boot-dot" style="opacity:0"></div>
+  <div data-id="7" class="boot-bars" id="boot-bars" style="opacity:0">
+    <div data-id="8" class="boot-bar" style="animation-delay:0s;height:10px"></div>
+    <div data-id="9" class="boot-bar" style="animation-delay:0.1s;height:15px"></div>
+    <div data-id="10" class="boot-bar" style="animation-delay:0.2s;height:8px"></div>
+    <div data-id="11" class="boot-bar" style="animation-delay:0.3s;height:20px"></div>
+    <div data-id="12" class="boot-bar" style="animation-delay:0.15s;height:12px"></div>
+    <div data-id="13" class="boot-bar" style="animation-delay:0.25s;height:18px"></div>
+    <div data-id="14" class="boot-bar" style="animation-delay:0.05s;height:14px"></div>
+    <div data-id="15" class="boot-bar" style="animation-delay:0.35s;height:10px"></div>
+  </div>
+  <div data-id="16" id="boot-text" class="boot-text"></div>
+  <div data-id="17" id="boot-progress" class="boot-progress-bar" style="opacity:0">
+    <div data-id="18" id="boot-fill" class="boot-progress-fill"></div>
+  </div>
+  <div data-id="19" id="boot-terminal" class="boot-terminal" style="opacity:0"></div>
+</div>
+
+<!-- BG LAYERS -->
+<div data-id="20" class="nebula-bg"></div>
+<div data-id="21" class="grid-bg"></div>
+<canvas data-id="22" id="particle-canvas"></canvas>
+<div data-id="23" class="scanline-overlay"></div>
+<div data-id="24" class="energy-lines">
+  <div data-id="25" class="energy-line"></div>
+  <div data-id="26" class="energy-line"></div>
+  <div data-id="27" class="energy-line"></div>
+</div>
+<div data-id="28" class="watermark-pattern"></div>
+
+<!-- AUTH MODAL -->
+<div data-id="29" id="auth-modal" class="modal-overlay">
+  <div data-id="30" class="modal-card">
+    <button data-id="31" id="auth-modal-close" class="absolute top-4 right-4 p-2 text-gray-400 hover:text-cyan transition-colors" style="min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center">
+      <i data-id="32" data-lucide="x" class="w-6 h-6"></i>
+    </button>
+    <h2 data-id="33" id="auth-modal-title" class="text-xl font-black tracking-widest mb-6" style="color:#00F0FF">JOIN THE ENGINE</h2>
+    <div data-id="34" class="space-y-4">
+      <div data-id="35">
+        <label data-id="36" class="block text-xs tracking-widest text-gray-500 mb-1">EMAIL</label>
+        <input data-id="37" type="email" id="auth-email" placeholder="your@email.com" class="w-full px-4 py-3 rounded-lg text-base bg-black border focus:outline-none focus:border-cyan transition-colors" style="border-color:#00F0FF22;color:#fff">
+      </div>
+      <div data-id="38">
+        <label data-id="39" class="block text-xs tracking-widest text-gray-500 mb-1">PASSWORD</label>
+        <input data-id="40" type="password" id="auth-password" placeholder="••••••••" class="w-full px-4 py-3 rounded-lg text-base bg-black border focus:outline-none focus:border-cyan transition-colors" style="border-color:#00F0FF22;color:#fff">
+      </div>
+      <button data-id="41" id="auth-submit-btn" class="btn-cyan w-full text-sm py-3">CREATE ACCOUNT</button>
+      <p data-id="42" id="auth-message" class="text-xs text-center" style="color:#00F0FF;min-height:16px"></p>
+      <div data-id="43" class="flex items-center gap-3 my-4">
+        <div data-id="44" class="flex-1 h-px" style="background:#00F0FF22"></div>
+        <span data-id="45" class="text-xs text-gray-600 tracking-widest">OR CONTINUE WITH</span>
+        <div data-id="46" class="flex-1 h-px" style="background:#00F0FF22"></div>
+      </div>
+      <div data-id="47" class="grid grid-cols-3 gap-3">
+        <button data-id="48" class="auth-social-btn flex items-center justify-center gap-2 py-3 px-3 rounded-lg text-xs font-bold text-gray-300 transition-colors hover:text-cyan" style="background:#111;border:1px solid #ffffff11;min-height:44px">
+          <i data-id="49" data-lucide="chrome" class="w-4 h-4"></i> Google
+        </button>
+        <button data-id="50" class="auth-social-btn flex items-center justify-center gap-2 py-3 px-3 rounded-lg text-xs font-bold text-gray-300 transition-colors hover:text-cyan" style="background:#111;border:1px solid #ffffff11;min-height:44px">
+          <i data-id="51" data-lucide="github" class="w-4 h-4"></i> GitHub
+        </button>
+        <button data-id="52" class="auth-social-btn flex items-center justify-center gap-2 py-3 px-3 rounded-lg text-xs font-bold text-gray-300 transition-colors hover:text-cyan" style="background:#111;border:1px solid #ffffff11;min-height:44px">
+          <i data-id="53" data-lucide="banknote" class="w-4 h-4"></i> Cash App
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING SUBSCRIBE BUTTON -->
+<div data-id="54" id="floating-subscribe" class="floating-subscribe">
+  <button data-id="55" id="floating-subscribe-btn" class="btn-cyan text-xs py-3 px-6 rounded-full flex items-center gap-2 shadow-lg">
+    <i data-id="56" data-lucide="sparkles" class="w-4 h-4"></i> SUBSCRIBE
+  </button>
+</div>
+
+<!-- MAIN SITE -->
+<div data-id="57" id="main-site" class="main-content" style="opacity:0;transform:scale(1.1);">
+
+<!-- NAVIGATION -->
+<nav data-id="58" id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500" style="background:rgba(0,0,0,0.8);backdrop-filter:blur(12px);">
+  <div data-id="59" class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
+    <div data-id="60" class="text-sm font-bold tracking-widest flex items-center gap-2" style="color:#00F0FF;animation:logoPulse 3s ease-in-out infinite;">
+      <span data-id="61">∞</span>
+      <span data-id="62" class="hidden sm:inline">ICE</span>
+    </div>
+    <div data-id="63" class="nav-links-desktop hidden md:flex gap-4 lg:gap-6 items-center">
+      <a data-id="64" href="#hero" class="nav-link text-gray-400" data-section="hero">HOME</a>
+      <a data-id="65" href="#studio" class="nav-link text-gray-400" data-section="studio">STUDIO</a>
+      <a data-id="66" href="#templates" class="nav-link text-gray-400" data-section="templates">TEMPLATES</a>
+      <a data-id="67" href="#mp4lab" class="nav-link text-gray-400" data-section="mp4lab">MP4 LAB</a>
+      <a data-id="68" href="#enterprise" class="nav-link text-gray-400" data-section="enterprise">ENTERPRISE</a>
+      <a data-id="69" href="#school" class="nav-link text-gray-400" data-section="school">SCHOOL</a>
+      <a data-id="70" href="#radio" class="nav-link text-gray-400" data-section="radio">RADIO</a>
+      <a data-id="71" href="#printshop" class="nav-link text-gray-400" data-section="printshop">PRINT SHOP</a>
+      <a data-id="72" href="#pricing" class="nav-link text-gray-400" data-section="pricing">PRICING</a>
+      <a data-id="73" href="#pipeline" class="nav-link text-gray-400" data-section="pipeline">PIPELINE</a>
+      <a data-id="74" href="#github" class="nav-link text-gray-400" data-section="github">GITHUB</a>
+    </div>
+    <div data-id="75" class="flex items-center gap-2">
+      <a data-id="76" href="#studio" class="btn-cyan hidden sm:inline-block text-xs py-2 px-4">LAUNCH ENGINE</a>
+      <button data-id="77" class="btn-outline hidden sm:inline-block text-xs py-2 px-4" id="login-btn">LOGIN</button>
+      <button data-id="78" id="mobile-menu-btn" class="md:hidden p-2 text-gray-300 hover:text-cyan" style="min-width:44px;min-height:44px">
+        <i data-id="79" data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div data-id="80" id="mobile-menu" class="fixed inset-0 bg-black/95 z-[100] hidden flex-col items-center justify-center gap-5 overflow-y-auto" style="backdrop-filter:blur(20px);">
+  <button data-id="81" id="mobile-menu-close" class="absolute top-4 right-4 p-3 text-gray-300 hover:text-cyan" style="min-width:44px;min-height:44px">
+    <i data-id="82" data-lucide="x" class="w-7 h-7"></i>
+  </button>
+  <a data-id="83" href="#hero" class="mobile-nav-link text-lg tracking-widest text-gray-300 hover:text-cyan transition-colors py-2">HOME</a>
+  <a data-id="84" href="#studio" class="mobile-nav-link text-lg tracking-widest text-gray-300 hover:text-cyan transition-colors py-2">STUDIO</a>
+  <a data-id="85" href="#templates" class="mobile-nav-link text-lg tracking-widest text-gray-300 hover:text-cyan transition-colors py-2">TEMPLATES</a>
+  <a data-id="86" href="#mp4lab" class="mobile-nav-link text-lg tracking-widest text-gray-300 hover:text-cyan transition-colors py-2">MP4 LAB</a>
+  <a data-id="87" href="#enterprise" class="mobile-nav-link text-lg tracking-widest text-gray-300 hover:text-cyan transition-colors py-2">ENTERPRISE</a>
+  <a data-id="88" href="#school" class="mobile-nav-link text-lg tracking-widest text-gray-300 hover:text-cyan transition-colors py-2">SCHOOL</a>
+  <a data-id="89" href="#radio" class="mobile-nav-link text-lg tracking-widest text-gray-300 hover:text-cyan transition-colors py-2">RADIO</a>
+  <a data-id="90" href="#printshop" class="mobile-nav-link text-lg tracking-widest text-gray-300 hover:text-cyan transition-colors py-2">PRINT SHOP</a>
+  <a data-id="91" href="#pricing" class="mobile-nav-link text-lg tracking-widest text-gray-300 hover:text-cyan transition-colors py-2">PRICING</a>
+  <a data-id="92" href="#pipeline" class="mobile-nav-link text-lg tracking-widest text-gray-300 hover:text-cyan transition-colors py-2">PIPELINE</a>
+  <a data-id="93" href="#github" class="mobile-nav-link text-lg tracking-widest text-gray-300 hover:text-cyan transition-colors py-2">GITHUB</a>
+  <div data-id="94" class="flex gap-3 mt-4">
+    <a data-id="95" href="#studio" class="btn-cyan text-xs py-2 px-5 mobile-nav-link">LAUNCH ENGINE</a>
+    <button data-id="96" class="btn-outline text-xs py-2 px-5 mobile-nav-link" id="login-btn-mob">LOGIN</button>
+  </div>
+</div>
+
+<!-- SECTION 1: HERO -->
+<section data-id="97" id="hero" class="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
+  <div data-id="98" class="hero-radial-pulse"></div>
+  <div data-id="99" class="v-watermark" aria-hidden="true">V</div>
+  <div data-id="100" class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div data-id="101" style="position:absolute;top:15%;left:10%;width:60px;height:60px;border:1px solid #00F0FF11;transform:rotate(30deg);animation:spin-slow 30s linear infinite"></div>
+    <div data-id="102" style="position:absolute;top:60%;right:15%;width:80px;height:80px;border:1px solid #00F0FF0a;clip-path:polygon(50% 0%,100% 100%,0% 100%);animation:spin-slow 25s linear infinite reverse"></div>
+    <div data-id="103" style="position:absolute;bottom:20%;left:20%;width:50px;height:50px;border:1px solid #00F0FF0d;clip-path:polygon(25% 0%,75% 0%,100% 50%,75% 100%,25% 100%,0% 50%);animation:spin-slow 35s linear infinite"></div>
+  </div>
+  <h1 data-id="104" id="hero-title" class="metallic-title text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-wider text-center relative z-10" style="font-family:'Courier New',monospace;"></h1>
+  <p data-id="105" id="hero-subtitle" class="text-base sm:text-lg md:text-xl tracking-[0.3em] mt-4 md:mt-6 relative z-10" style="color:#00F0FF;font-family:'Courier New',monospace;min-height:28px;"></p>
+  <p data-id="106" id="hero-desc" class="text-sm md:text-base text-gray-300 mt-4 text-center max-w-2xl relative z-10 opacity-0 transition-opacity duration-1000" style="line-height:1.8">Create. Render. Publish. The all-in-one cinematic engine for movies, music, print, and broadcast.</p>
+  <div data-id="107" id="hero-ctas" class="flex flex-col sm:flex-row gap-4 mt-8 relative z-10 opacity-0 transition-opacity duration-1000">
+    <button data-id="108" class="btn-cyan text-sm py-3 px-8 start-free-btn" style="animation:pulse-glow 2s ease-in-out infinite">START CREATING — FREE</button>
+    <a data-id="109" href="#pricing" class="btn-outline text-sm py-3 px-8">VIEW PLANS</a>
+  </div>
+  <div data-id="110" id="hero-studio" class="flex items-center gap-4 mt-6 relative z-10 opacity-0">
+    <div data-id="111" class="h-px bg-gradient-to-r from-transparent to-cyan flex-1 min-w-[40px] md:min-w-[80px]"></div>
+    <span data-id="112" class="text-xs tracking-[0.4em] text-gray-500">HOLLYWOOD IMAGING STUDIO</span>
+    <div data-id="113" class="h-px bg-gradient-to-l from-transparent to-cyan flex-1 min-w-[40px] md:min-w-[80px]"></div>
+  </div>
+  <div data-id="114" id="hero-stats" class="flex flex-wrap justify-center gap-4 md:gap-8 mt-8 relative z-10 opacity-0 transition-opacity duration-1000">
+    <div data-id="115" class="text-center"><div data-id="116" class="counter-value text-lg md:text-xl" data-target="10" data-suffix="K+" data-counted="false">0</div><div data-id="117" class="text-[10px] tracking-widest text-gray-500 mt-1">CREATORS</div></div>
+    <div data-id="118" class="text-center"><div data-id="119" class="counter-value text-lg md:text-xl" data-target="500" data-suffix="+" data-counted="false">0</div><div data-id="120" class="text-[10px] tracking-widest text-gray-500 mt-1">STUDIOS</div></div>
+    <div data-id="121" class="text-center"><div data-id="122" class="counter-value text-lg md:text-xl" data-target="200" data-suffix="+" data-counted="false">0</div><div data-id="123" class="text-[10px] tracking-widest text-gray-500 mt-1">SCHOOLS</div></div>
+    <div data-id="124" class="text-center"><div data-id="125" class="counter-value text-lg md:text-xl" data-target="50" data-suffix="+" data-counted="false">0</div><div data-id="126" class="text-[10px] tracking-widest text-gray-500 mt-1">ENTERPRISE</div></div>
+    <div data-id="127" class="text-center"><div data-id="128" class="counter-value text-lg md:text-xl" data-target="1" data-suffix="M+" data-counted="false">0</div><div data-id="129" class="text-[10px] tracking-widest text-gray-500 mt-1">RENDERS</div></div>
+  </div>
+</section>
+
+<div data-id="130" class="section-divider"></div>
+
+<!-- SECTION 2: STUDIO DASHBOARD -->
+<section data-id="131" id="studio" class="py-20 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+  <h2 data-id="132" class="section-heading text-3xl md:text-5xl font-black text-center tracking-[0.3em] mb-4 anim-hidden" style="color:#e8e8e8;">YOUR STUDIO</h2>
+  <p data-id="133" class="text-center text-gray-400 text-sm tracking-widest mb-16 anim-hidden">COMMAND CENTER • PRODUCTION TOOLS • ASSET PIPELINE</p>
+
+  <div data-id="134" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+    <div data-id="135" class="card-hover anim-hidden carbon-texture rounded-lg border border-cyan/10 overflow-hidden" style="background:#0a0a0a" data-delay="0">
+      <div data-id="136" class="border-l-4 border-cyan p-6">
+        <div data-id="137" class="text-4xl mb-3" style="animation:float-y 3s ease-in-out infinite"><i data-id="138" data-lucide="clapperboard" class="w-10 h-10" style="color:#00F0FF"></i></div>
+        <h3 data-id="139" class="text-lg font-bold tracking-wider mb-2" style="color:#00F0FF;">MP4 MOVIE LAB</h3>
+        <p data-id="140" class="text-sm text-gray-300 leading-relaxed mb-4">Create professional MP4 videos from scratch. Timeline editor, effects pipeline, export in 4K.</p>
+        <div data-id="141" class="rounded bg-black/60 p-3 mb-4 h-16 relative overflow-hidden" style="border:1px solid #00F0FF11">
+          <div data-id="142" class="flex gap-1 h-full items-end">
+            <div data-id="143" class="h-full w-1/4 bg-cyan/30 rounded-sm"></div>
+            <div data-id="144" class="h-3/4 w-1/6 bg-cyan/50 rounded-sm"></div>
+            <div data-id="145" class="h-full w-1/3 bg-cyan/20 rounded-sm"></div>
+            <div data-id="146" class="h-1/2 w-1/5 bg-purple-500/30 rounded-sm"></div>
+            <div data-id="147" class="h-3/4 w-1/4 bg-cyan/40 rounded-sm"></div>
+          </div>
+          <div data-id="148" class="absolute top-0 left-1/3 w-0.5 h-full bg-cyan shadow-lg shadow-cyan/50" style="animation:playheadMove 8s linear infinite"></div>
+        </div>
+        <a data-id="149" href="#mp4lab" class="btn-cyan text-xs py-2 px-6 inline-block">OPEN LAB</a>
+      </div>
+    </div>
+
+    <div data-id="150" class="card-hover anim-hidden carbon-texture rounded-lg border border-cyan/10 overflow-hidden" style="background:#0a0a0a" data-delay="150">
+      <div data-id="151" class="border-l-4 border-cyan p-6">
+        <div data-id="152" class="text-4xl mb-3" style="animation:float-y2 3.5s ease-in-out infinite"><i data-id="153" data-lucide="zap" class="w-10 h-10" style="color:#00F0FF"></i></div>
+        <h3 data-id="154" class="text-lg font-bold tracking-wider mb-2" style="color:#00F0FF;">RENDER ENGINE</h3>
+        <p data-id="155" class="text-sm text-gray-300 leading-relaxed mb-4">Real-time rendering pipeline. Cinematic quality. GPU-accelerated processing.</p>
+        <div data-id="156" class="rounded bg-black/60 p-3 mb-4 space-y-2" style="border:1px solid #00F0FF11">
+          <div data-id="157" class="flex items-center gap-2"><span data-id="158" class="text-[10px] text-gray-500 w-8">GPU1</span><div data-id="159" class="flex-1 h-2 bg-black rounded-full overflow-hidden"><div data-id="160" class="h-full rounded-full" id="render-bar-1" style="width:0;background:linear-gradient(90deg,#00F0FF,#00F0FF88);transition:width 3s ease"></div></div></div>
+          <div data-id="161" class="flex items-center gap-2"><span data-id="162" class="text-[10px] text-gray-500 w-8">GPU2</span><div data-id="163" class="flex-1 h-2 bg-black rounded-full overflow-hidden"><div data-id="164" class="h-full rounded-full" id="render-bar-2" style="width:0;background:linear-gradient(90deg,#00F0FF,#00F0FF88);transition:width 4s ease"></div></div></div>
+          <div data-id="165" class="flex items-center gap-2"><span data-id="166" class="text-[10px] text-gray-500 w-8">CPU</span><div data-id="167" class="flex-1 h-2 bg-black rounded-full overflow-hidden"><div data-id="168" class="h-full rounded-full" id="render-bar-3" style="width:0;background:linear-gradient(90deg,#00F0FF,#00F0FF88);transition:width 2.5s ease"></div></div></div>
+        </div>
+        <button data-id="169" class="btn-cyan text-xs py-2 px-6" id="start-render-btn">START RENDER</button>
+      </div>
+    </div>
+
+    <div data-id="170" class="card-hover anim-hidden carbon-texture rounded-lg border border-cyan/10 overflow-hidden" style="background:#0a0a0a" data-delay="300">
+      <div data-id="171" class="border-l-4 border-cyan p-6">
+        <div data-id="172" class="text-4xl mb-3" style="animation:float-y3 2.8s ease-in-out infinite"><i data-id="173" data-lucide="video" class="w-10 h-10" style="color:#00F0FF"></i></div>
+        <h3 data-id="174" class="text-lg font-bold tracking-wider mb-2" style="color:#00F0FF;">CINEMA SUITE</h3>
+        <p data-id="175" class="text-sm text-gray-300 leading-relaxed mb-4">Professional editing tools. Color grading. Sound design. Visual effects pipeline.</p>
+        <div data-id="176" class="rounded bg-black/60 p-3 mb-4 flex items-center justify-center h-16" style="border:1px solid #00F0FF11">
+          <div data-id="177" class="w-12 h-12 rounded-full" style="background:conic-gradient(#ff0000,#ff8800,#ffff00,#00ff00,#0088ff,#8800ff,#ff0088,#ff0000);animation:spin-slow 8s linear infinite;opacity:0.6"></div>
+        </div>
+        <button data-id="178" class="btn-cyan text-xs py-2 px-6">OPEN SUITE</button>
+      </div>
+    </div>
+
+    <div data-id="179" class="card-hover anim-hidden carbon-texture rounded-lg border border-cyan/10 overflow-hidden" style="background:#0a0a0a" data-delay="450">
+      <div data-id="180" class="border-l-4 border-cyan p-6">
+        <div data-id="181" class="text-4xl mb-3" style="animation:float-y 3.2s ease-in-out infinite"><i data-id="182" data-lucide="package" class="w-10 h-10" style="color:#00F0FF"></i></div>
+        <h3 data-id="183" class="text-lg font-bold tracking-wider mb-2" style="color:#00F0FF;">ASSET LIBRARY</h3>
+        <p data-id="184" class="text-sm text-gray-300 leading-relaxed mb-4">Thousands of cinematic assets. Textures, effects, sounds, templates.</p>
+        <div data-id="185" class="rounded bg-black/60 p-3 mb-4 grid grid-cols-6 gap-1" style="border:1px solid #00F0FF11" id="asset-grid-preview"></div>
+        <button data-id="186" class="btn-cyan text-xs py-2 px-6">BROWSE ASSETS</button>
+      </div>
+    </div>
+  </div>
+
+  <h3 data-id="187" class="text-sm tracking-[0.3em] text-gray-400 mb-6 anim-hidden">RECENT PROJECTS</h3>
+  <div data-id="188" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <div data-id="189" class="anim-hidden rounded-lg p-4 border border-cyan/10" style="background:#080808" data-delay="0">
+      <div data-id="190" class="h-24 rounded mb-3" style="background:linear-gradient(135deg,#0a1520,#001a2a)"></div>
+      <div data-id="191" class="flex items-center justify-between mb-1">
+        <span data-id="192" class="text-sm text-gray-200 font-bold">TITAN_PROMO_v3.mp4</span>
+        <span data-id="193" class="text-[10px] px-2 py-0.5 rounded" style="background:#00F0FF22;color:#00F0FF">Rendering</span>
+      </div>
+      <span data-id="194" class="text-[10px] text-gray-500">Last edited: Apr 24, 2026</span>
+    </div>
+    <div data-id="195" class="anim-hidden rounded-lg p-4 border border-cyan/10" style="background:#080808" data-delay="100">
+      <div data-id="196" class="h-24 rounded mb-3" style="background:linear-gradient(135deg,#0a200a,#002a00)"></div>
+      <div data-id="197" class="flex items-center justify-between mb-1">
+        <span data-id="198" class="text-sm text-gray-200 font-bold">REALM_TRAILER_FINAL.mp4</span>
+        <span data-id="199" class="text-[10px] px-2 py-0.5 rounded" style="background:#28ca4222;color:#28ca42">Complete</span>
+      </div>
+      <span data-id="200" class="text-[10px] text-gray-500">Last edited: Apr 22, 2026</span>
+    </div>
+    <div data-id="201" class="anim-hidden rounded-lg p-4 border border-cyan/10" style="background:#080808" data-delay="200">
+      <div data-id="202" class="h-24 rounded mb-3" style="background:linear-gradient(135deg,#151015,#1a0a1a)"></div>
+      <div data-id="203" class="flex items-center justify-between mb-1">
+        <span data-id="204" class="text-sm text-gray-200 font-bold">SCHOOL_INTRO_DRAFT.mp4</span>
+        <span data-id="205" class="text-[10px] px-2 py-0.5 rounded" style="background:#ffffff15;color:#999">Draft</span>
+      </div>
+      <span data-id="206" class="text-[10px] text-gray-500">Last edited: Apr 20, 2026</span>
+    </div>
+  </div>
+</section>
+
+<div data-id="207" class="section-divider"></div>
+
+<!-- SECTION: TEMPLATES -->
+<section data-id="208" id="templates" class="py-20 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+  <h2 data-id="209" class="section-heading text-3xl md:text-5xl font-black text-center tracking-[0.3em] mb-4 anim-hidden" style="color:#e8e8e8;">TEMPLATES</h2>
+  <p data-id="210" class="text-center text-gray-300 text-sm md:text-base max-w-2xl mx-auto mb-16 anim-hidden" style="line-height:1.7">Ready-made templates for every project. Movies, music videos, ads, social posts, presentations.</p>
+
+  <div data-id="211" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="templates-grid">
+    <div data-id="212" class="template-card anim-hidden p-6 flex flex-col" data-delay="0">
+      <div data-id="213" class="text-5xl mb-4 text-center" style="filter:drop-shadow(0 0 15px #00F0FF44)">🎬</div>
+      <h3 data-id="214" class="text-base font-bold tracking-wider mb-2 text-center" style="color:#00F0FF">MOVIE TRAILER</h3>
+      <p data-id="215" class="text-sm text-gray-300 text-center mb-6 flex-1" style="line-height:1.6">Cinematic trailer template with title cards and transitions</p>
+      <button data-id="216" class="btn-cyan text-xs py-3 px-6 w-full">USE TEMPLATE</button>
+    </div>
+    <div data-id="217" class="template-card anim-hidden p-6 flex flex-col" data-delay="100">
+      <div data-id="218" class="text-5xl mb-4 text-center" style="filter:drop-shadow(0 0 15px #00F0FF44)">🎵</div>
+      <h3 data-id="219" class="text-base font-bold tracking-wider mb-2 text-center" style="color:#00F0FF">MUSIC VIDEO</h3>
+      <p data-id="220" class="text-sm text-gray-300 text-center mb-6 flex-1" style="line-height:1.6">Beat-synced visual template with effects pipeline</p>
+      <button data-id="221" class="btn-cyan text-xs py-3 px-6 w-full">USE TEMPLATE</button>
+    </div>
+    <div data-id="222" class="template-card anim-hidden p-6 flex flex-col" data-delay="200">
+      <div data-id="223" class="text-5xl mb-4 text-center" style="filter:drop-shadow(0 0 15px #00F0FF44)">📱</div>
+      <h3 data-id="224" class="text-base font-bold tracking-wider mb-2 text-center" style="color:#00F0FF">SOCIAL AD</h3>
+      <p data-id="225" class="text-sm text-gray-300 text-center mb-6 flex-1" style="line-height:1.6">9:16 vertical template optimized for TikTok, Reels, Shorts</p>
+      <button data-id="226" class="btn-cyan text-xs py-3 px-6 w-full">USE TEMPLATE</button>
+    </div>
+    <div data-id="227" class="template-card anim-hidden p-6 flex flex-col" data-delay="300">
+      <div data-id="228" class="text-5xl mb-4 text-center" style="filter:drop-shadow(0 0 15px #00F0FF44)">🏢</div>
+      <h3 data-id="229" class="text-base font-bold tracking-wider mb-2 text-center" style="color:#00F0FF">CORPORATE</h3>
+      <p data-id="230" class="text-sm text-gray-300 text-center mb-6 flex-1" style="line-height:1.6">Professional business presentation and promo template</p>
+      <button data-id="231" class="btn-cyan text-xs py-3 px-6 w-full">USE TEMPLATE</button>
+    </div>
+    <div data-id="232" class="template-card anim-hidden p-6 flex flex-col" data-delay="400">
+      <div data-id="233" class="text-5xl mb-4 text-center" style="filter:drop-shadow(0 0 15px #00F0FF44)">📺</div>
+      <h3 data-id="234" class="text-base font-bold tracking-wider mb-2 text-center" style="color:#00F0FF">YOUTUBE INTRO</h3>
+      <p data-id="235" class="text-sm text-gray-300 text-center mb-6 flex-1" style="line-height:1.6">Branded channel intro with logo reveal animation</p>
+      <button data-id="236" class="btn-cyan text-xs py-3 px-6 w-full">USE TEMPLATE</button>
+    </div>
+    <div data-id="237" class="template-card anim-hidden p-6 flex flex-col" data-delay="500">
+      <div data-id="238" class="text-5xl mb-4 text-center" style="filter:drop-shadow(0 0 15px #00F0FF44)">🎓</div>
+      <h3 data-id="239" class="text-base font-bold tracking-wider mb-2 text-center" style="color:#00F0FF">EDUCATIONAL</h3>
+      <p data-id="240" class="text-sm text-gray-300 text-center mb-6 flex-1" style="line-height:1.6">Lesson and tutorial template with chapter markers</p>
+      <button data-id="241" class="btn-cyan text-xs py-3 px-6 w-full">USE TEMPLATE</button>
+    </div>
+  </div>
+</section>
+
+<div data-id="242" class="section-divider"></div>
+
+<!-- SECTION 3: MP4 LAB -->
+<section data-id="243" id="mp4lab" class="py-20 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+  <h2 data-id="244" class="section-heading text-3xl md:text-5xl font-black text-center tracking-[0.3em] mb-16 anim-hidden" style="color:#e8e8e8;animation:glitch1 5s ease infinite;">MP4 MOVIE LAB</h2>
+  <div data-id="245" class="flex flex-col lg:flex-row gap-8">
+    <div data-id="246" class="flex-1 anim-hidden rounded-lg overflow-hidden" style="background:#050505;border:1px solid #00F0FF22" data-delay="0">
+      <div data-id="247" class="aspect-video flex items-center justify-center relative" style="background:#020208;border-bottom:1px solid #00F0FF11">
+        <span data-id="248" class="text-gray-500 tracking-widest text-xs">PREVIEW</span>
+        <button data-id="249" class="absolute inset-0 flex items-center justify-center" id="preview-play-btn">
+          <div data-id="250" class="w-14 h-14 rounded-full flex items-center justify-center" style="background:#00F0FF22;border:1px solid #00F0FF44">
+            <i data-id="251" data-lucide="play" class="w-6 h-6" style="color:#00F0FF"></i>
+          </div>
+        </button>
+      </div>
+      <div data-id="252" class="flex items-center gap-1 p-2" style="border-bottom:1px solid #00F0FF11;background:#080808">
+        <button data-id="253" class="p-2 rounded hover:bg-cyan/10 transition-colors text-gray-400 hover:text-cyan"><i data-id="254" data-lucide="play" class="w-4 h-4"></i></button>
+        <button data-id="255" class="p-2 rounded hover:bg-cyan/10 transition-colors text-gray-400 hover:text-cyan"><i data-id="256" data-lucide="pause" class="w-4 h-4"></i></button>
+        <button data-id="257" class="p-2 rounded hover:bg-cyan/10 transition-colors text-gray-400 hover:text-cyan"><i data-id="258" data-lucide="square" class="w-4 h-4"></i></button>
+        <button data-id="259" class="p-2 rounded hover:bg-cyan/10 transition-colors text-gray-400 hover:text-cyan"><i data-id="260" data-lucide="circle" class="w-4 h-4" style="color:#ff3333"></i></button>
+        <button data-id="261" class="p-2 rounded hover:bg-cyan/10 transition-colors text-gray-400 hover:text-cyan"><i data-id="262" data-lucide="scissors" class="w-4 h-4"></i></button>
+        <button data-id="263" class="p-2 rounded hover:bg-cyan/10 transition-colors text-gray-400 hover:text-cyan"><i data-id="264" data-lucide="undo-2" class="w-4 h-4"></i></button>
+        <div data-id="265" class="flex-1"></div>
+        <span data-id="266" id="timecode-display" class="text-xs font-mono" style="color:#00F0FF">00:00:00:00</span>
+      </div>
+      <div data-id="267" class="p-3 space-y-1.5 relative">
+        <div data-id="268" class="flex items-center gap-2"><span data-id="269" class="text-[10px] text-gray-500 w-6 font-mono">V1</span><div data-id="270" class="flex-1 h-6 rounded relative overflow-hidden" style="background:#111"><div data-id="271" class="timeline-block bg-cyan/30" style="left:5%;width:35%"></div><div data-id="272" class="timeline-block bg-cyan/40" style="left:45%;width:25%"></div><div data-id="273" class="timeline-block bg-cyan/25" style="left:75%;width:20%"></div></div></div>
+        <div data-id="274" class="flex items-center gap-2"><span data-id="275" class="text-[10px] text-gray-500 w-6 font-mono">V2</span><div data-id="276" class="flex-1 h-6 rounded relative overflow-hidden" style="background:#111"><div data-id="277" class="timeline-block bg-cyan/20" style="left:10%;width:20%"></div><div data-id="278" class="timeline-block bg-cyan/35" style="left:55%;width:30%"></div></div></div>
+        <div data-id="279" class="flex items-center gap-2"><span data-id="280" class="text-[10px] text-gray-500 w-6 font-mono">A1</span><div data-id="281" class="flex-1 h-6 rounded relative overflow-hidden" style="background:#111"><div data-id="282" class="timeline-block" style="left:0;width:60%;background:rgba(168,85,247,.3)"></div><div data-id="283" class="timeline-block" style="left:65%;width:30%;background:rgba(168,85,247,.25)"></div></div></div>
+        <div data-id="284" class="flex items-center gap-2"><span data-id="285" class="text-[10px] text-gray-500 w-6 font-mono">A2</span><div data-id="286" class="flex-1 h-6 rounded relative overflow-hidden" style="background:#111"><div data-id="287" class="timeline-block" style="left:20%;width:40%;background:rgba(168,85,247,.2)"></div></div></div>
+        <div data-id="288" class="flex items-center gap-2"><span data-id="289" class="text-[10px] text-gray-500 w-6 font-mono">FX</span><div data-id="290" class="flex-1 h-6 rounded relative overflow-hidden" style="background:#111"><div data-id="291" class="timeline-block" style="left:30%;width:15%;background:rgba(249,115,22,.3)"></div><div data-id="292" class="timeline-block" style="left:60%;width:10%;background:rgba(249,115,22,.25)"></div></div></div>
+        <div data-id="293" class="playhead-line" style="left:0"></div>
+      </div>
+      <div data-id="294" class="flex items-center justify-between p-3" style="border-top:1px solid #00F0FF11;background:#060606">
+        <button data-id="295" class="btn-cyan text-xs py-2 px-6">EXPORT MP4</button>
+        <span data-id="296" class="text-[10px] text-gray-400 font-mono hidden sm:inline">4K 3840×2160 | 24fps | H.264</span>
+      </div>
+    </div>
+
+    <div data-id="297" class="lg:w-[35%] space-y-3 anim-hidden" data-delay="200" id="mp4-features-list">
+      <div data-id="298" class="feature-check flex items-start gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="299" data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#00F0FF"></i><span data-id="300" class="text-sm text-gray-200 font-mono">Create from scratch or template</span></div>
+      <div data-id="301" class="feature-check flex items-start gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="302" data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#00F0FF"></i><span data-id="303" class="text-sm text-gray-200 font-mono">Import footage, audio, graphics</span></div>
+      <div data-id="304" class="feature-check flex items-start gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="305" data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#00F0FF"></i><span data-id="306" class="text-sm text-gray-200 font-mono">Multi-track timeline editing</span></div>
+      <div data-id="307" class="feature-check flex items-start gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="308" data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#00F0FF"></i><span data-id="309" class="text-sm text-gray-200 font-mono">Real-time preview playback</span></div>
+      <div data-id="310" class="feature-check flex items-start gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="311" data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#00F0FF"></i><span data-id="312" class="text-sm text-gray-200 font-mono">Built-in effects & transitions</span></div>
+      <div data-id="313" class="feature-check flex items-start gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="314" data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#00F0FF"></i><span data-id="315" class="text-sm text-gray-200 font-mono">Color grading tools</span></div>
+      <div data-id="316" class="feature-check flex items-start gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="317" data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#00F0FF"></i><span data-id="318" class="text-sm text-gray-200 font-mono">Sound design mixer</span></div>
+      <div data-id="319" class="feature-check flex items-start gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="320" data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#00F0FF"></i><span data-id="321" class="text-sm text-gray-200 font-mono">Export 720p, 1080p, 4K</span></div>
+      <div data-id="322" class="feature-check flex items-start gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="323" data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#00F0FF"></i><span data-id="324" class="text-sm text-gray-200 font-mono">Direct publish to social media</span></div>
+      <div data-id="325" class="feature-check flex items-start gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="326" data-lucide="check" class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#00F0FF"></i><span data-id="327" class="text-sm text-gray-200 font-mono">Batch rendering queue</span></div>
+    </div>
+  </div>
+</section>
+
+<div data-id="328" class="section-divider"></div>
+
+<!-- SECTION 4: ENTERPRISE -->
+<section data-id="329" id="enterprise" class="py-20 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+  <h2 data-id="330" class="section-heading text-3xl md:text-5xl font-black text-center tracking-[0.3em] mb-4 anim-hidden" style="color:#e8e8e8;">ENTERPRISE</h2>
+  <p data-id="331" class="text-center text-gray-300 text-sm md:text-base max-w-xl mx-auto mb-16 anim-hidden" style="line-height:1.7">Studio-grade tools for teams. Unlimited seats. Priority rendering. Dedicated support.</p>
+
+  <div data-id="332" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+    <div data-id="333" class="anim-hidden card-hover carbon-texture rounded-lg p-6 border-t-4" style="background:#0a0a0a;border-color:#00F0FF" data-delay="0">
+      <div data-id="334" class="mb-4"><i data-id="335" data-lucide="users" class="w-10 h-10" style="color:#00F0FF"></i></div>
+      <h3 data-id="336" class="text-lg font-bold tracking-wider mb-2" style="color:#00F0FF;">TEAM WORKSPACE</h3>
+      <p data-id="337" class="text-sm text-gray-300 leading-relaxed">Collaborate in real-time. Unlimited team members. Role-based permissions. Shared asset libraries.</p>
+    </div>
+    <div data-id="338" class="anim-hidden card-hover carbon-texture rounded-lg p-6 border-t-4" style="background:#0a0a0a;border-color:#00F0FF" data-delay="150">
+      <div data-id="339" class="mb-4"><i data-id="340" data-lucide="rocket" class="w-10 h-10" style="color:#00F0FF"></i></div>
+      <h3 data-id="341" class="text-lg font-bold tracking-wider mb-2" style="color:#00F0FF;">PRIORITY PIPELINE</h3>
+      <p data-id="342" class="text-sm text-gray-300 leading-relaxed">Dedicated render servers. 10x faster processing. Priority queue. SLA guarantee.</p>
+    </div>
+    <div data-id="343" class="anim-hidden card-hover carbon-texture rounded-lg p-6 border-t-4" style="background:#0a0a0a;border-color:#00F0FF" data-delay="300">
+      <div data-id="344" class="mb-4"><i data-id="345" data-lucide="building-2" class="w-10 h-10" style="color:#00F0FF"></i></div>
+      <h3 data-id="346" class="text-lg font-bold tracking-wider mb-2" style="color:#00F0FF;">WHITE LABEL</h3>
+      <p data-id="347" class="text-sm text-gray-300 leading-relaxed">Your brand, our engine. Custom domain. Remove KNOCKSSTUDiOS branding. API access.</p>
+    </div>
+  </div>
+
+  <p data-id="348" class="text-center text-xs tracking-[0.3em] text-gray-500 mb-6 anim-hidden">ENTERPRISE CLIENTS TRUST US</p>
+  <div data-id="349" class="flex flex-wrap justify-center gap-4 mb-10 anim-hidden">
+    <div data-id="350" class="px-6 py-3 rounded text-xs tracking-widest text-gray-400 font-bold" style="background:#0a0a0a;border:1px solid #ffffff08">STUDIO A</div>
+    <div data-id="351" class="px-6 py-3 rounded text-xs tracking-widest text-gray-400 font-bold" style="background:#0a0a0a;border:1px solid #ffffff08">NETWORK B</div>
+    <div data-id="352" class="px-6 py-3 rounded text-xs tracking-widest text-gray-400 font-bold" style="background:#0a0a0a;border:1px solid #ffffff08">AGENCY C</div>
+    <div data-id="353" class="px-6 py-3 rounded text-xs tracking-widest text-gray-400 font-bold" style="background:#0a0a0a;border:1px solid #ffffff08">PRODUCTION D</div>
+    <div data-id="354" class="px-6 py-3 rounded text-xs tracking-widest text-gray-400 font-bold" style="background:#0a0a0a;border:1px solid #ffffff08">MEDIA E</div>
+  </div>
+  <div data-id="355" class="text-center anim-hidden">
+    <button data-id="356" class="btn-cyan text-sm py-3 px-10 inline-flex items-center gap-2">REQUEST ENTERPRISE DEMO <i data-id="357" data-lucide="arrow-right" class="w-4 h-4"></i></button>
+  </div>
+</section>
+
+<div data-id="358" class="section-divider"></div>
+
+<!-- SECTION 5: SCHOOL -->
+<section data-id="359" id="school" class="py-20 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+  <h2 data-id="360" class="section-heading text-3xl md:text-5xl font-black text-center tracking-[0.3em] mb-4 anim-hidden" style="color:#e8e8e8;">SCHOOL</h2>
+  <p data-id="361" class="text-center text-gray-300 text-sm md:text-base max-w-xl mx-auto mb-16 anim-hidden" style="line-height:1.7">Learn filmmaking, animation, and engine development. Built for students, teachers, and institutions.</p>
+
+  <div data-id="362" class="flex flex-col lg:flex-row gap-8">
+    <div data-id="363" class="flex-1 space-y-4">
+      <div data-id="364" class="anim-hidden rounded-lg p-5 border border-cyan/10" style="background:#080810" data-delay="0">
+        <div data-id="365" class="flex items-start justify-between mb-2">
+          <div data-id="366"><h3 data-id="367" class="text-base font-bold" style="color:#00F0FF">FILMMAKING 101</h3><p data-id="368" class="text-xs text-gray-400 mt-1">12 Lessons · Beginner · From concept to final cut</p></div>
+          <i data-id="369" data-lucide="film" class="w-6 h-6 text-cyan/40"></i>
+        </div>
+        <div data-id="370" class="h-1.5 rounded-full mt-3 mb-3" style="background:#111"><div data-id="371" class="h-full rounded-full" style="width:0%;background:#00F0FF"></div></div>
+        <button data-id="372" class="btn-cyan text-xs py-2 px-5">ENROLL</button>
+      </div>
+      <div data-id="373" class="anim-hidden rounded-lg p-5 border border-cyan/10" style="background:#080810" data-delay="150">
+        <div data-id="374" class="flex items-start justify-between mb-2">
+          <div data-id="375"><h3 data-id="376" class="text-base font-bold" style="color:#00F0FF">ENGINE DEVELOPMENT</h3><p data-id="377" class="text-xs text-gray-400 mt-1">24 Lessons · Intermediate · Build your own render pipeline</p></div>
+          <i data-id="378" data-lucide="cpu" class="w-6 h-6 text-cyan/40"></i>
+        </div>
+        <div data-id="379" class="h-1.5 rounded-full mt-3 mb-3" style="background:#111"><div data-id="380" class="h-full rounded-full" style="width:0%;background:#00F0FF"></div></div>
+        <button data-id="381" class="btn-cyan text-xs py-2 px-5">ENROLL</button>
+      </div>
+      <div data-id="382" class="anim-hidden rounded-lg p-5 border border-cyan/10" style="background:#080810" data-delay="300">
+        <div data-id="383" class="flex items-start justify-between mb-2">
+          <div data-id="384"><h3 data-id="385" class="text-base font-bold" style="color:#00F0FF">CINEMATIC VFX</h3><p data-id="386" class="text-xs text-gray-400 mt-1">18 Lessons · Advanced · Hollywood-grade visual effects</p></div>
+          <i data-id="387" data-lucide="sparkles" class="w-6 h-6 text-cyan/40"></i>
+        </div>
+        <div data-id="388" class="h-1.5 rounded-full mt-3 mb-3" style="background:#111"><div data-id="389" class="h-full rounded-full" style="width:0%;background:#00F0FF"></div></div>
+        <button data-id="390" class="btn-cyan text-xs py-2 px-5">ENROLL</button>
+      </div>
+    </div>
+
+    <div data-id="391" class="lg:w-[35%] space-y-4 anim-hidden" data-delay="200">
+      <div data-id="392" class="rounded-lg p-5" style="background:#080810;border:1px solid #00F0FF15">
+        <div data-id="393" class="counter-value text-2xl" data-target="200" data-suffix="+" data-counted="false">0</div>
+        <div data-id="394" class="text-xs tracking-widest text-gray-400 mt-1">SCHOOLS ENROLLED</div>
+      </div>
+      <div data-id="395" class="rounded-lg p-5" style="background:#080810;border:1px solid #00F0FF15">
+        <div data-id="396" class="counter-value text-2xl" data-target="5000" data-suffix="+" data-counted="false">0</div>
+        <div data-id="397" class="text-xs tracking-widest text-gray-400 mt-1">STUDENTS ACTIVE</div>
+      </div>
+      <div data-id="398" class="rounded-lg p-4" style="background:#080810;border:1px solid #00F0FF15">
+        <ul data-id="399" class="space-y-2 text-sm text-gray-300">
+          <li data-id="400" class="flex items-center gap-2"><i data-id="401" data-lucide="check" class="w-3 h-3" style="color:#00F0FF"></i>Bulk licensing available</li>
+          <li data-id="402" class="flex items-center gap-2"><i data-id="403" data-lucide="check" class="w-3 h-3" style="color:#00F0FF"></i>LMS Integration (Canvas, Blackboard)</li>
+          <li data-id="404" class="flex items-center gap-2"><i data-id="405" data-lucide="check" class="w-3 h-3" style="color:#00F0FF"></i>Student portfolios & certificates</li>
+        </ul>
+      </div>
+      <div data-id="406" class="flex flex-col gap-2">
+        <a data-id="407" href="#pricing" class="btn-cyan text-xs py-3 px-5 text-center">SCHOOL PRICING</a>
+        <button data-id="408" class="btn-outline text-xs py-3 px-5">REQUEST INSTITUTIONAL LICENSE</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-id="409" class="section-divider"></div>
+
+<!-- SECTION 6: RADIO -->
+<section data-id="410" id="radio" class="py-20 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+  <h2 data-id="411" class="section-heading text-3xl md:text-5xl font-black text-center tracking-[0.3em] mb-16 anim-hidden" style="color:#e8e8e8;">AIR · RADIO</h2>
+
+  <div data-id="412" class="flex items-end justify-center gap-1 h-32 mb-8 anim-hidden" id="equalizer-wrap"></div>
+
+  <div data-id="413" class="max-w-lg mx-auto rounded-lg p-6 mb-12 anim-hidden" style="background:#080810;border:1px solid #00F0FF22">
+    <p data-id="414" class="text-[10px] tracking-widest text-gray-500 mb-2">NOW PLAYING</p>
+    <div data-id="415" class="overflow-hidden mb-1" style="height:20px">
+      <p data-id="416" class="text-sm font-bold whitespace-nowrap" style="color:#00F0FF;animation:marquee 12s linear infinite">INFINITY-CORE-ENGINE — TITLE SEQUENCE · INFINITY-CORE-ENGINE — TITLE SEQUENCE ·</p>
+    </div>
+    <p data-id="417" class="text-xs text-gray-400 mb-4">KNOCKSSTUDiOS</p>
+    <div data-id="418" class="flex items-center justify-center gap-3 mb-4">
+      <button data-id="419" class="p-2 rounded-full hover:bg-cyan/10 text-gray-400 hover:text-cyan transition-colors" style="min-width:44px;min-height:44px"><i data-id="420" data-lucide="skip-back" class="w-4 h-4"></i></button>
+      <button data-id="421" class="p-2 rounded-full hover:bg-cyan/10 text-gray-400 hover:text-cyan transition-colors" style="min-width:44px;min-height:44px"><i data-id="422" data-lucide="rewind" class="w-4 h-4"></i></button>
+      <button data-id="423" class="p-3 rounded-full text-cyan" style="background:#00F0FF22;border:1px solid #00F0FF44;min-width:44px;min-height:44px" id="radio-play-btn"><i data-id="424" data-lucide="play" class="w-5 h-5"></i></button>
+      <button data-id="425" class="p-2 rounded-full hover:bg-cyan/10 text-gray-400 hover:text-cyan transition-colors" style="min-width:44px;min-height:44px"><i data-id="426" data-lucide="fast-forward" class="w-4 h-4"></i></button>
+      <button data-id="427" class="p-2 rounded-full hover:bg-cyan/10 text-gray-400 hover:text-cyan transition-colors" style="min-width:44px;min-height:44px"><i data-id="428" data-lucide="skip-forward" class="w-4 h-4"></i></button>
+    </div>
+    <div data-id="429" class="flex items-center gap-2 mb-2">
+      <span data-id="430" class="text-[10px] text-gray-400 font-mono">03:42</span>
+      <div data-id="431" class="flex-1 h-1 rounded-full" style="background:#222"><div data-id="432" class="h-full rounded-full" style="width:65%;background:#00F0FF;box-shadow:0 0 6px #00F0FF"></div></div>
+      <span data-id="433" class="text-[10px] text-gray-400 font-mono">05:15</span>
+    </div>
+    <div data-id="434" class="flex items-center gap-2 justify-center">
+      <i data-id="435" data-lucide="volume-2" class="w-3 h-3 text-gray-400"></i>
+      <div data-id="436" class="w-20 h-1 rounded-full" style="background:#222"><div data-id="437" class="h-full rounded-full" style="width:75%;background:#00F0FF"></div></div>
+    </div>
+  </div>
+
+  <div data-id="438" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div data-id="439" class="space-y-3 anim-hidden" data-delay="0">
+      <div data-id="440" class="flex items-center gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="441" data-lucide="mic" class="w-4 h-4" style="color:#00F0FF"></i><span data-id="442" class="text-sm text-gray-200">Podcast hosting & distribution</span></div>
+      <div data-id="443" class="flex items-center gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="444" data-lucide="radio" class="w-4 h-4" style="color:#00F0FF"></i><span data-id="445" class="text-sm text-gray-200">Live radio streaming</span></div>
+      <div data-id="446" class="flex items-center gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="447" data-lucide="music" class="w-4 h-4" style="color:#00F0FF"></i><span data-id="448" class="text-sm text-gray-200">Music production tools</span></div>
+      <div data-id="449" class="flex items-center gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="450" data-lucide="headphones" class="w-4 h-4" style="color:#00F0FF"></i><span data-id="451" class="text-sm text-gray-200">Audio mastering suite</span></div>
+      <div data-id="452" class="flex items-center gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="453" data-lucide="satellite-dish" class="w-4 h-4" style="color:#00F0FF"></i><span data-id="454" class="text-sm text-gray-200">Broadcast to 50+ platforms</span></div>
+    </div>
+    <div data-id="455" class="space-y-3 anim-hidden" data-delay="150">
+      <p data-id="456" class="text-xs tracking-widest text-gray-500 mb-2">CHANNELS</p>
+      <div data-id="457" class="rounded p-4 flex items-center justify-between" style="background:#0a0a12;border:1px solid #00F0FF11">
+        <div data-id="458"><p data-id="459" class="text-sm font-bold" style="color:#00F0FF">KNOCKS FM</p><p data-id="460" class="text-[10px] text-gray-400">24/7 Cinematic Beats</p></div>
+        <div data-id="461" class="flex items-center gap-1.5"><div data-id="462" class="live-dot"></div><span data-id="463" class="text-[10px] text-red-400 font-bold tracking-wider">LIVE</span></div>
+      </div>
+      <div data-id="464" class="rounded p-4 flex items-center justify-between" style="background:#0a0a12;border:1px solid #00F0FF11">
+        <div data-id="465"><p data-id="466" class="text-sm font-bold" style="color:#00F0FF">ENGINE RADIO</p><p data-id="467" class="text-[10px] text-gray-400">Production Tutorials</p></div>
+        <span data-id="468" class="text-[10px] text-cyan font-bold tracking-wider">ON AIR</span>
+      </div>
+      <div data-id="469" class="rounded p-4 flex items-center justify-between" style="background:#0a0a12;border:1px solid #00F0FF11">
+        <div data-id="470"><p data-id="471" class="text-sm font-bold" style="color:#00F0FF">TITAN WAVE</p><p data-id="472" class="text-[10px] text-gray-400">Ambient & Atmospheric</p></div>
+        <span data-id="473" class="text-[10px] text-cyan font-bold tracking-wider">ON AIR</span>
+      </div>
+      <div data-id="474" class="rounded p-4 flex items-center justify-between" style="background:#0a0a12;border:1px solid #00F0FF11">
+        <div data-id="475"><p data-id="476" class="text-sm font-bold" style="color:#00F0FF">HOLLYWOOD FREQ</p><p data-id="477" class="text-[10px] text-gray-400">Industry Interviews</p></div>
+        <span data-id="478" class="text-[10px] text-gray-400 font-bold tracking-wider">SCHEDULED</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div data-id="479" class="section-divider"></div>
+
+<!-- SECTION 7: PRINT SHOP -->
+<section data-id="480" id="printshop" class="py-20 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+  <h2 data-id="481" class="section-heading text-3xl md:text-5xl font-black text-center tracking-[0.3em] mb-4 anim-hidden" style="color:#e8e8e8;">PRINT SHOP</h2>
+  <p data-id="482" class="text-center text-gray-300 text-sm md:text-base max-w-md mx-auto mb-16 anim-hidden" style="line-height:1.7">Design. Print. Ship. Custom merchandise powered by Printify integration.</p>
+
+  <div data-id="483" class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-10" id="products-grid"></div>
+
+  <div data-id="484" class="text-center anim-hidden space-y-4">
+    <div data-id="485" class="flex items-center justify-center gap-2 text-xs text-gray-400"><span data-id="486" class="px-3 py-1 rounded" style="background:#111;border:1px solid #00F0FF11">Powered by Printify</span></div>
+    <button data-id="487" class="btn-cyan text-sm py-3 px-10">OPEN FULL SHOP</button>
+    <p data-id="488" class="text-xs text-gray-400 flex items-center justify-center gap-3 flex-wrap"><span data-id="489"><i data-id="490" data-lucide="truck" class="w-3 h-3 inline" style="color:#00F0FF"></i> Worldwide shipping</span><span data-id="491">·</span><span data-id="492">Print on demand</span><span data-id="493">·</span><span data-id="494">No minimum orders</span></p>
+  </div>
+</section>
+
+<div data-id="495" class="section-divider"></div>
+
+<!-- SECTION 8: PRICING -->
+<section data-id="496" id="pricing" class="py-20 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+  <h2 data-id="497" class="section-heading text-3xl md:text-5xl font-black text-center tracking-[0.3em] mb-4 anim-hidden" style="color:#e8e8e8;">PRICING</h2>
+  <p data-id="498" class="text-center text-gray-300 text-sm md:text-base mb-8 anim-hidden" style="line-height:1.7">Scale with your vision. Upgrade anytime.</p>
+
+  <div data-id="499" class="flex items-center justify-center gap-3 mb-12 anim-hidden">
+    <span data-id="500" id="toggle-monthly-label" class="text-sm font-bold" style="color:#00F0FF">Monthly</span>
+    <div data-id="501" class="toggle-track" id="billing-toggle"><div data-id="502" class="toggle-thumb"></div></div>
+    <span data-id="503" id="toggle-annual-label" class="text-sm text-gray-400">Annual <span data-id="504" class="text-[10px]" style="color:#00F0FF">(Save 20%)</span></span>
+  </div>
+
+  <div data-id="505" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-8" id="pricing-grid"></div>
+
+  <!-- Payment Trust Bar -->
+  <div data-id="506" class="rounded-lg p-6 md:p-8 text-center anim-hidden" style="background:#0a0a0a;border:1px solid #00F0FF15">
+    <div data-id="507" class="flex flex-wrap justify-center gap-3 md:gap-4 mb-4 text-xs md:text-sm font-bold tracking-wider text-gray-300">
+      <span data-id="508">VISA</span><span data-id="509" class="text-gray-600">·</span>
+      <span data-id="510">MASTERCARD</span><span data-id="511" class="text-gray-600">·</span>
+      <span data-id="512">AMEX</span><span data-id="513" class="text-gray-600">·</span>
+      <span data-id="514">DISCOVER</span><span data-id="515" class="text-gray-600">·</span>
+      <span data-id="516" style="color:#00D632">CASH APP</span><span data-id="517" class="text-gray-600">·</span>
+      <span data-id="518">APPLE PAY</span><span data-id="519" class="text-gray-600">·</span>
+      <span data-id="520">GOOGLE PAY</span><span data-id="521" class="text-gray-600">·</span>
+      <span data-id="522" style="color:#00F0FF">STRIPE SECURED</span>
+    </div>
+    <p data-id="523" class="text-sm text-gray-300 mb-3"><i data-id="524" data-lucide="lock" class="w-4 h-4 inline" style="color:#00F0FF"></i> All payments processed securely via Stripe. Cash App Pay accepted. 256-bit SSL encryption.</p>
+    <p data-id="525" class="text-sm font-bold" style="color:#00F0FF">Cash App: $KNOCKSSTUDiOS</p>
+  </div>
+
+  <p data-id="526" class="text-center text-xs text-gray-500 max-w-2xl mx-auto mt-6 anim-hidden">All plans include: SSL security · 99.9% uptime · Automatic updates · KNOCKS Hollywood MOTiON Pictures quality guarantee</p>
+</section>
+
+<div data-id="527" class="section-divider"></div>
+
+<!-- SECTION 9: GITHUB -->
+<section data-id="528" id="github" class="py-20 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+  <h2 data-id="529" class="section-heading text-3xl md:text-5xl font-black text-center tracking-[0.3em] mb-16 anim-hidden" style="color:#e8e8e8;">GITHUB</h2>
+
+  <div data-id="530" class="max-w-2xl mx-auto rounded-lg p-6 mb-8 anim-hidden" style="background:#080810;border:1px solid #00F0FF22">
+    <div data-id="531" class="flex items-start justify-between flex-wrap gap-2 mb-4">
+      <div data-id="532">
+        <p data-id="533" class="text-base font-bold text-gray-100 flex items-center gap-2"><i data-id="534" data-lucide="github" class="w-5 h-5"></i> KNOCKSSTUDiOS-labs / INFINITY-CORE-ENGINE</p>
+        <p data-id="535" class="text-xs text-gray-400 mt-1 flex items-center gap-2"><i data-id="536" data-lucide="git-commit-horizontal" class="w-3 h-3"></i> 663 commits · <i data-id="537" data-lucide="git-branch" class="w-3 h-3"></i> main</p>
+      </div>
+    </div>
+    <div data-id="538" class="flex flex-wrap gap-2 mb-4">
+      <span data-id="539" class="text-[10px] px-2 py-0.5 rounded font-bold" style="background:#28ca4222;color:#28ca42">Build: Passing</span>
+      <span data-id="540" class="text-[10px] px-2 py-0.5 rounded font-bold" style="background:#00F0FF22;color:#00F0FF">CodeQL: Active</span>
+      <span data-id="541" class="text-[10px] px-2 py-0.5 rounded font-bold" style="background:#28ca4222;color:#28ca42">Security: Hardened</span>
+      <span data-id="542" class="text-[10px] px-2 py-0.5 rounded font-bold" style="background:#ffffff11;color:#bbb">MIT License</span>
+    </div>
+    <a data-id="543" href="https://github.com/KNOCKSSTUDiOS-labs/INFINITY-CORE-ENGINE" target="_blank" rel="noopener" class="btn-cyan text-xs py-3 px-6 inline-block">VIEW ON GITHUB</a>
+  </div>
+
+  <div data-id="544" class="max-w-2xl mx-auto anim-hidden">
+    <h3 data-id="545" class="text-sm tracking-widest text-gray-300 font-bold mb-3">OPEN SOURCE CORE</h3>
+    <p data-id="546" class="text-sm text-gray-400 mb-4" style="line-height:1.7">The engine core is open source. Build on top of it. Contribute. Fork. Deploy.</p>
+    <div data-id="547" class="terminal-window flex items-center gap-2 p-3 text-xs">
+      <span data-id="548" style="color:#00F0FF66">$</span>
+      <code data-id="549" id="clone-url-text" class="flex-1" style="color:#00F0FF">git clone https://github.com/KNOCKSSTUDiOS-labs/INFINITY-CORE-ENGINE.git</code>
+      <button data-id="550" id="copy-clone-btn" class="p-2 rounded hover:bg-cyan/10 transition-colors text-gray-400 hover:text-cyan flex-shrink-0" title="Copy" style="min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center"><i data-id="551" data-lucide="copy" class="w-4 h-4"></i></button>
+    </div>
+    <div data-id="552" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+      <div data-id="553" class="flex items-center gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="554" data-lucide="refresh-cw" class="w-4 h-4" style="color:#00F0FF"></i><span data-id="555" class="text-xs text-gray-300">CI/CD Pipeline — Automated testing & deployment</span></div>
+      <div data-id="556" class="flex items-center gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="557" data-lucide="shield" class="w-4 h-4" style="color:#00F0FF"></i><span data-id="558" class="text-xs text-gray-300">CodeQL Security — Enterprise-grade code scanning</span></div>
+      <div data-id="559" class="flex items-center gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="560" data-lucide="package" class="w-4 h-4" style="color:#00F0FF"></i><span data-id="561" class="text-xs text-gray-300">Package Registry — npm packages published</span></div>
+      <div data-id="562" class="flex items-center gap-3 p-3 rounded" style="background:#0a0a12"><i data-id="563" data-lucide="globe" class="w-4 h-4" style="color:#00F0FF"></i><span data-id="564" class="text-xs text-gray-300">GitHub Pages — hollywoodimaging.studio</span></div>
+    </div>
+  </div>
+</section>
+
+<div data-id="565" class="section-divider"></div>
+
+<!-- SECTION: MEDIA PIPELINE -->
+<section data-id="566" id="pipeline" class="py-20 md:py-32 px-4 md:px-8 max-w-7xl mx-auto">
+  <h2 data-id="567" class="section-heading text-3xl md:text-5xl font-black text-center tracking-[0.3em] mb-4 anim-hidden" style="color:#e8e8e8;">AUTO-PUBLISH PIPELINE</h2>
+  <p data-id="568" class="text-center text-gray-300 text-sm md:text-base max-w-2xl mx-auto mb-16 anim-hidden" style="line-height:1.7">Create once, publish everywhere. Automatic distribution to YouTube, TikTok, Instagram, and Facebook.</p>
+
+  <!-- Pipeline Diagram -->
+  <div data-id="569" class="flex flex-col md:flex-row items-center justify-center gap-0 mb-16 anim-hidden px-4">
+    <div data-id="570" class="rounded-lg p-5 text-center border" style="background:#080810;border-color:#00F0FF33;min-width:140px">
+      <div data-id="571" class="text-3xl mb-2">🎬</div>
+      <h4 data-id="572" class="text-sm font-bold" style="color:#00F0FF">CREATE</h4>
+      <p data-id="573" class="text-[10px] text-gray-400 mt-1">Build in MP4 Lab</p>
+    </div>
+    <div data-id="574" class="pipeline-connector hidden md:block"></div>
+    <div data-id="575" class="w-1 h-8 md:hidden relative overflow-hidden" style="background:#111"><div data-id="576" class="absolute top-0 left:0 w-full h-3 rounded" style="background:#00F0FF;animation:pipelineDot 2s linear infinite"></div></div>
+    <div data-id="577" class="rounded-lg p-5 text-center border" style="background:#080810;border-color:#00F0FF33;min-width:140px">
+      <div data-id="578" class="text-3xl mb-2">⚡</div>
+      <h4 data-id="579" class="text-sm font-bold" style="color:#00F0FF">RENDER</h4>
+      <p data-id="580" class="text-[10px] text-gray-400 mt-1">GPU-accelerated</p>
+    </div>
+    <div data-id="581" class="pipeline-connector hidden md:block"></div>
+    <div data-id="582" class="w-1 h-8 md:hidden relative overflow-hidden" style="background:#111"><div data-id="583" class="absolute top-0 left:0 w-full h-3 rounded" style="background:#00F0FF;animation:pipelineDot 2s linear infinite;animation-delay:.5s"></div></div>
+    <div data-id="584" class="rounded-lg p-5 text-center border" style="background:#080810;border-color:#00F0FF33;min-width:140px">
+      <div data-id="585" class="text-3xl mb-2">📦</div>
+      <h4 data-id="586" class="text-sm font-bold" style="color:#00F0FF">EXPORT</h4>
+      <p data-id="587" class="text-[10px] text-gray-400 mt-1">4K MP4 + thumbnails</p>
+    </div>
+    <div data-id="588" class="pipeline-connector hidden md:block"></div>
+    <div data-id="589" class="w-1 h-8 md:hidden relative overflow-hidden" style="background:#111"><div data-id="590" class="absolute top-0 left:0 w-full h-3 rounded" style="background:#00F0FF;animation:pipelineDot 2s linear infinite;animation-delay:1s"></div></div>
+    <div data-id="591" class="rounded-lg p-5 text-center border" style="background:#080810;border-color:#00F0FF33;min-width:140px">
+      <div data-id="592" class="text-3xl mb-2">🚀</div>
+      <h4 data-id="593" class="text-sm font-bold" style="color:#00F0FF">AUTO-PUBLISH</h4>
+      <p data-id="594" class="text-[10px] text-gray-400 mt-1">Push to all platforms</p>
+    </div>
+  </div>
+
+  <!-- Platform Cards -->
+  <div data-id="595" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+    <div data-id="596" class="anim-hidden rounded-lg p-5 border border-cyan/10" style="background:#080810" data-delay="0">
+      <div data-id="597" class="flex items-center gap-2 mb-3"><i data-id="598" data-lucide="youtube" class="w-6 h-6" style="color:#FF0000"></i><h4 data-id="599" class="text-sm font-bold text-white">YouTube</h4></div>
+      <p data-id="600" class="text-xs text-gray-300 leading-relaxed">Auto-upload with metadata, thumbnails, playlists, and scheduling. API-powered.</p>
+    </div>
+    <div data-id="601" class="anim-hidden rounded-lg p-5 border border-cyan/10" style="background:#080810" data-delay="100">
+      <div data-id="602" class="flex items-center gap-2 mb-3"><i data-id="603" data-lucide="music-2" class="w-6 h-6" style="color:#FF2D55"></i><h4 data-id="604" class="text-sm font-bold text-white">TikTok</h4></div>
+      <p data-id="605" class="text-xs text-gray-300 leading-relaxed">Vertical recut and auto-post. Trending hashtag optimization.</p>
+    </div>
+    <div data-id="606" class="anim-hidden rounded-lg p-5 border border-cyan/10" style="background:#080810" data-delay="200">
+      <div data-id="607" class="flex items-center gap-2 mb-3"><i data-id="608" data-lucide="instagram" class="w-6 h-6" style="color:#E4405F"></i><h4 data-id="609" class="text-sm font-bold text-white">Instagram</h4></div>
+      <p data-id="610" class="text-xs text-gray-300 leading-relaxed">Reels and feed posts. Auto-caption and hashtag generation.</p>
+    </div>
+    <div data-id="611" class="anim-hidden rounded-lg p-5 border border-cyan/10" style="background:#080810" data-delay="300">
+      <div data-id="612" class="flex items-center gap-2 mb-3"><i data-id="613" data-lucide="facebook" class="w-6 h-6" style="color:#1877F2"></i><h4 data-id="614" class="text-sm font-bold text-white">Facebook</h4></div>
+      <p data-id="615" class="text-xs text-gray-300 leading-relaxed">Page posts, Stories, and premiere scheduling.</p>
+    </div>
+  </div>
+
+  <p data-id="616" class="text-center text-xs text-gray-400 anim-hidden">Powered by YouTube Data API v3 · GitHub Actions CI/CD · Automated batch processing</p>
+</section>
+
+<div data-id="617" class="section-divider"></div>
+
+<!-- FOOTER -->
+<footer data-id="618" id="footer" class="py-16 md:py-24 px-4 relative">
+  <div data-id="619" class="max-w-lg mx-auto text-center mb-16 anim-hidden">
+    <h3 data-id="620" class="text-lg font-bold tracking-widest mb-4" style="color:#e8e8e8">STAY IN THE LOOP</h3>
+    <div data-id="621" class="flex gap-2">
+      <input data-id="622" type="email" placeholder="your@email.com" class="flex-1 px-4 py-3 rounded text-base bg-black border focus:outline-none focus:border-cyan transition-colors" style="border-color:#00F0FF33;color:#fff" id="newsletter-input">
+      <button data-id="623" class="btn-cyan text-xs py-3 px-5" id="newsletter-btn">SUBSCRIBE</button>
+    </div>
+    <p data-id="624" id="newsletter-msg" class="text-xs mt-2" style="color:#00F0FF;opacity:0;min-height:16px"></p>
+  </div>
+
+  <div data-id="625" class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+    <div data-id="626">
+      <h4 data-id="627" class="text-xs tracking-widest font-bold mb-4" style="color:#00F0FF">PRODUCT</h4>
+      <ul data-id="628" class="space-y-2 text-xs text-gray-400"><li data-id="629">Studio</li><li data-id="630">MP4 Lab</li><li data-id="631">Render Engine</li><li data-id="632">Cinema Suite</li><li data-id="633">Asset Library</li></ul>
+    </div>
+    <div data-id="634">
+      <h4 data-id="635" class="text-xs tracking-widest font-bold mb-4" style="color:#00F0FF">SOLUTIONS</h4>
+      <ul data-id="636" class="space-y-2 text-xs text-gray-400"><li data-id="637">Enterprise</li><li data-id="638">Schools</li><li data-id="639">Radio / Air</li><li data-id="640">Print Shop</li></ul>
+    </div>
+    <div data-id="641">
+      <h4 data-id="642" class="text-xs tracking-widest font-bold mb-4" style="color:#00F0FF">DEVELOPERS</h4>
+      <ul data-id="643" class="space-y-2 text-xs text-gray-400"><li data-id="644">GitHub</li><li data-id="645">API Docs</li><li data-id="646">Changelog</li><li data-id="647">Status Page</li></ul>
+    </div>
+    <div data-id="648">
+      <h4 data-id="649" class="text-xs tracking-widest font-bold mb-4" style="color:#00F0FF">COMPANY</h4>
+      <ul data-id="650" class="space-y-2 text-xs text-gray-400"><li data-id="651">About KNOCKSSTUDiOS</li><li data-id="652">KNOCKS Hollywood MOTiON Pictures</li><li data-id="653">Blog</li><li data-id="654">Careers</li><li data-id="655">Contact</li></ul>
+    </div>
+  </div>
+
+  <div data-id="656" class="flex justify-center gap-4 mb-8">
+    <div data-id="657" class="p-2 rounded-full hover:bg-cyan/10 text-gray-400 hover:text-cyan transition-colors cursor-pointer" style="min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center"><i data-id="658" data-lucide="music-2" class="w-5 h-5"></i></div>
+    <div data-id="659" class="p-2 rounded-full hover:bg-cyan/10 text-gray-400 hover:text-cyan transition-colors cursor-pointer" style="min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center"><i data-id="660" data-lucide="youtube" class="w-5 h-5"></i></div>
+    <div data-id="661" class="p-2 rounded-full hover:bg-cyan/10 text-gray-400 hover:text-cyan transition-colors cursor-pointer" style="min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center"><i data-id="662" data-lucide="instagram" class="w-5 h-5"></i></div>
+    <div data-id="663" class="p-2 rounded-full hover:bg-cyan/10 text-gray-400 hover:text-cyan transition-colors cursor-pointer" style="min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center"><i data-id="664" data-lucide="facebook" class="w-5 h-5"></i></div>
+    <div data-id="665" class="p-2 rounded-full hover:bg-cyan/10 text-gray-400 hover:text-cyan transition-colors cursor-pointer" style="min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center"><i data-id="666" data-lucide="github" class="w-5 h-5"></i></div>
+  </div>
+
+  <div data-id="667" class="section-divider mb-8"></div>
+
+  <div data-id="668" class="text-center">
+    <p data-id="669" class="text-lg md:text-2xl font-black tracking-widest mb-2" style="color:#e8e8e8;animation:glitch1 5s ease infinite;font-family:'Courier New',monospace">INFINITY-CORE-ENGINE</p>
+    <p data-id="670" class="text-sm tracking-widest mb-3" style="color:#00F0FF">powered by KNOCKSSTUDiOS</p>
+    <p data-id="671" class="text-xs mb-2" style="color:#00F0FF;text-shadow:0 0 15px #00F0FF66">hollywoodimaging.studio</p>
+    <p data-id="672" class="text-xs text-gray-500 mb-6">© 2026 KNOCKS HOLLYWOOD MOTiON PICTURES — ALL RIGHTS RESERVED</p>
+    <div data-id="673" class="text-3xl mb-4" style="color:#00F0FF;animation:pulse-text 3s ease-in-out infinite">V</div>
+    <p data-id="674" class="text-xs text-gray-500" style="animation:breathe 4s ease-in-out infinite">BUILT DIFFERENT. BUILT FOREVER.</p>
+    <p data-id="675" class="text-xs text-gray-600 mt-6">Made by Copilot</p>
+  </div>
+</footer>
+
+</div><!-- end main-site -->
+
+<script>
+// ============================================================
+// CONSTANTS & UTILS
+// ============================================================
+const IS_MOBILE = window.innerWidth < 768;
+const PARTICLE_COUNT = IS_MOBILE ? 50 : 80;
+
+let scrollTicking = false;
+function debounceScroll(fn) {
+  return function() {
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(() => { fn(); scrollTicking = false; });
+    }
+  };
+}
+
+// ============================================================
+// LUCIDE ICONS
+// ============================================================
+lucide.createIcons();
+
+// ============================================================
+// PARTICLE SYSTEM
+// ============================================================
+(function(){
+  const canvas=document.getElementById('particle-canvas');
+  const ctx=canvas.getContext('2d');
+  let particles=[];
+  function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+  function createParticle(startY){
+    const rand=Math.random();let type='ember';
+    if(rand>0.85)type='flash';else if(rand>0.6)type='drift';
+    return{x:Math.random()*canvas.width,y:startY!==undefined?startY:canvas.height+10,size:type==='ember'?Math.random()*1.5+0.5:type==='drift'?Math.random()*1.5+1.5:Math.random()*2+1,speedY:-(Math.random()*0.3+0.15),speedX:(Math.random()-0.5)*0.2,opacity:type==='flash'?0:Math.random()*0.5+0.1,life:0,maxLife:type==='flash'?Math.random()*60+30:Math.random()*500+200,type:type};
+  }
+  for(let i=0;i<PARTICLE_COUNT;i++){const p=createParticle(Math.random()*canvas.height);p.life=Math.random()*p.maxLife;particles.push(p)}
+  function animate(){
+    ctx.fillStyle='rgba(0,0,0,0.06)';ctx.fillRect(0,0,canvas.width,canvas.height);
+    for(let i=particles.length-1;i>=0;i--){
+      const p=particles[i];p.x+=p.speedX;p.y+=p.speedY;p.life++;
+      let alpha;
+      if(p.type==='flash'){const pr=p.life/p.maxLife;alpha=pr<0.3?pr/0.3:1-((pr-0.3)/0.7);alpha*=0.9}else{alpha=p.opacity*(1-p.life/p.maxLife)}
+      if(p.life>=p.maxLife||p.y<-10){particles[i]=createParticle();continue}
+      if(p.x<-10)p.x=canvas.width+10;if(p.x>canvas.width+10)p.x=-10;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+      if(p.type==='flash'){ctx.fillStyle=`rgba(200,255,255,${alpha})`;ctx.shadowBlur=10;ctx.shadowColor='#00F0FF'}
+      else if(p.type==='drift'){ctx.fillStyle=`rgba(100,240,255,${alpha})`;ctx.shadowBlur=4;ctx.shadowColor='#00F0FF'}
+      else{ctx.fillStyle=`rgba(0,240,255,${alpha})`;ctx.shadowBlur=0}
+      ctx.fill();ctx.shadowBlur=0;
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+  window._spawnClickParticles=function(cx,cy,count){
+    for(let i=0;i<count;i++){const angle=(Math.PI*2/count)*i+Math.random()*0.5;const speed=Math.random()*2+1;
+    particles.push({x:cx,y:cy,size:Math.random()*2.5+1,speedX:Math.cos(angle)*speed,speedY:Math.sin(angle)*speed-0.5,opacity:0.9,life:0,maxLife:Math.random()*40+20,type:'ember'})}
+  };
+})();
+
+// ============================================================
+// CLICK EFFECT
+// ============================================================
+document.addEventListener('click',function(e){if(window._spawnClickParticles)window._spawnClickParticles(e.clientX,e.clientY,7)});
+
+// ============================================================
+// MOUSE FOLLOW LIGHT
+// ============================================================
+if(!IS_MOBILE){const light=document.getElementById('mouse-light');light.style.display='block';document.addEventListener('mousemove',function(e){light.style.left=e.clientX+'px';light.style.top=e.clientY+'px'})}
+
+// ============================================================
+// SCROLL PROGRESS
+// ============================================================
+window.addEventListener('scroll', debounceScroll(function(){
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('scroll-progress').style.width=(h>0?(window.scrollY/h)*100:0)+'%';
+}),{passive:true});
+
+// ============================================================
+// BOOT SEQUENCE
+// ============================================================
+(function(){
+  const dot=document.getElementById('boot-dot'),textEl=document.getElementById('boot-text'),progressBar=document.getElementById('boot-progress'),fillBar=document.getElementById('boot-fill'),terminal=document.getElementById('boot-terminal'),bootScreen=document.getElementById('boot-screen'),mainSite=document.getElementById('main-site'),bootBars=document.getElementById('boot-bars');
+  const bootLines=['LOADING STUDIO MODULES... ✓','LOADING RENDER PIPELINE... ✓','LOADING CINEMA SUITE... ✓','LOADING ASSET LIBRARY... ✓','LOADING BROADCAST ENGINE... ✓','LOADING PRINT SYSTEM... ✓','ALL SYSTEMS ONLINE','PLATFORM READY'];
+  let bootCompleted = false;
+  function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+  function flicker(el,times,interval){return new Promise(async(resolve)=>{for(let i=0;i<times;i++){el.style.opacity='0';await sleep(interval/2);el.style.opacity='1';await sleep(interval/2)}resolve()})}
+
+  function revealSite(){
+    if(bootCompleted) return;
+    bootCompleted = true;
+    bootScreen.style.transition='opacity 0.4s';
+    bootScreen.style.opacity='0';
+    mainSite.style.transition='opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)';
+    mainSite.style.opacity='1';mainSite.style.transform='scale(1)';
+    setTimeout(()=>{bootScreen.style.display='none';animateHero();initObservers()},500);
+  }
+
+  // Safety timeout — if boot takes >6s, force reveal
+  setTimeout(revealSite, 6000);
+
+  async function runBoot(){
+    try {
+      await sleep(300);dot.style.opacity='1';bootBars.style.opacity='1';await sleep(400);
+      await flicker(bootScreen,2,80);
+      const initText='INITIALIZING INFINITY-CORE-ENGINE...';
+      textEl.textContent='';
+      for(let i=0;i<initText.length;i++){textEl.textContent=initText.substring(0,i+1);await sleep(20)}
+      const cursor=document.createElement('span');cursor.className='boot-cursor';textEl.appendChild(cursor);
+      await sleep(200);
+      progressBar.style.opacity='1';await sleep(50);fillBar.style.transition='width 2s ease-out';fillBar.style.width='100%';
+      terminal.style.opacity='1';
+      for(let i=0;i<bootLines.length;i++){
+        const div=document.createElement('div');div.textContent='> '+bootLines[i];
+        const isLast=i>=bootLines.length-2;div.style.color=isLast?'#00F0FF':'#00F0FFaa';
+        if(i===bootLines.length-1)div.style.fontWeight='bold';
+        div.style.animationDelay=(i*0.08)+'s';terminal.appendChild(div);await sleep(160);
+      }
+      await sleep(300);
+      revealSite();
+    } catch(e) { revealSite(); }
+  }
+  runBoot();
+
+  async function animateHero(){
+    const titleEl=document.getElementById('hero-title'),subtitleEl=document.getElementById('hero-subtitle'),studioEl=document.getElementById('hero-studio'),descEl=document.getElementById('hero-desc'),ctasEl=document.getElementById('hero-ctas'),statsEl=document.getElementById('hero-stats');
+    const titleText='INFINITY-CORE-ENGINE';const glitchChars='!@#$%^&*()_+-=[]{}|;:<>?/~';
+    titleEl.textContent='';
+    for(let i=0;i<titleText.length;i++){const span=document.createElement('span');span.style.display='inline-block';span.style.opacity='0';span.textContent=titleText[i]==='_'?' ':titleText[i];titleEl.appendChild(span)}
+    const spans=titleEl.querySelectorAll('span');
+    for(let i=0;i<spans.length;i++){
+      const sp=spans[i],orig=sp.textContent;sp.style.opacity='1';
+      for(let g=0;g<2;g++){sp.textContent=glitchChars[Math.floor(Math.random()*glitchChars.length)];sp.style.webkitTextFillColor='#00F0FF';sp.style.textShadow='0 0 15px #00F0FF';await sleep(25)}
+      sp.textContent=orig;sp.style.webkitTextFillColor='';sp.style.textShadow='';
+    }
+    await sleep(200);
+    const subText='powered by KNOCKSSTUDiOS';subtitleEl.textContent='';
+    for(let i=0;i<subText.length;i++){subtitleEl.textContent=subText.substring(0,i+1);await sleep(25)}
+    await sleep(400);
+    studioEl.style.transition='opacity 1s';studioEl.style.opacity='1';
+    await sleep(200);descEl.style.opacity='1';await sleep(200);ctasEl.style.opacity='1';await sleep(200);statsEl.style.opacity='1';
+    document.querySelectorAll('.nav-link').forEach((link,i)=>{link.style.opacity='0';link.style.transform='translateY(-10px)';link.style.transition=`opacity 0.4s ${i*0.06}s,transform 0.4s ${i*0.06}s`;setTimeout(()=>{link.style.opacity='1';link.style.transform='translateY(0)'},50)});
+  }
+})();
+
+// ============================================================
+// INTERSECTION OBSERVERS — initialized after boot
+// ============================================================
+function initObservers(){
+  // Scroll animations
+  let lastSection=null;const wave=document.getElementById('energy-wave');
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const delay=entry.target.dataset.delay||0;
+        setTimeout(()=>entry.target.classList.add('anim-visible'),parseInt(delay));
+        observer.unobserve(entry.target);
+        const section=entry.target.closest('section')||entry.target.closest('footer');
+        if(section&&section!==lastSection){lastSection=section;wave.classList.remove('active');void wave.offsetWidth;wave.classList.add('active');setTimeout(()=>wave.classList.remove('active'),700)}
+      }
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.anim-hidden').forEach(el=>observer.observe(el));
+
+  // Counter animation
+  const counterObs=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting&&entry.target.dataset.counted==='false'){
+        entry.target.dataset.counted='true';
+        const target=parseInt(entry.target.dataset.target);
+        const suffix=entry.target.dataset.suffix||'';
+        let current=0;const step=Math.max(1,Math.floor(target/40));
+        const iv=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(iv)}entry.target.textContent=current+suffix},40);
+        counterObs.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.3});
+  document.querySelectorAll('.counter-value').forEach(el=>counterObs.observe(el));
+
+  // Render bars
+  const renderObs=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        document.getElementById('render-bar-1').style.width='87%';
+        document.getElementById('render-bar-2').style.width='72%';
+        document.getElementById('render-bar-3').style.width='95%';
+        renderObs.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.3});
+  const rb=document.getElementById('render-bar-1');
+  if(rb) renderObs.observe(rb.closest('.card-hover'));
+
+  // MP4 features
+  const featObs=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.querySelectorAll('.feature-check').forEach((c,i)=>setTimeout(()=>c.classList.add('visible'),i*120));
+        featObs.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.2});
+  const fl=document.getElementById('mp4-features-list');
+  if(fl) featObs.observe(fl);
+}
+
+// ============================================================
+// ACTIVE NAV HIGHLIGHTING
+// ============================================================
+(function(){
+  const sections=document.querySelectorAll('section[id],footer[id]');
+  const navLinks=document.querySelectorAll('.nav-link[data-section]');
+  const navObs=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id=entry.target.id;
+        navLinks.forEach(l=>{l.classList.toggle('active',l.dataset.section===id)});
+      }
+    });
+  },{threshold:0.15,rootMargin:'-80px 0px -50% 0px'});
+  sections.forEach(s=>navObs.observe(s));
+})();
+
+// ============================================================
+// NAV SCROLL SOLID
+// ============================================================
+window.addEventListener('scroll', debounceScroll(function(){
+  document.getElementById('navbar').classList.toggle('nav-solid',window.scrollY>80);
+}),{passive:true});
+
+// ============================================================
+// FLOATING SUBSCRIBE BUTTON
+// ============================================================
+(function(){
+  const fb=document.getElementById('floating-subscribe');
+  const heroSection=document.getElementById('hero');
+  window.addEventListener('scroll', debounceScroll(function(){
+    const heroBottom = heroSection.getBoundingClientRect().bottom;
+    fb.classList.toggle('visible', heroBottom < 0);
+  }),{passive:true});
+  document.getElementById('floating-subscribe-btn').addEventListener('click',function(){
+    document.getElementById('pricing').scrollIntoView({behavior:'smooth'});
+  });
+})();
+
+// ============================================================
+// MOBILE MENU
+// ============================================================
+(function(){
+  const btn=document.getElementById('mobile-menu-btn'),menu=document.getElementById('mobile-menu'),closeBtn=document.getElementById('mobile-menu-close');
+  btn.addEventListener('click',()=>{menu.classList.remove('hidden');menu.classList.add('flex')});
+  closeBtn.addEventListener('click',()=>{menu.classList.add('hidden');menu.classList.remove('flex')});
+  menu.querySelectorAll('.mobile-nav-link').forEach(link=>{link.addEventListener('click',()=>{menu.classList.add('hidden');menu.classList.remove('flex')})});
+})();
+
+// ============================================================
+// AUTH MODAL
+// ============================================================
+(function(){
+  const modal=document.getElementById('auth-modal');
+  const title=document.getElementById('auth-modal-title');
+  const submitBtn=document.getElementById('auth-submit-btn');
+  const msgEl=document.getElementById('auth-message');
+
+  function openModal(mode){
+    if(mode==='login'){title.textContent='SIGN IN';submitBtn.textContent='SIGN IN'}
+    else{title.textContent='JOIN THE ENGINE';submitBtn.textContent='CREATE ACCOUNT'}
+    modal.classList.add('active');
+    msgEl.textContent='';
+  }
+  function closeModal(){modal.classList.remove('active')}
+
+  document.getElementById('login-btn').addEventListener('click',()=>openModal('login'));
+  const loginMob=document.getElementById('login-btn-mob');
+  if(loginMob) loginMob.addEventListener('click',()=>{
+    document.getElementById('mobile-menu').classList.add('hidden');
+    document.getElementById('mobile-menu').classList.remove('flex');
+    openModal('login');
+  });
+  document.querySelectorAll('.start-free-btn').forEach(b=>b.addEventListener('click',()=>openModal('signup')));
+  document.getElementById('auth-modal-close').addEventListener('click',closeModal);
+  modal.addEventListener('click',function(e){if(e.target===modal)closeModal()});
+
+  submitBtn.addEventListener('click',async function(){
+    const email=document.getElementById('auth-email').value;
+    const pw=document.getElementById('auth-password').value;
+    if(!email||!email.includes('@')){msgEl.textContent='Please enter a valid email.';msgEl.style.color='#ff5555';return}
+    if(!pw||pw.length<4){msgEl.textContent='Password too short.';msgEl.style.color='#ff5555';return}
+    // Persist with AppSDK if available
+    if(window.AppSDK){
+      try{
+        await AppSDK.upsert('users',email,{email:email,createdAt:new Date().toISOString()});
+      }catch(e){}
+    }
+    msgEl.style.color='#00F0FF';
+    msgEl.textContent='✓ Welcome aboard, KNOCKS!';
+    setTimeout(closeModal,1500);
+  });
+})();
+
+// ============================================================
+// START RENDER BUTTON
+// ============================================================
+document.getElementById('start-render-btn').addEventListener('click',function(){
+  const bars=['render-bar-1','render-bar-2','render-bar-3'];
+  bars.forEach(id=>{const el=document.getElementById(id);el.style.transition='width 0.3s';el.style.width='0';
+    setTimeout(()=>{el.style.transition='width '+(2+Math.random()*2)+'s ease';el.style.width=Math.floor(60+Math.random()*40)+'%'},300);
+  });
+});
+
+// ============================================================
+// ASSET GRID PREVIEW
+// ============================================================
+(function(){
+  const grid=document.getElementById('asset-grid-preview');
+  const colors=['#00F0FF22','#00F0FF33','#00F0FF11','#00F0FF44','#00F0FF15','#00F0FF28','#a855f722','#f9731622','#00F0FF1a','#00F0FF2e','#00F0FF08','#00F0FF3a'];
+  for(let i=0;i<18;i++){const sq=document.createElement('div');sq.className='rounded-sm aspect-square';sq.style.background=colors[i%colors.length];grid.appendChild(sq)}
+  setInterval(()=>{const items=grid.children;if(items.length<2)return;const a=Math.floor(Math.random()*items.length),b=Math.floor(Math.random()*items.length);
+    const temp=items[a].style.background;items[a].style.background=items[b].style.background;items[b].style.background=temp;
+    items[a].style.transition='opacity 0.3s';items[a].style.opacity='0.5';setTimeout(()=>items[a].style.opacity='1',300);
+  },1500);
+})();
+
+// ============================================================
+// TIMECODE COUNTER
+// ============================================================
+(function(){
+  const tc=document.getElementById('timecode-display');let frame=0;
+  setInterval(()=>{
+    frame++;const f=frame%24,s=Math.floor(frame/24)%60,m=Math.floor(frame/24/60)%60,h=Math.floor(frame/24/3600);
+    tc.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+':'+String(f).padStart(2,'0');
+  },1000/24);
+})();
+
+// ============================================================
+// EQUALIZER
+// ============================================================
+(function(){
+  const wrap=document.getElementById('equalizer-wrap');
+  for(let i=0;i<32;i++){
+    const bar=document.createElement('div');bar.className='eq-bar';
+    const h=40+Math.random()*60;bar.style.setProperty('--eq-h',h+'%');
+    bar.style.animationDuration=(0.4+Math.random()*0.8)+'s';bar.style.animationDelay=(Math.random()*0.5)+'s';
+    bar.style.height='15%';wrap.appendChild(bar);
+  }
+})();
+
+// ============================================================
+// PRODUCTS GRID
+// ============================================================
+(function(){
+  const products=[
+    {icon:'shirt',name:'ENGINE TEE',price:'$29.99',desc:'Black tee with INFINITY-CORE-ENGINE logo'},
+    {icon:'hard-hat',name:'TITAN CAP',price:'$24.99',desc:'Snapback with V-core emblem'},
+    {icon:'smartphone',name:'CORE CASE',price:'$19.99',desc:'Phone case with cyan pulse design'},
+    {icon:'image',name:'REALM POSTER',price:'$34.99',desc:'24×36 cinematic realm art print'},
+    {icon:'shirt',name:'STEALTH HOODIE',price:'$54.99',desc:'Black hoodie with subtle engine branding'},
+    {icon:'coffee',name:'COMMAND MUG',price:'$14.99',desc:'Matte black mug with cyan logo'}
+  ];
+  const grid=document.getElementById('products-grid');
+  products.forEach((p,i)=>{
+    const card=document.createElement('div');
+    card.className='product-card anim-hidden rounded-lg overflow-hidden border border-cyan/10';
+    card.dataset.delay=String(i*100);card.style.background='#080808';
+    card.innerHTML=`
+      <div class="aspect-square flex items-center justify-center" style="background:linear-gradient(135deg,#0a1015,#050a10)">
+        <i data-lucide="${p.icon}" class="w-12 h-12" style="color:#00F0FF44;animation:float-y ${3+i%3*0.5}s ease-in-out infinite"></i>
+      </div>
+      <div class="p-4">
+        <h4 class="text-sm font-bold tracking-wider text-gray-200 mb-1">${p.name}</h4>
+        <p class="text-[10px] text-gray-400 mb-2">${p.desc}</p>
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-bold" style="color:#00F0FF">${p.price}</span>
+          <button class="btn-outline text-[10px] py-1 px-3" style="min-height:auto;padding:6px 12px">CUSTOMIZE</button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+  lucide.createIcons();
+})();
+
+// ============================================================
+// PRICING
+// ============================================================
+(function(){
+  let annual=false;
+  const plans=[
+    {name:'FREE',monthly:0,features:['3 projects per month','720p export','Basic templates','Community support'],excluded:['No priority rendering','No team features'],btn:'START FREE',btnClass:'start-free-btn btn-outline',featured:false},
+    {name:'CREATOR',monthly:19,features:['Unlimited projects','1080p & 4K export','All templates & assets','Priority rendering','Social media publishing','100GB cloud storage'],excluded:[],btn:'SUBSCRIBE — $19/MO',btnClass:'btn-cyan',featured:true},
+    {name:'STUDIO',monthly:49,features:['Everything in Creator','5 team seats included','Shared workspace','Advanced VFX tools','Cinema Suite access','500GB cloud storage','Priority support'],excluded:[],btn:'SUBSCRIBE — $49/MO',btnClass:'btn-cyan',featured:false},
+    {name:'ENTERPRISE',monthly:-1,features:['Everything in Studio','Unlimited seats','Dedicated render servers','White label option','API access','Unlimited storage','Dedicated account manager','SLA guarantee'],excluded:[],btn:'CONTACT SALES',btnClass:'btn-gold',featured:false}
+  ];
+
+  function renderPricing(){
+    const grid=document.getElementById('pricing-grid');grid.innerHTML='';
+    plans.forEach((p,i)=>{
+      const card=document.createElement('div');
+      card.className=`price-card anim-visible rounded-lg p-5 relative ${p.featured?'featured':''}`;
+      card.style.background='#080810';card.style.border='1px solid '+(p.featured?'#00F0FF44':'#00F0FF15');
+      let priceHTML,altPriceHTML='';
+      if(p.monthly===0){
+        priceHTML='<span class="text-3xl font-black" style="color:#00F0FF">$0</span><span class="text-xs text-gray-400 ml-1">/mo</span>';
+      } else if(p.monthly===-1){
+        priceHTML='<span class="text-2xl font-black" style="color:#FFD700">Custom</span>';
+      } else {
+        if(annual){
+          const yearPrice=Math.round(p.monthly*12*0.8);
+          priceHTML='<span class="text-3xl font-black" style="color:#00F0FF">$'+yearPrice+'</span><span class="text-xs text-gray-400 ml-1">/yr</span>';
+          altPriceHTML='<p class="text-[11px] text-gray-400 mt-1">or $'+p.monthly+'/month</p>';
+        } else {
+          priceHTML='<span class="text-3xl font-black" style="color:#00F0FF">$'+p.monthly+'</span><span class="text-xs text-gray-400 ml-1">/mo</span>';
+          const yearSave=Math.round(p.monthly*12*0.8);
+          altPriceHTML='<p class="text-[11px] text-gray-400 mt-1">or $'+yearSave+'/year <span style="color:#00F0FF">(save 20%)</span></p>';
+        }
+      }
+      const btnText = (p.monthly>0 && !annual) ? 'SUBSCRIBE — $'+p.monthly+'/MO' : (p.monthly>0 && annual) ? 'SUBSCRIBE — $'+Math.round(p.monthly*12*0.8)+'/YR' : p.btn;
+      card.innerHTML=`
+        ${p.featured?'<span class="absolute -top-3 right-4 text-[10px] font-bold px-2 py-0.5 rounded" style="background:#00F0FF;color:#000;animation:pulse-glow 2s ease infinite">POPULAR</span>':''}
+        <h3 class="text-sm font-bold tracking-widest mb-1" style="color:#e8e8e8">${p.name}</h3>
+        <div class="mb-1">${priceHTML}</div>
+        ${altPriceHTML}
+        <ul class="space-y-2 mb-5 mt-4">
+          ${p.features.map(f=>'<li class="flex items-start gap-2 text-xs text-gray-200"><span style="color:#00F0FF">✓</span>'+f+'</li>').join('')}
+          ${p.excluded.map(f=>'<li class="flex items-start gap-2 text-xs text-gray-500"><span>✗</span>'+f+'</li>').join('')}
+        </ul>
+        <button class="${p.btnClass} w-full text-xs py-3">${btnText}</button>
+        <p class="text-[9px] text-gray-500 text-center mt-3 leading-relaxed">💳 All Cards · 💵 Cash App · Apple Pay · Google Pay</p>`;
+      grid.appendChild(card);
+    });
+    // Re-bind start-free buttons
+    grid.querySelectorAll('.start-free-btn').forEach(b=>{
+      b.addEventListener('click',()=>{
+        document.getElementById('auth-modal').classList.add('active');
+        document.getElementById('auth-modal-title').textContent='JOIN THE ENGINE';
+        document.getElementById('auth-submit-btn').textContent='CREATE ACCOUNT';
+      });
+    });
+  }
+  renderPricing();
+
+  const toggle=document.getElementById('billing-toggle');
+  const mLabel=document.getElementById('toggle-monthly-label');
+  const aLabel=document.getElementById('toggle-annual-label');
+  toggle.addEventListener('click',()=>{
+    annual=!annual;toggle.classList.toggle('active',annual);
+    mLabel.style.color=annual?'#666':'#00F0FF';aLabel.style.color=annual?'#00F0FF':'#666';
+    renderPricing();
+  });
+})();
+
+// ============================================================
+// COPY CLONE URL
+// ============================================================
+document.getElementById('copy-clone-btn').addEventListener('click',function(){
+  const text=document.getElementById('clone-url-text').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copy-clone-btn');
+    btn.innerHTML='<i data-lucide="check" class="w-4 h-4" style="color:#00F0FF"></i>';
+    lucide.createIcons();
+    setTimeout(()=>{btn.innerHTML='<i data-lucide="copy" class="w-4 h-4"></i>';lucide.createIcons()},2000);
+  }).catch(()=>{});
+});
+
+// ============================================================
+// NEWSLETTER
+// ============================================================
+document.getElementById('newsletter-btn').addEventListener('click',async function(){
+  const input=document.getElementById('newsletter-input');
+  const msg=document.getElementById('newsletter-msg');
+  if(input.value&&input.value.includes('@')){
+    if(window.AppSDK){
+      try{await AppSDK.upsert('newsletter',input.value,{email:input.value,subscribedAt:new Date().toISOString()})}catch(e){}
+    }
+    msg.textContent='✓ Subscribed! Welcome to the loop.';msg.style.opacity='1';msg.style.color='#00F0FF';input.value='';
+  }else{msg.textContent='Please enter a valid email.';msg.style.opacity='1';msg.style.color='#ff5555'}
+  setTimeout(()=>{msg.style.opacity='0'},3000);
+});
+
+// ============================================================
+// RE-INIT LUCIDE
+// ============================================================
+setTimeout(()=>lucide.createIcons(),200);
+</script>
+</body>
+</html>
