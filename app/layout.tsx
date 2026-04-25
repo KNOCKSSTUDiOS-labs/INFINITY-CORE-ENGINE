@@ -1,6 +1,9 @@
+import "./globals.css";
 import UserBar from "./components/UserBar";
 
 export const metadata = {
+  title: "Hollywood Imaging Studio",
+  description: "Infinity Core Engine",
   metadataBase: new URL("https://hollywoodimaging.studio"),
 };
 
