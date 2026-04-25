@@ -1,0 +1,42 @@
+=====================================================
+INFINITY-CORE-ENGINE — DNS SETUP GUIDE
+hollywoodimaging.studio -> GitHub Pages
+=====================================================
+
+Go to your domain registrar (wherever you bought hollywoodimaging.studio)
+and update these DNS records:
+
+--- OPTION A: A Records (Recommended) ---
+
+Type: A
+Name: @
+Value: 185.199.108.153
+
+Type: A
+Name: @
+Value: 185.199.109.153
+
+Type: A
+Name: @
+Value: 185.199.110.153
+
+Type: A
+Name: @
+Value: 185.199.111.153
+
+--- OPTION B: CNAME Record ---
+
+Type: CNAME
+Name: www
+Value: knocksstudios-labs.github.io
+
+--- IMPORTANT ---
+
+1. DELETE any existing A records or CNAME pointing to Vercel
+2. DNS propagation takes 5 min to 24 hours
+3. After DNS propagates, go to GitHub Pages settings and check "Enforce HTTPS"
+4. Your CNAME file in the repo should contain: hollywoodimaging.studio
+
+=====================================================
+INFINITY-CORE-ENGINE powered by KNOCKSSTUDiOS
+=====================================================
