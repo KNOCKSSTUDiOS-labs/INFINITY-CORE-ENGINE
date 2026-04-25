@@ -6,8 +6,12 @@
     "ghcr.io/devcontainers/features/node:1": {
       "version": "22"
     },
-    "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/pnpm:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/android-sdk:1": {
+      "version": "latest"
+    },
     "ghcr.io/devcontainers/features/zsh-oh-my-zsh:1": {}
   },
 
@@ -20,10 +24,21 @@
         "github.copilot-chat",
         "ms-azuretools.vscode-azure-github-copilot",
         "esbenp.prettier-vscode",
-        "dbaeumer.vscode-eslint"
+        "dbaeumer.vscode-eslint",
+        "ms-vscode.vscode-typescript-next",
+        "ms-azuretools.vscode-docker",
+        "msjsdiag.vscode-react-native"
       ]
     }
   },
 
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+
+  "runArgs": [
+    "--privileged"
+  ],
+
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ]
 }
