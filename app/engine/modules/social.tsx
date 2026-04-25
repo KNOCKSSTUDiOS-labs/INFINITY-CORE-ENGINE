@@ -4,7 +4,20 @@ import { useState } from "react";
 
 export default function SocialCutsLabModule() {
   const [socialInput, setSocialInput] = useState("");
-  const [socialOutput, setSocialOutput] = useState(null);
+  const [socialOutput, setSocialOutput] = useState<{
+    title: string;
+    summary: string;
+    hooks: string[];
+    formats: string[];
+    prompts: {
+      veo: string;
+      runway: string;
+      flux: string;
+      firefly: string;
+      fabrica: string;
+    };
+    captions: string[];
+  } | null>(null);
 
   const handleGenerate = () => {
     if (!socialInput.trim()) return;

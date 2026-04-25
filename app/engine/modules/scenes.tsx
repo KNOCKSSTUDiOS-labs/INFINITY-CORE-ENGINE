@@ -4,7 +4,13 @@ import { useState } from "react";
 
 export default function SceneDirectorModule() {
   const [sceneInput, setSceneInput] = useState("");
-  const [sceneOutput, setSceneOutput] = useState(null);
+  const [sceneOutput, setSceneOutput] = useState<{
+    title: string;
+    summary: string;
+    shots: string[];
+    cinematography: string[];
+    prompts: string[];
+  } | null>(null);
 
   const handleGenerate = () => {
     if (!sceneInput.trim()) return;

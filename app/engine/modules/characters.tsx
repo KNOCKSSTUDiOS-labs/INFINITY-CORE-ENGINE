@@ -4,7 +4,13 @@ import { useState } from "react";
 
 export default function CharacterFoundryModule() {
   const [charInput, setCharInput] = useState("");
-  const [charOutput, setCharOutput] = useState(null);
+  const [charOutput, setCharOutput] = useState<{
+    name: string;
+    summary: string;
+    traits: string[];
+    visuals: string[];
+    prompts: string[];
+  } | null>(null);
 
   const handleGenerate = () => {
     if (!charInput.trim()) return;

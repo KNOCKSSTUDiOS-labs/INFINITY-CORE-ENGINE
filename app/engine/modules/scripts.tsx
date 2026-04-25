@@ -4,7 +4,18 @@ import { useState } from "react";
 
 export default function ScriptStageModule() {
   const [scriptInput, setScriptInput] = useState("");
-  const [scriptOutput, setScriptOutput] = useState(null);
+  const [scriptOutput, setScriptOutput] = useState<{
+    title: string;
+    summary: string;
+    beats: string[];
+    dialogue: string[];
+    voice: string[];
+    prompts: {
+      screenplay: string;
+      dialogue: string;
+      voice: string;
+    };
+  } | null>(null);
 
   const handleGenerate = () => {
     if (!scriptInput.trim()) return;

@@ -1,11 +1,33 @@
-"use server";
+"use client";
 
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
+import { useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 
-export async function signOut() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+export default function SignInPage() {
+  const supabase = createClient();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  await supabase.auth.signOut();
+  async function signIn() {
+    await supabase.auth.signInWithPassword({ email, password });
+  }
+
+  return (
+    <div>
+      <input
+        placeholder="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <input
+        placeholder="password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      <button onClick={signIn}>Sign In</button>
+    </div>
+  );
 }

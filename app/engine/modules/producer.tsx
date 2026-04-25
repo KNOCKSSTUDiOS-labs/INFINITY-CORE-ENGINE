@@ -16,7 +16,12 @@ const systems = [
 export default function ProducerConsole() {
   const [activeSystem, setActiveSystem] = useState("worlds");
   const [producerInput, setProducerInput] = useState("");
-  const [producerOutput, setProducerOutput] = useState(null);
+  const [producerOutput, setProducerOutput] = useState<{
+    title: string;
+    summary: string;
+    systemsTriggered: string[];
+    deliverables: string[];
+  } | null>(null);
 
   const handleRun = () => {
     if (!producerInput.trim()) return;

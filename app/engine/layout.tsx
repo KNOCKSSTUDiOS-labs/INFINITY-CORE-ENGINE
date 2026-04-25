@@ -16,7 +16,7 @@ const nav = [
   { id: "godmode", label: "GOD MODE", path: "/engine/godmode" },
 ];
 
-export default function EngineLayout({ children }) {
+export default function EngineLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (

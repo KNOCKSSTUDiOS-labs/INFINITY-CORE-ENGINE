@@ -4,7 +4,18 @@ import { useState } from "react";
 
 export default function PromptForgeModule() {
   const [promptInput, setPromptInput] = useState("");
-  const [promptOutput, setPromptOutput] = useState(null);
+  const [promptOutput, setPromptOutput] = useState<{
+    title: string;
+    summary: string;
+    cinematic: string[];
+    modelPrompts: {
+      veo: string;
+      runway: string;
+      flux: string;
+      firefly: string;
+      fabrica: string;
+    };
+  } | null>(null);
 
   const handleGenerate = () => {
     if (!promptInput.trim()) return;

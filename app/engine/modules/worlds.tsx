@@ -4,7 +4,12 @@ import { useState } from "react";
 
 export default function WorldForgeModule() {
   const [worldInput, setWorldInput] = useState("");
-  const [worldOutput, setWorldOutput] = useState(null);
+  const [worldOutput, setWorldOutput] = useState<{
+    title: string;
+    description: string;
+    visuals: string[];
+    prompts: string[];
+  } | null>(null);
 
   const handleGenerate = () => {
     if (!worldInput.trim()) return;

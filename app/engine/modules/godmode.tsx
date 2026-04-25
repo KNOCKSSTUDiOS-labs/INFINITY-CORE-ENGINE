@@ -4,7 +4,14 @@ import { useState } from "react";
 
 export default function GodModeFusionEngine() {
   const [godInput, setGodInput] = useState("");
-  const [godOutput, setGodOutput] = useState(null);
+  const [godOutput, setGodOutput] = useState<{
+    title: string;
+    summary: string;
+    systems: string[];
+    deliverables: string[];
+    fusion: string[];
+    masterPrompt: string;
+  } | null>(null);
 
   const handleGenerate = () => {
     if (!godInput.trim()) return;

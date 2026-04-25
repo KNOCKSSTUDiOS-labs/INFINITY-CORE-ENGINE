@@ -1,9 +1,13 @@
-import { getWorkflow } from "workflow";
-
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const run = await getWorkflow(params.id);
-  return Response.json(run);
+  const { id } = await params;
+  
+  // Return workflow status placeholder - workflow SDK integration pending
+  return Response.json({ 
+    id, 
+    status: "pending",
+    message: "Workflow integration pending setup" 
+  });
 }
