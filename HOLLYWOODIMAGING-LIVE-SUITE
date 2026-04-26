@@ -1,4 +1,4 @@
-hollywoodimaging-live/
+hollywoodimaging.studio-live/
 ├─ index.html
 ├─ live.html
 ├─ vod.html
@@ -9,4 +9,4 @@ hollywoodimaging-live/
 │  └─ js/
 │     ├─ main.js
 │     └─ live.js
-└─ README-HOLLYWOODIMAGING-LIVE.txt
+└─ README-hollywoodimagine.studio-LIVE.txt
