@@ -1,0 +1,90 @@
+InfinityCoreEngine:
+  Identity:
+    Studio: "KNOCKSSTUDiOS HOLLYWOOD MOTiON PiCTURES"
+    Engine: "INFINITY-CORE-ENGINE"
+    RenderSystem: "DYABLO-GARDEN"
+    AIPipeline: "GI-CINEMA-APP-L"
+    CloudAgents:
+      - "Opus"
+      - "Haiku"
+
+  Permissions:
+    AllowAutoFix: true        # AI can fix broken configs
+    AllowAutoUpdate: true     # AI can update settings
+    AllowAutoRender: false    # AI cannot render without your permission
+    AllowAutoDelete: false    # AI cannot delete anything
+
+  Subscriptions:
+    FREE:
+      Billing: ["monthly", "yearly"]
+      Features:
+        - "Basic 2D rendering"
+        - "Low-res previews"
+        - "Single social export"
+
+    PRO:
+      Billing: ["monthly", "yearly"]
+      Features:
+        - "Full HD 2D/3D"
+        - "Multi-platform social export"
+        - "Priority render queue"
+
+    ULTRA:
+      Billing: ["monthly", "yearly"]
+      Features:
+        - "4K–8K multi-framework render"
+        - "Advanced VFX pipeline"
+        - "Extended GPU/NPU time"
+
+    BUSINESS:
+      Billing: ["monthly", "yearly"]
+      Features:
+        - "Team access"
+        - "Commercial rights"
+        - "Multi-brand pipelines"
+
+    ENTERPRISE:
+      Billing: ["monthly", "yearly"]
+      Features:
+        - "Custom render stacks"
+        - "Dedicated GPU/NPU clusters"
+        - "Custom broadcast routing"
+
+  Pipelines:
+    Render:
+      Modes: ["GPU", "NPU"]
+    Storage:
+      Provider: "Firebase"
+    Social:
+      Platforms:
+        - "YouTube"
+        - "Shorts"
+        - "Commercials"
+        - "Global"
+    Disabled:
+      - "Vercel"
+      - "Supabase"
+      - "Netlify"
+
+  QuantumModules:
+    - "Q-Render"
+    - "Q-Export"
+    - "Q-Frame"
+    - "Q-Color"
+    - "Q-Sound"
+
+  Database:
+    SQL:
+      Enabled: true
+      File: "infinity.db"
+    SQLite:
+      Enabled: true
+      File: "infinity-lite.db"
+    JSON:
+      Enabled: true
+      File: "infinity.json"
+
+  JSBindings:
+    ConfigFile: "infinity-core-master.yaml"
+    AutoSync: true
+    AllowAIWrite: true
