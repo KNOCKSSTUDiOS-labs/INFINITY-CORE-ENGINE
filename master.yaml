@@ -1,90 +1,45 @@
-InfinityCoreEngine:
-  Identity:
-    Studio: "KNOCKSSTUDiOS HOLLYWOOD MOTiON PiCTURES"
-    Engine: "INFINITY-CORE-ENGINE"
-    RenderSystem: "DYABLO-GARDEN"
-    AIPipeline: "GI-CINEMA-APP-L"
-    CloudAgents:
-      - "Opus"
-      - "Haiku"
+Protection:
+  PreserveOriginalFiles: true
+  BlockAutoAdd: true
+  BlockAutoDelete: true
+  BlockAutoModify: true
 
-  Permissions:
-    AllowAutoFix: true        # AI can fix broken configs
-    AllowAutoUpdate: true     # AI can update settings
-    AllowAutoRender: false    # AI cannot render without your permission
-    AllowAutoDelete: false    # AI cannot delete anything
+  AllowChangesOnlyByCommand: true
+  AuthorizedControllers:
+    - "Claude LaSalle"
+    - "Copilot"
 
-  Subscriptions:
-    FREE:
-      Billing: ["monthly", "yearly"]
-      Features:
-        - "Basic 2D rendering"
-        - "Low-res previews"
-        - "Single social export"
+  CommandRules:
+    RequireExplicitUserCommand: true
+    RequireUserPermissionForChanges: true
+    AllowFixOnlyWhenUserCommands: true
+    AllowUpdateOnlyWhenUserCommands: true
+    AllowRenderOnlyWhenUserCommands: true
 
-    PRO:
-      Billing: ["monthly", "yearly"]
-      Features:
-        - "Full HD 2D/3D"
-        - "Multi-platform social export"
-        - "Priority render queue"
+  NumPy:
+    Enabled: true
+    Mode: "3D-NUMPY"
+    CanReadOriginal: true
+    CannotModifyOriginal: true
+    CannotAddToOriginal: true
+    CannotDeleteOriginal: true
+    OnlyModifyWhenUserCommands: true
 
-    ULTRA:
-      Billing: ["monthly", "yearly"]
-      Features:
-        - "4K–8K multi-framework render"
-        - "Advanced VFX pipeline"
-        - "Extended GPU/NPU time"
+  EngineIntegrity:
+    ProtectInfinityCore: true
+    ProtectDyabloGarden: true
+    ProtectGICinema: true
+    ProtectQuantumModules: true
+    ProtectHTML: true
+    ProtectCSS: true
+    ProtectJS: true
+    ProtectSQL: true
+    ProtectSQLite: true
+    ProtectJSON: true
+    ProtectYAML: true
 
-    BUSINESS:
-      Billing: ["monthly", "yearly"]
-      Features:
-        - "Team access"
-        - "Commercial rights"
-        - "Multi-brand pipelines"
-
-    ENTERPRISE:
-      Billing: ["monthly", "yearly"]
-      Features:
-        - "Custom render stacks"
-        - "Dedicated GPU/NPU clusters"
-        - "Custom broadcast routing"
-
-  Pipelines:
-    Render:
-      Modes: ["GPU", "NPU"]
-    Storage:
-      Provider: "Firebase"
-    Social:
-      Platforms:
-        - "YouTube"
-        - "Shorts"
-        - "Commercials"
-        - "Global"
-    Disabled:
-      - "Vercel"
-      - "Supabase"
-      - "Netlify"
-
-  QuantumModules:
-    - "Q-Render"
-    - "Q-Export"
-    - "Q-Frame"
-    - "Q-Color"
-    - "Q-Sound"
-
-  Database:
-    SQL:
-      Enabled: true
-      File: "infinity.db"
-    SQLite:
-      Enabled: true
-      File: "infinity-lite.db"
-    JSON:
-      Enabled: true
-      File: "infinity.json"
-
-  JSBindings:
-    ConfigFile: "infinity-core-master.yaml"
-    AutoSync: true
-    AllowAIWrite: true
+  Notes:
+    - "No system may alter ANY original file unless the user explicitly commands it."
+    - "AI agents may ONLY fix or update when the user gives a direct command."
+    - "No auto-save, no auto-add, no auto-delete, no auto-modify."
+    - "Original Infinity visuals, identity, and structure must remain untouched."
