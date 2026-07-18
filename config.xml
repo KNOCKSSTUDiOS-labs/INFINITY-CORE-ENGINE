@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<InfinityCoreEngine>
+
+  <Identity>
+    <Studio>KNOCKSSTUDiOS HOLLYWOOD MOTiON PiCTURES</Studio>
+    <Engine>INFINITY-CORE-ENGINE</Engine>
+    <RenderSystem>DYABLO-GARDEN</RenderSystem>
+    <AIPipeline>GI-CINEMA-APP-L</AIPipeline>
+  </Identity>
+
+  <Subscriptions>
+
+    <Tier id="FREE">
+      <Billing>monthly</Billing>
+      <Billing>yearly</Billing>
+      <Features>
+        <Feature>Basic 2D rendering</Feature>
+        <Feature>Low-res previews</Feature>
+        <Feature>Single social export</Feature>
+      </Features>
+    </Tier>
+
+    <Tier id="PRO">
+      <Billing>monthly</Billing>
+      <Billing>yearly</Billing>
+      <Features>
+        <Feature>Full HD 2D/3D</Feature>
+        <Feature>Multi-platform social export</Feature>
+        <Feature>Priority render queue</Feature>
+      </Features>
+    </Tier>
+
+    <Tier id="ULTRA">
+      <Billing>monthly</Billing>
+      <Billing>yearly</Billing>
+      <Features>
+        <Feature>4K–8K multi-framework render</Feature>
+        <Feature>Advanced VFX pipeline</Feature>
+        <Feature>Extended GPU/NPU time</Feature>
+      </Features>
+    </Tier>
+
+    <Tier id="BUSINESS">
+      <Billing>monthly</Billing>
+      <Billing>yearly</Billing>
+      <Features>
+        <Feature>Team access</Feature>
+        <Feature>Commercial rights</Feature>
+        <Feature>Multi-brand pipelines</Feature>
+      </Features>
+    </Tier>
+
+    <Tier id="ENTERPRISE">
+      <Billing>monthly</Billing>
+      <Billing>yearly</Billing>
+      <Features>
+        <Feature>Custom render stacks</Feature>
+        <Feature>Dedicated GPU/NPU clusters</Feature>
+        <Feature>Custom broadcast routing</Feature>
+      </Features>
+    </Tier>
+
+  </Subscriptions>
+
+  <Pipelines>
+    <Render>
+      <Mode>GPU</Mode>
+      <Mode>NPU</Mode>
+    </Render>
+
+    <Storage>
+      <Provider>Firebase</Provider>
+    </Storage>
+
+    <Social>
+      <Platform>YouTube</Platform>
+      <Platform>Shorts</Platform>
+      <Platform>Commercials</Platform>
+      <Platform>Global</Platform>
+    </Social>
+
+    <Disabled>
+      <Service>Vercel</Service>
+      <Service>Supabase</Service>
+      <Service>Netlify</Service>
+    </Disabled>
+  </Pipelines>
+
+  <QuantumModules>
+    <Module>Q-Render</Module>
+    <Module>Q-Export</Module>
+    <Module>Q-Frame</Module>
+    <Module>Q-Color</Module>
+    <Module>Q-Sound</Module>
+  </QuantumModules>
+
+</InfinityCoreEngine>
